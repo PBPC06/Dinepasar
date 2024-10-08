@@ -10,7 +10,7 @@
 # Nama Aplikasi: Dinepasar
 
 
-### Anggota Kelompok
+### Anggota Kelompok C06
 | Nama | NPM |
 | :--------------: | :--------: |
 | Wirya Dharma Kurnia | 2306152115 |
