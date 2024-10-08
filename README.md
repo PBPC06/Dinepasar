@@ -26,7 +26,7 @@
 ## Modul Aplikasi
 
 
-## Sumber Inisial Dataset
+## Sumber Initial Dataset
 
 
 ## Role Pengguna
