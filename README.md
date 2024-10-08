@@ -5,7 +5,7 @@
 - [Modul Aplikasi](#modul-aplikasi)
 - [Sumber Initial Dataset](#sumber-initial-dataset)
 - [Role Pengguna](#role-pengguna)
-- [Tautan Deployment Aplikasi](#tautan-deployment-aplikasi-)
+- [Tautan Deployment Aplikasi](#tautan-deployment-aplikasi)
 
 # Nama Aplikasi: Dinepasar
 
