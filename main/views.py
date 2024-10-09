@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect 
+from main.forms import FoodEntryForm
+from main.models import FoodEntry
 
 def show_main(request):
     context = {
