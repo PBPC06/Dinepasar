@@ -48,18 +48,23 @@ Dinepasar menyediakan halaman khusus yang berisi informasi tentang berbagai hal 
 
 ## Sumber Initial Dataset
 - Dataset:
+
 https://docs.google.com/spreadsheets/d/148R7MeizpXdl2PQJxHuYX6YQg4IeXM9quS3PN8Lgwts/edit?gid=0#gid=0 
 
 - Sumber dataset:
+
 https://www.google.com/maps
+
 https://gofood.co.id/
 
 
 ## Role Pengguna
 - User
+
 User setelah login bisa mengakses berbagai fitur seperti autentikasi, halaman profil pengguna untuk melihat dan mengedit profil, serta halaman utama yang mengintegrasikan seluruh data. User dapat mencari restoran menggunakan search bar, melihat daftar restoran dari A-Z, melihat detail restoran beserta ulasan, dan menyimpan restoran ke dalam favorit. Ada juga halaman khusus untuk informasi tentang Denpasar. 
 
 - Admin
+
 Selain memiliki akses seperti user, juga dapat menambahkan dan menghapus card restoran pada halaman pencarian.
 
 
