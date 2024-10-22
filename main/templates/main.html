@@ -2,4 +2,31 @@
 {% block content %}
 <h1>Dinepasar</h1>
 
+{% if not food_entries %}
+<p>Belom ada makanan wak.</p>
+{% else %}
+<table>
+  <tr>
+    <th>Food Name</th>
+    <th>Description</th>
+    <th>Price</th>
+    <th>Rating</th>
+  </tr>
+
+  {% for food_entry in food_entries %}
+  <tr>
+    <td>{{food_entry.food}}</td>
+    <td>{{food_entry.description}}</td>
+    <td>{{food_entry.price}}</td>
+    <td>{{food_entry.rating}}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+<br />
+
+<a href="{% url 'main:create_food_entry' %}">
+  <button>Add New Food Entry</button>
+</a>
 {% endblock content %}
