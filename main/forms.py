@@ -4,4 +4,6 @@ from main.models import FoodEntry
 class FoodEntryForm(ModelForm):
     class Meta:
         model = FoodEntry
-        # fields = ["mood", "feelings", "mood_intensity"]
+        fields = ["name", "description", "price", "rating"]
+
+        

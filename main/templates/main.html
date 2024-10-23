@@ -1,5 +1,51 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Dinepasar</h1>
+<!-- Moving Text for Dinepasar Title -->
+<div class="moving-text-container">
+  <h1 class="moving-text">Dinepasar</h1>
+</div>
+
+<!-- Display Food Entries if available -->
+{% if not food_entries %}
+<p>Belum ada makanan yang terdaftar.</p>
+{% else %}
+<table>
+  <thead>
+    <tr>
+      <th>Food Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for food_entry in food_entries %}
+    <tr>
+      <td>{{ food_entry.food }}</td>
+      <td>{{ food_entry.description }}</td>
+      <td>{{ food_entry.price }}</td>
+      <td>{{ food_entry.rating }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+<!-- Add New Food Entry Button -->
+<div>
+  <a href="{% url 'main:create_food_entry' %}">
+    <button>Add New Food Entry</button>
+  </a>
+</div>
+
+<!-- Logout Button -->
+<div>
+  <a href="{% url 'main:logout' %}">
+    <button>Logout</button>
+  </a>
+</div>
+
+<!-- Last Login Information -->
+<h5>Sesi terakhir login: {{ last_login }}</h5>
 
 {% endblock content %}
