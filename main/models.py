@@ -8,3 +8,5 @@ class FoodEntry(models.Model):
     description = models.TextField()
     price = models.IntegerField(validators=[MinValueValidator(0)]) 
     rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+
+
