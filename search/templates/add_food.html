@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+    <title>Tambah Makanan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Menambahkan jQuery -->
+    <script>
+        $(document).ready(function() {
+            $("form").on("submit", function(event) {
+                event.preventDefault(); // Mencegah pengiriman form default
+
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'search:owner_dashboard' %}", // Ganti dengan URL view yang sesuai
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        // Tindakan setelah sukses (misalnya, menampilkan pesan sukses)
+                        alert("Makanan berhasil ditambahkan!");
+                        // Anda bisa melakukan pengalihan atau memperbarui tampilan di sini
+                    },
+                    error: function(xhr) {
+                        // Menangani kesalahan
+                        let errors = xhr.responseJSON.errors;
+                        for (const key in errors) {
+                            if (errors.hasOwnProperty(key)) {
+                                alert(errors[key].join(", "));
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock meta %}
+{% block content %}
+<body class="bg-gray-50">
+    <div class="flex flex-col items-center justify-center min-h-screen bg-yellow-50">
+        <!-- Form Card -->
+        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-3xl mt-32">
+            <!-- Image at the Top -->
+            <div class="flex justify-center mb-6">
+                <img src="{% static 'images/dinepasar.avif' %}" alt="Dinepasar Background" class="w-full h-48 object-cover rounded-lg" />
+            </div>
+
+            <h2 class="text-2xl font-bold mb-6 text-gray-900 text-center">Tambah Makanan</h2>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="mb-4">
+                        <label for="food_image" class="block text-gray-700 font-bold mb-2">Link Gambar Makanan</label>
+                        <input type="text" id="food_image" name="gambar" class="w-full px-3 py-2 border rounded-lg bg-yellow-100" required oninput="displayImage()">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="nama_makanan" class="block text-gray-700 font-bold mb-2">Nama Makanan</label>
+                        <input type="text" id="nama_makanan" name="nama_makanan" class="w-full px-3 py-2 border rounded-lg bg-yellow-100" required>
+                        {% if form.errors.nama_makanan %}
+                            <p class="error text-red-500">{{ form.errors.nama_makanan }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="restoran" class="block text-gray-700 font-bold mb-2">Restoran</label>
+                        <input type="text" id="restoran" name="restoran" class="w-full px-3 py-2 border rounded-lg bg-yellow-100" required>
+                        {% if form.errors.restoran %}
+                            <p class="error text-red-500">{{ form.errors.restoran }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="kategori" class="block text-gray-700 font-bold mb-2">Kategori</label>
+                        <input type="text" id="kategori" name="kategori" class="w-full px-3 py-2 border rounded-lg bg-yellow-100" required>
+                        {% if form.errors.kategori %}
+                            <p class="error text-red-500">{{ form.errors.kategori }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="harga" class="block text-gray-700 font-bold mb-2">Harga</label>
+                        <input type="number" id="harga" name="harga" class="w-full px-3 py-2 border rounded-lg bg-yellow-100" step="0.01" required>
+                        {% if form.errors.harga %}
+                            <p class="error text-red-500">{{ form.errors.harga }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="rating" class="block text-gray-700 font-bold mb-2">Rating</label>
+                        <input type="number" id="rating" name="rating" class="w-full px-3 py-2 border rounded-lg bg-yellow-100" step="0.1" min="0" max="5" required>
+                        {% if form.errors.rating %}
+                            <p class="error text-red-500">{{ form.errors.rating }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4 col-span-2">
+                        <label for="deskripsi" class="block text-gray-700 font-bold mb-2">Deskripsi</label>
+                        <textarea id="deskripsi" name="deskripsi" rows="4" class="w-full px-3 py-2 border rounded-lg bg-yellow-100" required></textarea>
+                        {% if form.errors.deskripsi %}
+                            <p class="error text-red-500">{{ form.errors.deskripsi }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex justify-center mt-4">
+                    <button type="submit" class="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded-lg font-bold">
+                        Tambah Makanan
+                    </button>
+                </div>
+            </form>
+
+            {% if form.errors %}
+                <ul class="mt-4">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li class="text-red-500">{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li class="text-red-500">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+</body>
+{% endblock content %}

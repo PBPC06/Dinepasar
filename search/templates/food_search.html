@@ -8,6 +8,7 @@
     <!-- Search Bar -->
     <div class="search-bar mt-24 mb-6 w-full flex justify-center">
         <form method="GET" class="w-3/4 md:w-2/3 lg:w-1/2 flex">
+            {% csrf_token %}
             <input type="text" name="keyword" placeholder="Cari makanan..." class="flex-grow py-2 px-4 rounded-l-lg border border-gray-300">
             <button type="submit" class="bg-yellow-600 text-white py-2 px-4 rounded-r-lg hover:bg-yellow-700">Cari</button>
         </form>
@@ -27,7 +28,7 @@
                 <option value="nasi">Nasi</option>
                 <option value="sayur">Sayur</option>
                 <option value="jajanan">Jajanan</option>
-                <option value="sambat">Sambat</option>
+                <option value="sambal">Sambal</option>
                 <option value="tipat">Tipat</option>
                 <option value="rujak">Rujak</option>
                 <option value="bebek">Bebek</option>

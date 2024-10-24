@@ -29,15 +29,9 @@
                 <p class="font-bold text-gray-900">Rp {{ food.harga }}</p>
             </div>
 
-            <!-- Tombol Detail, Edit, dan Delete -->
+            <!-- Button Details (inside the loop) -->
             <div class="p-4 flex flex-col space-y-2">
                 <button onclick="openModal('{{ food.pk }}')" class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700">Details</button>
-                {% if user.is_admin %}
-                <div class="flex justify-between">
-                    <a href="{% url 'edit_food' food.pk %}" class="text-blue-500">Edit</a>
-                    <a href="{% url 'delete_food' food.pk %}" class="text-red-500">Delete</a>
-                </div>
-                {% endif %}
             </div>
         </div>
         {% endfor %}
