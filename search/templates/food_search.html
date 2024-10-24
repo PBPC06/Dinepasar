@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Wrapper for centering content -->
+<div class="min-h-screen flex flex-col items-center justify-start py-10">
+    
+    <!-- Search Bar (with more margin from top and centered) -->
+    <div class="search-bar mt-24 mb-6 w-full flex justify-center">
+        <form method="GET" class="w-3/4 md:w-2/3 lg:w-1/2 flex">
+            <input type="text" name="keyword" placeholder="Cari makanan..." class="flex-grow py-2 px-4 rounded-l-lg border border-gray-300">
+            <button type="submit" class="bg-yellow-600 text-white py-2 px-4 rounded-r-lg hover:bg-yellow-700">Cari</button>
+        </form>
+    </div>
+
+    <!-- Filter Section -->
+    <form method="GET" class="w-full md:w-3/4 flex justify-center space-x-4 my-6">
+        <div>
+            <label for="kategori" class="text-gray-700">Kategori:</label>
+            <select id="kategori" name="kategori" class="border border-gray-300 py-2 px-4 rounded">
+                <option value="">Semua Kategori</option>
+                <option value="ayam betutu">Ayam Betutu</option>
+                <option value="sate">Sate</option>
+                <option value="es">Es</option>
+                <option value="ayam">Ayam</option>
+                <option value="pepes">Pepes</option>
+                <option value="nasi">Nasi</option>
+                <option value="sayur">Sayur</option>
+                <option value="jajanan">Jajanan</option>
+                <option value="sambat">Sambat</option>
+                <option value="tipat">Tipat</option>
+                <option value="rujak">Rujak</option>
+                <option value="bebek">Bebek</option>
+                <option value="ikan">Ikan</option>
+                <option value="kopi">Kopi</option>
+                <option value="lawar">Lawar</option>
+                <option value="babi guling">Babi Guling</option>
+            </select>
+        </div>
+        <div>
+            <label for="harga" class="text-gray-700">Harga:</label>
+            <select id="harga" name="harga" class="border border-gray-300 py-2 px-4 rounded">
+                <option value="">Semua Harga</option>
+                <option value="low">Di bawah Rp50.000</option>
+                <option value="medium">Rp50.000 - Rp100.000</option>
+                <option value="high">Di atas Rp100.000</option>
+            </select>
+        </div>
+        <button type="submit" class="bg-yellow-600 text-white py-2 px-3 rounded hover:bg-yellow-700">Terapkan Filter</button>
+    </form>
+
+
+
+    <!-- Cards Section -->
+    {% if foods %}
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 md:px-16">
+            {% for food in foods %}
+            <div class="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-105 flex flex-col justify-between">
+                <img class="w-full h-48 object-cover" src="{{ food.gambar }}" alt="{{ food.nama_makanan }}">
+                <div class="p-4 flex-grow">
+                    <div class="font-bold text-xl mb-2">{{ food.nama_makanan }}</div>
+                    <p class="text-gray-700">Kunjungi resto:</p>
+                    <a href="{{ food.restoran }}" class="text-yellow-600 underline" target="_blank">{{ food.restoran }}</a>
+                    <p class="text-gray-700">Rp {{ food.harga }}</p>
+
+
+
+                    <!-- Star Rating Section -->
+                        <div class="flex items-center space-x-2 mt-2">
+                            <!-- Static star image -->
+                            <img src="{% static 'images/star.png' %}" alt="Star" class="h-5 w-5">
+                            <!-- Display the numeric rating next to the stars -->
+                            <span class="text-gray-700">{{ food.rating }} / 5</span>
+                        </div>
+
+
+
+
+                </div>
+                <div class="p-4 flex flex-col space-y-2">
+                    <button onclick="openModal('{{ food.pk }}')" class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700">Details</button>
+                    {% if user.is_admin %}
+                    <div class="flex justify-between">
+                        <a href="{% url 'edit_food' food.pk %}" class="text-blue-500">Edit</a>
+                        <a href="{% url 'delete_food' food.pk %}" class="text-red-500">Delete</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+    <!-- This is the no product section, centered -->
+        <div class="flex flex-col justify-center items-center text-center w-full min-h-[50vh] mx-auto">
+            <img src="{% static 'images/notfound.png' %}" alt="No Products Available" class="w-48 h-48 mb-4"/>
+            <p class="text-gray-600 text-xl mt-4">Sorry, the product you are looking for is not available :(</p>
+        </div>
+    {% endif %}
+
+</div>
+
+<!-- Modal Pop-Up Script -->
+<script>
+    function openModal(foodId) {
+        // Logic untuk membuka modal dengan informasi produk sesuai ID
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,1302 @@
+[
+  {
+    "pk": 1,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Betutu Ayam Broiler (1/4 ekor) original/kuah",
+      "restoran": "https://maps.app.goo.gl/szoshM8DTNcbW1p87",
+      "kategori": "Ayam Betutu",
+      "gambar": "https://nnc-media.netralnews.com/IMG-Netral-News-User-31-7HG9BC3SE1.jpg",
+      "deskripsi": "Ayam betutu adalah salah satu kuliner di Bali yang cukup terkenal di kalangan wisatawan, khususnya orang Indonesia. Hidangan satu ini kaya akan rempah-rempah, membuat rasa pedas bersatu sempurna dengan rasa gurih dan sedikit rasa smokey.",
+      "harga": 44000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 2,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Betutu Ayam Broiler (1 ekor) goreng",
+      "restoran": "https://maps.app.goo.gl/szoshM8DTNcbW1p87",
+      "kategori": "Ayam Betutu",
+      "gambar": "https://paxelmarket.co/wp-content/uploads/2021/12/IMG_3233-2.jpg",
+      "deskripsi": "Ayam betutu adalah salah satu kuliner di Bali yang cukup terkenal di kalangan wisatawan, khususnya orang Indonesia. Hidangan satu ini kaya akan rempah-rempah, membuat rasa pedas bersatu sempurna dengan rasa gurih dan sedikit rasa smokey.",
+      "harga": 136000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 3,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Betutu Ayam Kampung (1/2 ekor) goreng",
+      "restoran": "https://maps.app.goo.gl/szoshM8DTNcbW1p87",
+      "kategori": "Ayam Betutu",
+      "gambar": "https://paxelmarket.co/wp-content/uploads/2021/12/IMG_3233-2.jpg",
+      "deskripsi": "Ayam betutu adalah salah satu kuliner di Bali yang cukup terkenal di kalangan wisatawan, khususnya orang Indonesia. Hidangan satu ini kaya akan rempah-rempah, membuat rasa pedas bersatu sempurna dengan rasa gurih dan sedikit rasa smokey.",
+      "harga": 83000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 4,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Betutu Ayam Kampung (1/4 Ekor) Goreng",
+      "restoran": "https://maps.app.goo.gl/szoshM8DTNcbW1p87",
+      "kategori": "Ayam Betutu",
+      "gambar": "https://paxelmarket.co/wp-content/uploads/2021/12/IMG_3233-2.jpg",
+      "deskripsi": "Ayam betutu adalah salah satu kuliner di Bali yang cukup terkenal di kalangan wisatawan, khususnya orang Indonesia. Hidangan satu ini kaya akan rempah-rempah, membuat rasa pedas bersatu sempurna dengan rasa gurih dan sedikit rasa smokey.",
+      "harga": 50000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 5,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Ayam Goreng Suna Cekuh",
+      "restoran": "https://maps.app.goo.gl/7fCvNkL4arhWaAqA7",
+      "kategori": "Ayam",
+      "gambar": "https://img-global.cpcdn.com/recipes/67b208b5b669892f/680x482cq70/ayam-suna-cekuh-foto-resep-utama.jpg",
+      "deskripsi": "Ayam goreng suna cekuh adalah bumbu khas bali, suna cekuh (menonjolkan rasa bawang putih dan kencur yang khas) rasanya enak dan gurih",
+      "harga": 81250,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 6,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Tum Babi",
+      "restoran": "https://maps.app.goo.gl/7fCvNkL4arhWaAqA7",
+      "kategori": "Pepes",
+      "gambar": "https://images.tokopedia.net/img/cache/700/VqbcmM/2021/8/29/b401b0a3-38f7-4d8c-b612-72d349791609.jpg",
+      "deskripsi": "Tum Babi Spesial adalah makanan khas Bali sejenis pepes atau botok. Dibuat dari daging dan kulit babi yg dicincang dan ditambahkan bumbu serta rempah2 Bali yg dikenal dengan \"base genep\".",
+      "harga": 43750,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 7,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi Ayam Panggang Sambal Matah",
+      "restoran": "https://maps.app.goo.gl/rGvX2GXvQ3v3ECmCA",
+      "kategori": "Nasi",
+      "gambar": "https://media-cdn.tripadvisor.com/media/photo-s/0e/ad/e0/08/ayam-panggang-sambal.jpg",
+      "deskripsi": "Nasi Ayam Panggang Sambal Matah adalah hidangan khas Bali yang terdiri dari nasi putih yang disajikan bersama ayam panggang yang dibumbui dengan rempah-rempah khas Bali. Ayam panggang ini disiram dengan sambal matah, sambal khas Bali yang terbuat dari bahan-bahan segar seperti cabai, bawang merah, sereh, daun jeruk, dan minyak kelapa",
+      "harga": 17000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 8,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi Campur Ayam",
+      "restoran": "https://maps.app.goo.gl/rGvX2GXvQ3v3ECmCA",
+      "kategori": "Nasi",
+      "gambar": "https://media-cdn.tripadvisor.com/media/photo-s/0f/a7/a1/76/nasi-campur-ayam.jpg",
+      "deskripsi": "Nasi Campur Ayam Bali merupakan campuran nasi dengan berbagai macam lauk pauk seperti ayam, telur sayuran dan juga sate lilit yang biasanya terbuat dari ikan atau ayam. Lauk ayam yang digunakan juga merupakan ayam yang dipanggang dengan bumbu Bali serta dengan cita rasanya yang gurih.",
+      "harga": 28000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 9,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi Campur Sapi",
+      "restoran": "https://maps.app.goo.gl/rGvX2GXvQ3v3ECmCA",
+      "kategori": "Nasi",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-nZ6s2HjM3WLlMD07yeejWbPuv8Wae1T1CQ&s",
+      "deskripsi": "Nasi Campur Sapi Bali merupakan campuran nasi dengan berbagai macam lauk pauk seperti daging sapi suwir, telur sayuran dan juga sate lilit yang biasanya terbuat dari ikan atau ayam. Lauk sapi yang digunakan juga merupakan sapi yang dipanggang dengan bumbu Bali serta dengan cita rasanya yang gurih.",
+      "harga": 33000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 10,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Sate Lilit Ayam (5 pcs)",
+      "restoran": "https://maps.app.goo.gl/rGvX2GXvQ3v3ECmCA",
+      "kategori": "Sate",
+      "gambar": "https://images.tokopedia.net/img/cache/700/VqbcmM/2021/7/21/548cdc3b-a4a0-4c30-8991-87523059aab1.jpg",
+      "deskripsi": "Sate Lilit adalah sebuah varian sate asal Bali. Sate ini terbuat dari daging babi, ikan, ayam, daging sapi, atau bahkan kura-kura yang dicincang, kemudian dicampur dengan parutan kelapa, santan, jeruk nipis, bawang merah, dan merica.",
+      "harga": 22000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 11,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi Ayam Panggang Serelemo",
+      "restoran": "https://maps.app.goo.gl/rGvX2GXvQ3v3ECmCA",
+      "kategori": "Nasi",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpHdDPxcCAKioB2J6XToeDKbShM21IFOArQQ&s",
+      "deskripsi": "Nasi Ayam Panggang Serelemo adalah hidangan khas Bali yang menampilkan ayam panggang yang dibumbui dengan campuran sereh (serai) dan lemon (lemo).",
+      "harga": 22000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 12,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Ayam Sisit Sambal Matah",
+      "restoran": "https://maps.app.goo.gl/rGvX2GXvQ3v3ECmCA",
+      "kategori": "Ayam",
+      "gambar": "https://i.ytimg.com/vi/afmIvBbEJG8/maxresdefault.jpg",
+      "deskripsi": "Ayam sisit sambal matah merupakan perpaduan ayam goreng suwir yang dipadukan dengan sambal matah khas Bali.",
+      "harga": 22000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 13,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Ayam Sisit Serelemo",
+      "restoran": "https://maps.app.goo.gl/rGvX2GXvQ3v3ECmCA",
+      "kategori": "Ayam",
+      "gambar": "https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/1005/2024/01/30/20240130_181659-4163022254.jpg",
+      "deskripsi": "Ayam sisit serelemo merupakan perpaduan ayam goreng suwir terasi yang idpadukan dengan jeruk limau. Terdiri dari Nasi Putih, Ayam Panggang Serelemo, Sate Lilit, Telor Dadar, Kacang Goreng, Sayur Gonde, Serundeng, Timun, dan Sambal.",
+      "harga": 22000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 14,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Ayam Bakar Plecing",
+      "restoran": "https://maps.app.goo.gl/Mn2exbNdUmXFMEkE7",
+      "kategori": "Ayam",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKuQffhyEqNof88A3t8DknPN7bSdJObIIRnA&s",
+      "deskripsi": "Plecing ayam merupakan hidangan ayam yang disajikan dengan bumbu plecing khas Bali yang pedas dan segar. Bumbu plecing biasanya terbuat dari campuran cabai, tomat, bawang putih, terasi, dan perasan jeruk limau, yang memberikan rasa pedas, asam, dan segar yang khas.",
+      "harga": 25000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 15,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Rujak Kuah Pindang",
+      "restoran": "https://maps.app.goo.gl/Mn2exbNdUmXFMEkE7",
+      "kategori": "Rujak",
+      "gambar": "https://img-global.cpcdn.com/recipes/811317b2e53e580c/680x482cq70/rujak-kuah-pindang-khas-bali-foto-resep-utama.jpg",
+      "deskripsi": "Rujak Kuah Pindang adalah salah satu jenis rujak khas dan populer di Bali. Rujak ini berisi kombinasi dari beberapa buah-buahan segar yang hampir mirip dengan rujak manis atau rujak gula. Contoh buah yang digunakan mirip dengan rujak gula seperti mangga, bengkuang, pepaya, nanas, kedondong, mentimun, belimbing, dan lain-lain.",
+      "harga": 20000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 16,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Es Kuwud",
+      "restoran": "https://maps.app.goo.gl/5FJZ5n7F8oJqqRsX9",
+      "kategori": "Es",
+      "gambar": "https://d1vbn70lmn1nqe.cloudfront.net/prod/wp-content/uploads/2023/07/20084441/Asam-Manis-Segar-Ini-Resep-Es-Kuwut-Khas-Bali.jpg.webp",
+      "deskripsi": "Es kuwut merupakan sejenis minuman koktail dingin khas Bali yang terbuat dari air kelapa yang dicampur dengan serutan kelapa, serutan melon atau timun, biji selasih, perasan jeruk nipis, sirup melon , es batu dan terkadang ditambahkan susu , santan, atau nata de Coco.",
+      "harga": 7000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 17,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Es kopi telaga",
+      "restoran": "https://maps.app.goo.gl/Q3qhrmy8BgEuGDnJ6",
+      "kategori": "Es",
+      "gambar": "https://cdn0-production-images-kly.akamaized.net/6GK6XvrcNhhbP4lyG2DFgSK-law=/1200x1200/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/2392372/original/091589800_1540455590-thomas-vimare-126229-unsplash.jpg",
+      "deskripsi": "Es kopi moca dengan campuran teh kapulaga",
+      "harga": 15000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 18,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Sate Kakul",
+      "restoran": "https://maps.app.goo.gl/E1HZ7AqaLp1i91Sq8",
+      "kategori": "Sate",
+      "gambar": "https://www.dapurkobe.co.id/wp-content/uploads/sate-kakul.jpg",
+      "deskripsi": "Sate kakul adalah salah satu kuliner lezat yang khas dari pulau Bali. Terbuat dari kerang darah membuat sate kakul menjadi kategori masakan seafood yang unik. Untuk sate kakul masakan Bali asli sebenarnya menggunakan daging kakul. Kakul adalah sejenis keong atau siput yang hidup disawah yang terkenal dengan nama keong sawah. Biasanya keong sawah yang memiliki tekstur kenyal ini dimasak dengan bumbu rempah khas Bali lengkap dengan kerang darah yang membuat kakul semakin istimewa.",
+      "harga": 17000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 19,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Kakul Suna Cekuh",
+      "restoran": "https://maps.app.goo.gl/E1HZ7AqaLp1i91Sq8",
+      "kategori": "Sate",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVw2cPm8az68cBj_LqLAgoebFJFii60mB0-Q&s",
+      "deskripsi": "Kakul Suna Cekuh adalah hidangan khas Bali yang berbahan dasar kakul (siput air tawar) yang dimasak dengan bumbu khas Bali, salah satunya cekuh (kencur). Hidangan ini terkenal akan cita rasanya yang khas dengan perpaduan rasa gurih dan aroma rempah yang kuat.",
+      "harga": 20000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 20,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Serombotan",
+      "restoran": "https://maps.app.goo.gl/YQXrNNZhUiP8QmKX9",
+      "kategori": "Sayur",
+      "gambar": "https://resepkoki.id/wp-content/uploads/2022/08/Resep-Serombotan-Klungkung.jpg",
+      "deskripsi": "Serombotan merupakan salah satu bentuk kuliner tradisional Bali yang bahannya terdiri dari sayuran daun, sayuran buah, kacang-kacangan, dan berbagai produk pertanian untuk bumbu.Konsep lanskap kuliner ditawarkan sebagai suatu ide untuk mempertahankan kekayaan sumber daya hayati.",
+      "harga": 8000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 21,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Sayur Cantok",
+      "restoran": "https://maps.app.goo.gl/YQXrNNZhUiP8QmKX9",
+      "kategori": "Sayur",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfAlxHidBRJRHRwU3IRK5QN0moY_UzHudkNw&s",
+      "deskripsi": "Sayur kangkung, toge, kacang panjang dengan ulekan bumbu kacang.",
+      "harga": 8000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 22,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Sate kakul bumbu plecing",
+      "restoran": "https://maps.app.goo.gl/YQXrNNZhUiP8QmKX9",
+      "kategori": "Sate",
+      "gambar": "https://asset.kompas.com/crops/B_DV5V6k-8yyl8Z9daS3hb6E3_M=/0x0:739x493/750x500/data/photo/2020/07/28/5f1fdcdacafc4.jpg",
+      "deskripsi": "Sate kakul adalah salah satu kuliner lezat yang khas dari pulau Bali. Terbuat dari kerang darah membuat sate kakul menjadi kategori masakan seafood yang unik. Sate kakul bumbu plecing adalah sate kakul yang disajikan dengan sambal tomat pedas bernama plecing yang terbuat dari cabai, tomat, terasi, dan garam",
+      "harga": 20000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 23,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Adonan Sate Tuna 1 kg",
+      "restoran": "https://maps.app.goo.gl/ixirzAJhk8CpfEi5A",
+      "kategori": "Sate",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYnLKDvhXhESl3kZXHWfzvtERxuCvaKRM5UQ&s",
+      "deskripsi": "Adonan Sate Tuna Bali adalah campuran bahan dasar yang digunakan untuk membuat sate ikan tuna dengan cita rasa khas Bali. Adonan ini terbuat dari daging ikan tuna yang dihaluskan dan dicampur dengan bumbu-bumbu rempah khas Bali.",
+      "harga": 75000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 24,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Sate Lilit Tuna (25 pcs)",
+      "restoran": "https://maps.app.goo.gl/ixirzAJhk8CpfEi5A",
+      "kategori": "Sate",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxI9uNXm4IL8PgYbVk2uWEVyQN3FGzoQc4Hg&s",
+      "deskripsi": "Sate Lilit adalah sebuah varian sate asal Bali. Sate ini terbuat dari ikan tuna yang dicincang, kemudian dicampur dengan parutan kelapa, santan, jeruk nipis, bawang merah, dan merica.",
+      "harga": 37500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 25,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Sate Plecing Tuna (25 pcs)",
+      "restoran": "https://maps.app.goo.gl/ixirzAJhk8CpfEi5A",
+      "kategori": "Sate",
+      "gambar": "https://img-global.cpcdn.com/recipes/6d7c4f573ae70b30/680x482cq70/sate-tuna-bumbu-plecing-dengan-sambal-matah-foto-resep-utama.jpg",
+      "deskripsi": "Sate plecing tuna adalah sebuah varian sate asal Bali. Sate ini terbuat dari dikan tuna yang dicincang, kemudian dicampur dengan sambal tomat pedas bernama plecing yang terbuat dari cabai, tomat, terasi, dan garam",
+      "harga": 62500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 26,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Pepes ikan cakalang",
+      "restoran": "https://maps.app.goo.gl/ixirzAJhk8CpfEi5A",
+      "kategori": "Pepes",
+      "gambar": "https://cdn.idntimes.com/content-images/community/2022/09/fromandroid-0977444ac6c964fd94b18d077308ead1.jpg",
+      "deskripsi": "Pepes Ikan Cakalang Bali adalah hidangan tradisional khas Bali yang terbuat dari ikan cakalang yang dibumbui dengan rempah-rempah aromatik seperti bawang merah, bawang putih, kunyit, jahe, cabai, dan daun jeruk. Ikan cakalang yang segar dibalut dalam daun pisang, lalu dikukus atau dipanggang hingga matang sempurna. Proses memasak dalam daun pisang memberikan aroma yang khas, sedangkan bumbu pepes meresap ke dalam daging ikan, menciptakan rasa yang kaya, gurih, dan sedikit pedas. Pepes ikan cakalang biasanya disajikan dengan nasi hangat dan sambal khas Bali.",
+      "harga": 3750,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 27,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Pepes tlengis",
+      "restoran": "https://maps.app.goo.gl/ixirzAJhk8CpfEi5A",
+      "kategori": "Pepes",
+      "gambar": "https://img-global.cpcdn.com/recipes/a069694784afb70d/1200x630cq70/photo.jpg",
+      "deskripsi": "Pesan lengis atau klengis adalah sejenis lauk tradisional khas Bali yang berbahan utama sari ampas minyak tandusan",
+      "harga": 3750,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 28,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Lawar Ayam",
+      "restoran": "https://maps.app.goo.gl/1FLjVrFLwR9TgYoc7",
+      "kategori": "Lawar",
+      "gambar": "https://img-global.cpcdn.com/recipes/79e4af598f9bf6a8/400x400cq70/photo.jpg",
+      "deskripsi": "Lawar ayam merupakan makanan tradisional asal Bali. Melansir berbagai sumber, lawar ayam biasanya terdiri dari kacang panjang dan daging ayam, kelapa parut, dan terasi yang dipadu dengan rempah khas Bali.",
+      "harga": 16000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 29,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi Jinggo Betutu",
+      "restoran": "https://maps.app.goo.gl/1FLjVrFLwR9TgYoc7",
+      "kategori": "Nasi",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBpQbhkYAE9_ip__hW-clIeFWojWzoQk9Evw&s",
+      "deskripsi": "Nasi jenggo (atau nasi jinggo) adalah makanan siap saji khas Bali yang dikemasan daun pisang dengan porsi kecil. ",
+      "harga": 11000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 30,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Tum Ayam (4 pcs)",
+      "restoran": "https://maps.app.goo.gl/1FLjVrFLwR9TgYoc7",
+      "kategori": "Ayam",
+      "gambar": "https://img-global.cpcdn.com/recipes/eee93c742d6977b3/680x482cq70/tum-ayam-khas-bali-asli-enak-wajib-coba-foto-resep-utama.jpg",
+      "deskripsi": "Tum ayam merupakan sajian khas Bali yang terdiri dari campuran daging cincang dan bumbu. Tum ayam seperti namanya disajikan dalam bungkus daun pisang berbentuk tum.",
+      "harga": 12000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 31,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Jajan Laklak",
+      "restoran": "https://maps.app.goo.gl/UAEJwnccfE6P5bTU9",
+      "kategori": "Jajanan",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNpb_h3U6xpzULkI2l9AHKFhkFsUdEbPHwqg&s",
+      "deskripsi": "Laklak adalah sebuah makanan yang berasal dari Bali. Makanan tersebut terbuat dari tepung beras, air panas, santan panas, air daun suji, baking powder, garam, kelapa parut, serta saus gula merah yang terbuat dari gula merah, gula pasir dan air mineral.",
+      "harga": 7000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 32,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Jajan Lempog",
+      "restoran": "https://maps.app.goo.gl/UAEJwnccfE6P5bTU9",
+      "kategori": "Jajanan",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjYX7gE9p4pq_FvXbedUWoVjcUb5WHQtasSg&s",
+      "deskripsi": "Kue lempog adalah salah satu jajanan khas Bali yang terbuat dari singkong.",
+      "harga": 7000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 33,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Jajan Kelaudan",
+      "restoran": "https://maps.app.goo.gl/UAEJwnccfE6P5bTU9",
+      "kategori": "Jajanan",
+      "gambar": "https://img-global.cpcdn.com/recipes/0ee35bdc7d43007e/680x482cq70/jaje-klaudan-bali-foto-resep-utama.jpg",
+      "deskripsi": "Jajan klaudan ini terbuat dari singkong parut yang dikukus dan dihidangkan dengan unti.",
+      "harga": 7000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 34,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Pisang Rai Beras",
+      "restoran": "https://maps.app.goo.gl/UAEJwnccfE6P5bTU9",
+      "kategori": "Jajanan",
+      "gambar": "https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/jakartaakurat/2023/08/IMG_20230804_133514.jpg",
+      "deskripsi": "Secara tampilan, pisang rai mirip dengan klepon karena diselimuti oleh kelapa parut, terutama pisang rai yang berwarna hijau. Pisang rai beras berbahan dasar tepung beras dan pisang",
+      "harga": 7000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 35,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Plecing Kangkung",
+      "restoran": "https://maps.app.goo.gl/UAEJwnccfE6P5bTU9",
+      "kategori": "Sayur",
+      "gambar": "https://i.ytimg.com/vi/43wbToY6N5o/maxresdefault.jpg",
+      "deskripsi": "Plecing kangkung merupakan salah satu masakan khas di Indonesia yang pada umumnya terbuat dari campuran kangkung rebus yang disajikan bersama sambal tomat segar dengan perasan jeruk limau. ",
+      "harga": 7000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 36,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi Sela",
+      "restoran": "https://maps.app.goo.gl/UAEJwnccfE6P5bTU9",
+      "kategori": "Nasi",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjsJCx1FPCWWcQUPsm_tBHOam3puf8xGa05g&s",
+      "deskripsi": "Nasi Sela adalah makanan khas Kabupaten Karangasem, Bali, yang berisi campuran nasi putih dan cacahan ubi berukuran kecil-kecil.",
+      "harga": 17000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 37,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Pisang Rai Sele",
+      "restoran": "https://maps.app.goo.gl/UAEJwnccfE6P5bTU9",
+      "kategori": "Jajanan",
+      "gambar": "https://img-global.cpcdn.com/recipes/7398c13eced398e5/680x482cq70/pisang-rai-khas-bali-foto-resep-utama.jpg",
+      "deskripsi": "Secara tampilan, pisang rai mirip dengan klepon karena diselimuti oleh kelapa parut, terutama pisang rai yang berwarna hijau. Pisang rai beras berbahan dasar ubi dan pisang",
+      "harga": 7000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 38,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Es Daluman",
+      "restoran": "https://maps.app.goo.gl/6doRTx5RDyDAcJBZ7",
+      "kategori": "Es",
+      "gambar": "https://nnc-media.netralnews.com/IMG-Netral-News-User-31-W859RFMGIS.jpg",
+      "deskripsi": "Es Daluman adalah salah satu minuman khas Bali yang terbuat dari cincau hijau. Selain menyegarkan, karena menggunakan cincau hijau, Es Daluman dipercaya bisa meringankan gejala panas dalam.",
+      "harga": 23275,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 39,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Ayam Gerang Asem",
+      "restoran": "https://maps.app.goo.gl/6doRTx5RDyDAcJBZ7",
+      "kategori": "Ayam",
+      "gambar": "https://lingkar.news/wp-content/uploads/2023/05/Resep-Garang-Asem-Ayam-Tanpa-Daun-dan-Belimbing-Wuluh.jpg",
+      "deskripsi": "Garang asem Bali merupakan salah satu jenis garang asem yang punya kemiripan dengan garang asem khas Tuban, Jawa Timur. Ciri khas garang asem Bali adalah penggunaan daging ayam jantan kampung untuk hidangan ini.",
+      "harga": 23500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 40,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Sambal Embe",
+      "restoran": "https://maps.app.goo.gl/6doRTx5RDyDAcJBZ7",
+      "kategori": "Sambal",
+      "gambar": "https://i.ytimg.com/vi/nsxUQN8FfKA/maxresdefault.jpg",
+      "deskripsi": "Sambal Embe ini terbuat dari rempah-rempah khas Indonesia. Adapun beberapa rempah yang dibutuhkan yaitu bawang merah, bawang putih, cabai rawit merah, terasi bakar dan jeruk limau.",
+      "harga": 8625,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 41,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Tipat Kables Base Genep",
+      "restoran": "https://maps.app.goo.gl/pCCzoDDF2orgMyJn6",
+      "kategori": "Tipat",
+      "gambar": "https://asset-2.tstatic.net/bali/foto/bank/images/tipat-kaples_20170120_135708.jpg",
+      "deskripsi": "Terdiri dari tipat, telur, dan ayam sitsit",
+      "harga": 15000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 42,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Tipat Cantok",
+      "restoran": "https://maps.app.goo.gl/asr3Nf8RM8sdrhyx8",
+      "kategori": "Tipat",
+      "gambar": "https://asset.kompas.com/crops/hdb7Bnk9CHfvcgE46IwlyoTc5Fw=/0x183:1000x850/750x500/data/photo/2020/11/05/5fa3a7f6217f3.jpg",
+      "deskripsi": "Namanya tipat cantok, karena diulek bersama bumbu kacang, tauge, kacang panjang, dan tahu goreng pada sebuah ulekan. Di Bali, ulekan ini disebut 'penyantokan', jadi tak salah jika namanya tipat cantok.",
+      "harga": 15500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 43,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Tipat Plecing",
+      "restoran": "https://maps.app.goo.gl/asr3Nf8RM8sdrhyx8",
+      "kategori": "Tipat",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjaaZXsrAmu8iYjbwX5Y7EifegLl-AXchYhA&s",
+      "deskripsi": "Tipat Plecing, olahan tipat yang dipadukan dengan sayur kangkung, tauge dan disiram dengan bumbu khas Bali yang selalu menggoda selera",
+      "harga": 15500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 44,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Tipat Kuah",
+      "restoran": "https://maps.app.goo.gl/asr3Nf8RM8sdrhyx8",
+      "kategori": "Tipat",
+      "gambar": "https://cdn1-production-images-kly.akamaized.net/gyE9NuslAMoyvZd7_j_UrqbOH1o=/1x69:1000x632/1200x675/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/4441930/original/048546900_1685072300-shutterstock_658671829.jpg",
+      "deskripsi": "Seperti namanya, menu khas Denpasar ini berbahan dasar tipat yang dinikmati dengan kuah. Kuahnya bisa dipisah di mangkok atau bisa juga disajikan di satu tempat dengan ketupat. Seperti umumnya masakan Bali, bumbu di kuah ini pun sangat terasa.",
+      "harga": 26000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 45,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Rujak Cuka",
+      "restoran": "https://maps.app.goo.gl/asr3Nf8RM8sdrhyx8",
+      "kategori": "Rujak",
+      "gambar": "https://i.ytimg.com/vi/kyiPImKtfg8/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBKjBOZAdNG2RRrHGuqBffltbnXTw",
+      "deskripsi": "Terbuat dari berbagai macam buah-buahan yang dipadupadankan dengan gula, cabai, dan cuka untuk menambah cita rasa asam",
+      "harga": 16000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 46,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Tipat Bulung",
+      "restoran": "https://maps.app.goo.gl/asr3Nf8RM8sdrhyx8",
+      "kategori": "Tipat",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgUSvxlcXZfe8VMqKB3R3eENuo6yyTKQt1gg&s",
+      "deskripsi": "Bulung adalah makanan khas Bali yang terbuat dari rumput laut hijau (Bali: bulung). Rumput laut disajikan utuh bersama dengan bumbu-bumbu. Bulung ini disajikan dengan tipat",
+      "harga": 15500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 47,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Tipat Tok",
+      "restoran": "https://maps.app.goo.gl/asr3Nf8RM8sdrhyx8",
+      "kategori": "Tipat",
+      "gambar": "https://down-id.img.susercontent.com/file/id-11134207-7quky-lhtx6o4rah3yfa",
+      "deskripsi": "Hanya tipat saja",
+      "harga": 6500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 48,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Bulung Boni",
+      "restoran": "https://maps.app.goo.gl/asr3Nf8RM8sdrhyx8",
+      "kategori": "Rujak",
+      "gambar": "https://asset-2.tstatic.net/jogja/foto/bank/images/Rujak-Bulung-Boni.jpg",
+      "deskripsi": "Bulung Boni yang merupakan salah satu kuliner khas Bali menawarkan cita rasa yang unik, teksturnya yang lembut sedikit berlendir dengan rasa asin, manis dan gurih, ditambah parutan kelapa, lengkuas, cabai dan sedikit perasan jeruk limau menambah cita rasanya.  Meskipun memiliki cita rasa berbeda dari biasanya, rujak bulung boni cukup populer dan digemari dikalangan wisatawan lokal maupun asing.",
+      "harga": 15000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 49,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Bulung Rambut Hijau",
+      "restoran": "https://maps.app.goo.gl/asr3Nf8RM8sdrhyx8",
+      "kategori": "Rujak",
+      "gambar": "https://www.mytrip.co.id/editor/images/Bulung%20di%20Pulau%20Serangan%20(6).jpg",
+      "deskripsi": "Rumput laut disajikan utuh bersama dengan bumbu-bumbu rujak asin, manis, dan gurih.",
+      "harga": 15000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 50,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Rujak Gobed",
+      "restoran": "https://maps.app.goo.gl/asr3Nf8RM8sdrhyx8",
+      "kategori": "Rujak",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp35gM-0qLzew7DwZlXz5Gzai_IJ5bnZLOgg&s",
+      "deskripsi": "Terbuat dari berbagai macam buah-buahan yang diserut halus dan direndam dalam kuah bumbu pedas, manis, dan gurih. Rujak tersebut berisi buah lokal seperti kedondong, bengkoang, mangga muda, nanas, mentimun, jeruk bali, dan nangka muda. ",
+      "harga": 16000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 51,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Bulung Boni Cantok",
+      "restoran": "https://maps.app.goo.gl/asr3Nf8RM8sdrhyx8",
+      "kategori": "Rujak",
+      "gambar": "https://img-global.cpcdn.com/recipes/10759162c330e3a6/400x400cq70/photo.jpg",
+      "deskripsi": "Bulung boni yang disajikan dengan bumbu rujak diulek yaitu terdiri dari garam, gula, cabai, dan terasi.",
+      "harga": 15000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 52,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Rujak Gula Bali",
+      "restoran": "https://maps.app.goo.gl/asr3Nf8RM8sdrhyx8",
+      "kategori": "Rujak",
+      "gambar": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/84e93892-711a-4ab5-848c-9916482a2e73_Go-Biz_20200930_172530.jpeg",
+      "deskripsi": "Terbuat dari berbagai macam buah-buahan yang dipadupadankan dengan gula dan cabai",
+      "harga": 16000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 53,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Bebek bakar ijo",
+      "restoran": "https://maps.app.goo.gl/QPZwgHyj6s3q6yeU6",
+      "kategori": "Bebek",
+      "gambar": "https://awsimages.detik.net.id/customthumb/2011/08/25/288/slcobekijoctt.jpg?w=600&q=90",
+      "deskripsi": "Bebek bakar ijo adalah hidangan bebek yang dibumbui dengan rempah khas Bali dan sambal ijo yang pedas. Bebeknya dibakar hingga kulitnya renyah dan dagingnya tetap juicy, memberikan cita rasa yang kaya dan menggugah selera.",
+      "harga": 92400,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 54,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Bebek madu",
+      "restoran": "https://maps.app.goo.gl/QPZwgHyj6s3q6yeU6",
+      "kategori": "Bebek",
+      "gambar": "https://img-global.cpcdn.com/recipes/52aa96c67636d6a8/1200x630cq70/photo.jpg",
+      "deskripsi": "Bebek yang dimasak dengan bumbu manis dari madu dan rempah, sehingga menghasilkan rasa yang gurih dan sedikit manis.",
+      "harga": 92400,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 55,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Bebek goreng",
+      "restoran": "https://maps.app.goo.gl/QPZwgHyj6s3q6yeU6",
+      "kategori": "Bebek",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJgP1ufLYJ0CqCFSinSBCXYIrbRcGoynPUQ&s",
+      "deskripsi": "Bebek yang dibumbui dengan rempah-rempah, kemudian digoreng hingga kering dan renyah.",
+      "harga": 86700,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 56,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "bebek bakar plecing",
+      "restoran": "https://maps.app.goo.gl/QPZwgHyj6s3q6yeU6",
+      "kategori": "Bebek",
+      "gambar": "https://asset.kompas.com/crops/iwHDleZJBhdsT9cqpJMMOVt6lCA=/0x0:1191x794/750x500/data/photo/2019/07/01/535397956.png",
+      "deskripsi": "Bebek yang dibakar dengan bumbu plecing khas Bali, yang terbuat dari cabai, tomat, dan rempah-rempah. Hidangan ini menawarkan rasa pedas yang menyegarkan dan aroma smokey dari proses pembakaran.",
+      "harga": 94500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 57,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Gurami Penyet",
+      "restoran": "https://maps.app.goo.gl/QPZwgHyj6s3q6yeU6",
+      "kategori": "Ikan",
+      "gambar": "https://img-global.cpcdn.com/recipes/48ad4b86ab46257d/400x400cq70/photo.jpg",
+      "deskripsi": "Gurami Penyet Bali adalah hidangan ikan gurami yang digoreng hingga garing, kemudian disajikan dengan sambal khas Bali yang pedas dan nikmat. Kata \"penyet\" sendiri merujuk pada proses menekan ikan yang telah digoreng ke dalam sambal, sehingga ikan dan sambal menyatu sempurna.",
+      "harga": 9200,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 58,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Kopi Bali",
+      "restoran": "https://maps.app.goo.gl/QPZwgHyj6s3q6yeU6",
+      "kategori": "Kopi",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROvaR4a9vP-kIkmXu2xJy6daY71LDWJb7aqA&s",
+      "deskripsi": "Kopi Bali adalah kopi berkualitas tinggi yang ditanam di daerah Kintamani, dikenal karena cita rasa seimbang antara keasaman dan kekuatan, serta aroma harum dengan nuansa buah dan cokelat. ",
+      "harga": 32200,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 59,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Ayam Plecing Taliwang",
+      "restoran": "https://maps.app.goo.gl/DTqgHwcBXr3kw5nu6",
+      "kategori": "Ayam",
+      "gambar": "https://asset.kompas.com/crops/-oAqlkfrKHaqebhytdtKz-JV6ls=/4x0:1000x664/750x500/data/photo/2020/12/22/5fe16c7655542.jpg",
+      "deskripsi": "Ayam Plecing Taliwang adalah hidangan khas Lombok yang terbuat dari ayam yang dibakar atau digrill, kemudian disajikan dengan sambal plecing yang pedas dan segar. Sambal ini terbuat dari cabai, tomat, bawang merah, dan perasan jeruk limau, memberikan rasa yang kaya dan menggugah selera.",
+      "harga": 45000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 60,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Sate Babi Plecing",
+      "restoran": "https://maps.app.goo.gl/RDp77woTouvY85xh7",
+      "kategori": "Sate",
+      "gambar": "https://foto.kontan.co.id/OOQnvr185c6pK3qoPSvVd_-enf8=/smart/filters:format(webp)/2022/12/23/1567373294p.jpg",
+      "deskripsi": "Sate Babi Plecing adalah hidangan khas Bali yang terdiri dari daging babi yang dipotong dadu, ditusuk, dan dipanggang hingga matang. Disajikan dengan sambal plecing yang pedas dan segar, sate ini menawarkan perpaduan rasa manis, gurih, dan pedas yang menggugah selera.",
+      "harga": 40000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 61,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Sate Babi Manis",
+      "restoran": "https://maps.app.goo.gl/RDp77woTouvY85xh7",
+      "kategori": "Sate",
+      "gambar": "https://paxelmarket.co/wp-content/uploads/2022/11/IMG-20221129-WA0007.jpg",
+      "deskripsi": "Sate babi 10 tusuk dengan bumbu manis , sambal, dan timun",
+      "harga": 35000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 62,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Sate Sampi",
+      "restoran": "https://maps.app.goo.gl/hC4dwSqhDLA4RHNZ6",
+      "kategori": "Sate",
+      "gambar": "https://asset.kompas.com/crops/EVcLGNNlG4NfZiRVTgeJgopDD8k=/0x0:1000x667/750x500/data/photo/2020/12/26/5fe6f0bdc5d69.jpg",
+      "deskripsi": "Sate sampi adalah sebutan lain dari satai sapi bumbu bali. Satai ini memiliki cita rasa gurih, sedikit pedas, dan kaya akan rempah. Cara membuat satai sapi bumbu bali cukup sederhana. Namun supaya bumbunya meresap sempurna, daging sapi harus dimarinasi dulu dalam bumbu halus selama 24 jam.",
+      "harga": 63000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 63,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Sate plecing usus",
+      "restoran": "https://maps.app.goo.gl/TeEKUMMRMXEwBspp8",
+      "kategori": "Sate",
+      "gambar": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/774eaf93-d29c-40bd-9176-623e8bab9b8e_71f874e3-39c4-4fb0-aae1-c69dfc3d555a_Go-Biz_20200410_104708.jpeg",
+      "deskripsi": "Sate Plecing Usus adalah hidangan khas Bali yang terbuat dari usus sapi yang dibersihkan dan dipotong, kemudian dibumbui dengan rempah-rempah khas Bali sebelum ditusuk dan dibakar. Sate ini biasanya disajikan dengan sambal plecing yang pedas, memberikan rasa yang kaya dan menggugah selera.",
+      "harga": 13000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 64,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi tekor ayam",
+      "restoran": "https://maps.app.goo.gl/3XJpmDd7nbRY3NC1A",
+      "kategori": "Nasi",
+      "gambar": "https://ik.imagekit.io/goodid/gnfi/uploads/articles/large-nasi-tekor-kertalangu-ff545993bc4ee9eec511a32432835fc7.jpg",
+      "deskripsi": "Hidangan nasi yang disajikan dengan potongan ayam yang dimasak dengan bumbu khas Bali. Hidangan ini biasanya dilengkapi dengan sambal dan sayuran, memberikan kombinasi rasa yang gurih dan pedas.",
+      "harga": 30000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 65,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi tekor penyon kambing",
+      "restoran": "https://maps.app.goo.gl/3XJpmDd7nbRY3NC1A",
+      "kategori": "Nasi",
+      "gambar": "https://awsimages.detik.net.id/community/media/visual/2023/07/28/nasi-tekor-bali_169.jpeg?w=650",
+      "deskripsi": "Nasi tekor penyon kambing merupakan hidangan nasi yang disajikan dengan daging kambing yang dimasak dengan bumbu rempah khas. Rasanya yang kaya dan lezat menjadikannya pilihan populer di Bali.",
+      "harga": 46000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 66,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi tekor cumi",
+      "restoran": "https://maps.app.goo.gl/3XJpmDd7nbRY3NC1A",
+      "kategori": "Nasi",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQerrsJgtDsJ8xwF_FyyqeYCFJcSXNoqkceBA&s",
+      "deskripsi": "Nasi tekor cumi adalah hidangan nasi yang dihidangkan dengan cumi-cumi yang dibumbui dan dipanggang atau digoreng. Cita rasa laut yang segar berpadu dengan nasi menjadikan hidangan ini unik dan menggugah selera.",
+      "harga": 42000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 67,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi ayam sere lemo",
+      "restoran": "https://maps.app.goo.gl/3XJpmDd7nbRY3NC1A",
+      "kategori": "Nasi",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5ZLj_o2DDxdQHFuu70cBx3T9q-c52jNopNA&s",
+      "deskripsi": "Ayam bakar sisit bumbu serelemo",
+      "harga": 25000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 68,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Tuak Manis",
+      "restoran": "https://maps.app.goo.gl/3XJpmDd7nbRY3NC1A",
+      "kategori": "Minuman",
+      "gambar": "https://cdn.rri.co.id/berita/54/images/1703753884555-i/w83oyo29vxto9na.jpeg",
+      "deskripsi": "Tuak manis tidak mengandung alkohol. Seperti namanya, tuak manis memiliki dominasi rasa manis, agak masam, dengan sensasi sedikit sepet di lidah dan langit-langit mulut.",
+      "harga": 15000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 69,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Teh sereti",
+      "restoran": "https://maps.app.goo.gl/3XJpmDd7nbRY3NC1A",
+      "kategori": "Minuman",
+      "gambar": "https://awsimages.detik.net.id/community/media/visual/2023/04/04/manfaat-teh-serai-2_169.jpeg?w=600&q=90",
+      "deskripsi": "Minuman teh herbal khas Bali yang terbuat dari daun sereti (serai) yang diseduh dengan air panas. Minuman ini memiliki aroma segar dan rasa yang menyegarkan, sering disajikan sebagai minuman tradisional dalam acara-acara dan kegiatan sehari-hari di Bali.",
+      "harga": 10000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 70,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Godoh sela",
+      "restoran": "https://maps.app.goo.gl/3XJpmDd7nbRY3NC1A",
+      "kategori": "Jajanan",
+      "gambar": "https://img-global.cpcdn.com/recipes/5b1ebc9edd3ad1e7/680x482cq70/godoh-sela-pr_jajanandaerah-foto-resep-utama.jpg",
+      "deskripsi": "Ubi goreng tradisional dengan dressing gula merah",
+      "harga": 18000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 71,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Godoh Nenas",
+      "restoran": "https://maps.app.goo.gl/3XJpmDd7nbRY3NC1A",
+      "kategori": "Jajanan",
+      "gambar": "https://www.shutterstock.com/image-photo/tahu-goreng-isi-typical-indonesian-260nw-1353787133.jpg",
+      "deskripsi": "Nanas goreng tradisional dengan dressing gula merah",
+      "harga": 18000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 72,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Be Genyol",
+      "restoran": "https://maps.app.goo.gl/je7P1ndxb8jXBp9y7",
+      "kategori": "Nasi",
+      "gambar": "https://awsimages.detik.net.id/community/media/visual/2024/05/31/babi-genyol-khas-bali-dok-istimewaalbert-einsthan_169.webp?w=1200",
+      "deskripsi": "Be genyol adalah salah satu kuliner khas Bali yang menggunakan daging babi sebagai bahan utamanya. Tidak seperti babi guling, be genyol, daging babinya, teksturnya lebih kenyal dibandingkan daging babi pada kuliner babi guling.",
+      "harga": 20000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 73,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Godoh Biu Ketip Super",
+      "restoran": "https://maps.app.goo.gl/nCXCbcwdKFYKMRB47",
+      "kategori": "Jajanan",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaPX-cYdLMrXjaIWQ-Ywn6OrMfInAT3wroeA&s",
+      "deskripsi": "Godoh Biu Ketip Super adalah makanan khas Bali yang terbuat dari pisang yang dimasak dengan cara digoreng. Makanan ini biasanya disajikan sebagai camilan atau hidangan penutup, dengan tekstur lembut dan rasa manis alami dari pisang yang digunakan.",
+      "harga": 22500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 74,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Bubuh Injin",
+      "restoran": "https://maps.app.goo.gl/nCXCbcwdKFYKMRB47",
+      "kategori": "Jajanan",
+      "gambar": "https://www.denpasarkota.go.id/public/uploads/wisata/datang_201002100216_BuburInjinKhasBali,KulinerBuburKetanHitamMurahMeriahyangEnak.jpg",
+      "deskripsi": "Bubuh Injin adalah makanan tradisional Bali yang terbuat dari ketan hitam yang dimasak dengan santan dan gula merah. Hidangan ini memiliki tekstur lembut dan kenyal, serta biasanya disajikan sebagai makanan penutup atau camilan yang manis dan gurih.",
+      "harga": 18500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 75,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Jaje Bali",
+      "restoran": "https://maps.app.goo.gl/nCXCbcwdKFYKMRB47",
+      "kategori": "Jajanan",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOF40TQ_PzupMPhACRBut6YZEKoaUep4ltgg&s",
+      "deskripsi": "Terbuat dari ketan putih atau ketan hitam yang dibungkus dengan daun pisang. Ini adalah kue favourite kedua setelah Jaje Laklak.",
+      "harga": 16500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 76,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Sate Languan",
+      "restoran": "https://maps.app.goo.gl/MgTKEBMxwPDUzZDf9",
+      "kategori": "Sate",
+      "gambar": "https://www.kintamani.id/wp-content/uploads/Sate-Languan-Bali-2.jpg",
+      "deskripsi": "Sate languan adalah sate lilit ikan khas Bali yang terbuat dari ikan tongkol. Rasa sate languan ini tidak kalah enak dengan sate lilit bali biasanya. Bumbu-bumbu untuk membuat sate languan sederhana saja. Terdiri dari cabai, terasi, garam, bawang merah, bawang putih, dan berbagai rimpangan.",
+      "harga": 18600,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 77,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Jaje Injin",
+      "restoran": "https://maps.app.goo.gl/s4cXCJwS1CFP5wfJ6",
+      "kategori": "Jajanan",
+      "gambar": "https://img-global.cpcdn.com/recipes/32b4d10443eb3ba8/680x482cq70/jaje-kukus-injin-bali-foto-resep-utama.jpg",
+      "deskripsi": "Jaje injin adalah kue tradisional Bali yang terdiri dari ketan hitam dan putih yang dikukus, ditaburi parutan kelapa dan disiram saus manis dari gula merah.",
+      "harga": 7800,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 78,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Lawar Kuwir",
+      "restoran": "https://maps.app.goo.gl/EnxDahF1PAB97jNk9",
+      "kategori": "Lawar",
+      "gambar": "https://statik.tempo.co/data/2019/01/15/id_811799/811799_720.jpg",
+      "deskripsi": "Lawar kuwir adalah salah satu modifikasi yang dilakukan terhadap masakan Bali. Masakan ini diolah rajangan halus rebusan daging dan nangka muda, yang dicampur dengan parutan kelapa bakar dan diuleni dengan bumbu lengkap",
+      "harga": 25000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 79,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi jinggo ayam panggang sambal matah",
+      "restoran": "https://maps.app.goo.gl/Ni2bKPtSzjQSMbca8",
+      "kategori": "Nasi",
+      "gambar": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/79fa1545-a4d8-4c37-9610-037fc966552c_Go-Biz_20200619_113424.jpeg",
+      "deskripsi": "Nasi Jinggo ini terdiri dari nasi putih yang disajikan dengan ayam panggang yang dibumbui khas Bali, dilengkapi dengan sambal matah yang segar dan pedas, memberikan rasa yang kaya dan menggugah selera.",
+      "harga": 7500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 80,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi jinggo sapi sambel hijau",
+      "restoran": "https://maps.app.goo.gl/Ni2bKPtSzjQSMbca8",
+      "kategori": "Nasi",
+      "gambar": "https://muffingraphics.com/wp-content/uploads/5-nasi-jinggo-300x224.png",
+      "deskripsi": "Hidangan ini menggabungkan nasi putih dengan daging sapi yang dimasak dengan bumbu khas dan sambel hijau, menawarkan perpaduan rasa pedas dan gurih yang memikat.",
+      "harga": 7500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 81,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi jinggo udang",
+      "restoran": "https://maps.app.goo.gl/Ni2bKPtSzjQSMbca8",
+      "kategori": "Nasi",
+      "gambar": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/01439695-eb23-405c-9bd0-a6e1a065db6a_Go-Biz_20211022_002938.jpeg",
+      "deskripsi": "Nasi Jinggo ini disajikan dengan udang yang dibumbui dan dimasak dengan rempah-rempah Bali, menciptakan cita rasa laut yang lezat dan khas.",
+      "harga": 7500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 82,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi jinggo cumi",
+      "restoran": "https://maps.app.goo.gl/Ni2bKPtSzjQSMbca8",
+      "kategori": "Nasi",
+      "gambar": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/324cead8-e6cc-4af5-ba4f-1ab6cfce7cb7_Go-Biz_20210519_212923.jpeg",
+      "deskripsi": "Nasi Jinggo ini dilengkapi dengan cumi yang dimasak dengan bumbu Bali yang kaya, menawarkan rasa yang lembut dan sedikit pedas, ideal untuk pencinta seafood.",
+      "harga": 7500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 83,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi jinggo ayam sisit",
+      "restoran": "https://maps.app.goo.gl/Ni2bKPtSzjQSMbca8",
+      "kategori": "Nasi",
+      "gambar": "https://img-global.cpcdn.com/recipes/9939cb8791faafe4/680x482cq70/nasi-jinggo-ayam-sisit-wangi-sereh-foto-resep-utama.jpg",
+      "deskripsi": "Nasi ini terdiri dari nasi putih yang disajikan dengan ayam suwir yang dibumbui khas Bali, memberikan rasa yang lezat dan kenikmatan yang autentik dalam setiap suapan.",
+      "harga": 7500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 84,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi jinggo be pindang",
+      "restoran": "https://maps.app.goo.gl/M7DRMhECrqNG4ehf9",
+      "kategori": "Nasi",
+      "gambar": "https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/67/2023/12/10/PINDANG1-2734064949.jpg",
+      "deskripsi": "Nasi Jinggo ini disajikan dengan ikan pindang yang memiliki rasa asin dan gurih, dilengkapi dengan bumbu khas Bali, memberikan kombinasi rasa yang segar dan lezat.",
+      "harga": 7500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 85,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi jinggo babi kecap",
+      "restoran": "https://maps.app.goo.gl/M7DRMhECrqNG4ehf9",
+      "kategori": "Nasi",
+      "gambar": "https://static.promediateknologi.id/crop/0x0:0x0/x/photo/p2/67/2024/03/21/FotoJet-2024-03-21T143748173-2820016051.jpg",
+      "deskripsi": "Hidangan ini terdiri dari nasi putih yang disajikan dengan daging babi yang dimasak dalam kecap manis, menciptakan perpaduan rasa manis dan gurih yang menggoda selera.",
+      "harga": 7500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 86,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi jinggo babi sisit",
+      "restoran": "https://maps.app.goo.gl/M7DRMhECrqNG4ehf9",
+      "kategori": "Nasi",
+      "gambar": "https://www.jagel.id/api/listimage/v/Nasi-Jinggo-Babi-Sisit-0-3215f05818de0f82.jpg",
+      "deskripsi": "Nasi Jinggo ini dilengkapi dengan daging babi suwir yang dibumbui dengan rempah khas Bali, memberikan cita rasa yang kaya dan tekstur yang lembut dalam setiap suapan.",
+      "harga": 7500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 87,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Ayam Pelalah",
+      "restoran": "https://maps.app.goo.gl/WY3PoNWEpkftTmFy9",
+      "kategori": "Ayam",
+      "gambar": "https://asset.kompas.com/crops/WEG8Dnn12UVE7igMowr8_lQAL6k=/0x0:1000x667/750x500/data/photo/2021/11/22/619b0ad290a3f.jpg",
+      "deskripsi": "Ayam pelalah khas Bali merupakan ayam suwir yang sudah dimasak dengan bumbu pedas. Ayam pelalah biasanya sebagai pelengkap nasi jinggo.",
+      "harga": 150000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 88,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Tipat Blayag",
+      "restoran": "https://maps.app.goo.gl/6AZK7JXfsY4zf3PP6",
+      "kategori": "Tipat",
+      "gambar": "https://img.inews.co.id/media/1200/files/inews_new/2022/08/12/makanan_khas_bali_tipat_blayag_yang_lagi_trending.jpg",
+      "deskripsi": "Tipat Blayag sendiri merupakan makanan yang terbuat dari ketupat yang disiram dengan kuah kuning atau biasa disebut sebagai kuah ayam nyat-nyat.",
+      "harga": 18000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 89,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Lawar Sapi",
+      "restoran": "https://maps.app.goo.gl/WFtu9hMCKHvnvr7a9",
+      "kategori": "Lawar",
+      "gambar": "https://img-global.cpcdn.com/recipes/a04bd95ce6af5aad/680x482cq70/lawar-daging-sapi-foto-resep-utama.jpg",
+      "deskripsi": "lawar merupakan masakan khas Bali yang isinya campuran sayuran dan daging cincang yang dibumbui. Lawar terbuat dari daging rebus yang dicincang dan sayuran, dengan berbagai macam bumbu. Bumbu-bumbu yang digunakan antara lain kunyit, kemiri, bawang merah, bawang putih, dan kelapa.",
+      "harga": 21000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 90,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Lawar Babi",
+      "restoran": "https://maps.app.goo.gl/XsrMFVSuFa1zm31J8",
+      "kategori": "Lawar",
+      "gambar": "https://cdn.idntimes.com/content-images/post/20211019/203152501-4176779059011518-795637125163020240-n-c5aa3d72f7ca0ec57070d7c1a60cf2b2_600x400.jpg",
+      "deskripsi": "lawar merupakan masakan khas Bali yang isinya campuran sayuran dan daging cincang yang dibumbui. Lawar terbuat dari daging rebus yang dicincang dan sayuran, dengan berbagai macam bumbu. Bumbu-bumbu yang digunakan antara lain kunyit, kemiri, bawang merah, bawang putih, dan kelapa.",
+      "harga": 20000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 91,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi Siobak",
+      "restoran": "https://maps.app.goo.gl/omVLbZfDeouBJXmV9",
+      "kategori": "Nasi",
+      "gambar": "https://blue.kumparan.com/image/upload/fl_progressive,fl_lossy,c_fill,q_auto:best,w_640/v1528461052/0806_Kuliner_Buleleng_Siobak_ipbscy.jpg",
+      "deskripsi": "Siobak khas Buleleng ini menjadi favorit dengan daging babi yang dipanggang sempurna hingga kulitnya menjadi renyah, sementara dagingnya tetap juicy dan penuh dengan rasa rempah yang meresap.",
+      "harga": 27500,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 92,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Babi Guling",
+      "restoran": "https://maps.app.goo.gl/DNiR5ejf1hTdUhJQA",
+      "kategori": "Babi Guling",
+      "gambar": "https://cahayameat.com/wp-content/uploads/2023/06/pande_egi_2-1024x577.jpg",
+      "deskripsi": "Babi guling adalah masakan khas Bali, dibuat dari seekor babi utuh dimana sebelum proses penggulingan isi perut dibersihkan terlebih dahulu. Sebabnya disebut dengan babi guling karena dalam proses pembuatannya, diguling-gulingkan di atas bara api.",
+      "harga": 50000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 93,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Kuah Undis",
+      "restoran": "https://maps.app.goo.gl/scihoVYAYNYyhMCS7",
+      "kategori": "Sayur",
+      "gambar": "https://cdn.yummy.co.id/content-images/images/20210519/DOImcnL9ZANJrglCG4lDdXhZCg1BjZyQ-31363231343336383033d41d8cd98f00b204e9800998ecf8427e.jpg?x-oss-process=image/resize,w_388,h_388,m_fixed,x-oss-process=image/format,webp",
+      "deskripsi": "Sayur Undis ini adalah kacang kedelai hitam yang didiamkan selama semalaman dan kemudian direbus hingga lunak kemudian diberi bumbu-bumbu yang tentunya khas kota Singaraja, Bali.",
+      "harga": 12000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 94,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Sisit Sapi",
+      "restoran": "https://maps.app.goo.gl/scihoVYAYNYyhMCS7",
+      "kategori": "Sisit",
+      "gambar": "https://i.ytimg.com/vi/OWZ-sw8hklM/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDHkgHRROR2GGKcHp3b2st-r0gDXw",
+      "deskripsi": "Sisit sapi adalah daging sapi yang dimasak dengan bumbu khas Bali dan disuwir halus, menghasilkan cita rasa yang kaya dan pedas, sering disajikan dengan nasi atau lalapan.",
+      "harga": 32000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 95,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Sisit Ayam",
+      "restoran": "https://maps.app.goo.gl/scihoVYAYNYyhMCS7",
+      "kategori": "Sisit",
+      "gambar": "https://i.ytimg.com/vi/GebDCSzua4g/maxresdefault.jpg",
+      "deskripsi": "Hidangan ini terbuat dari daging ayam yang dimasak dengan bumbu rempah yang kuat dan disuwir halus, memberikan rasa gurih dan pedas yang sangat nikmat, cocok dinikmati dengan nasi.",
+      "harga": 20000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 96,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Sisit Ayam Bawang",
+      "restoran": "https://maps.app.goo.gl/scihoVYAYNYyhMCS7",
+      "kategori": "Sisit",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPyXnXsVuugJ0IQ63cbx1hHLzF06gGjGdeTQ&s",
+      "deskripsi": "Sisit ayam bawang adalah variasi dari sisit ayam yang ditambahkan dengan bawang merah dan bawang putih, memberikan aroma yang harum dan rasa yang lebih kaya, sempurna sebagai pelengkap nasi hangat.",
+      "harga": 20000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 97,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Singkong Salju Durian",
+      "restoran": "https://maps.app.goo.gl/npFLSQ5owZbd24fHA",
+      "kategori": "Jajanan",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd6H-vSz3XkkVOLVBSy3qZYwVsrgkEjkOAggA7JRkF9T_0EA2SoyAxTak&s=10",
+      "deskripsi": "ubi manis yang ditumbuk halus, buah durian & disiram saus santan",
+      "harga": 27000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 98,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Singkong Salju",
+      "restoran": "https://maps.app.goo.gl/npFLSQ5owZbd24fHA",
+      "kategori": "Jajanan",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQH17a550O-QX4Gqx4IAkXMfKPfgszyDy8MvB58P2rzbC2ubgAnYzmcgu8&s=10",
+      "deskripsi": "ubi manis yang ditumbuk halus & disiram saus santan",
+      "harga": 20000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 99,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Rujak Buah Kweni",
+      "restoran": "https://maps.app.goo.gl/npFLSQ5owZbd24fHA",
+      "kategori": "Rujak",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyuXa6HPSRsLIgXH_hfEgo6qEn9dOmJcwQKqLwM6YL0NMrWQHQuN2MBng&s=10",
+      "deskripsi": "Rujak Buah iris tipis mangga, pepaya muda, timun, nanas, bengkoang dengan bumbu kweni",
+      "harga": 24000,
+      "rating": 0
+    }
+  },
+  {
+    "pk": 100,
+    "model": "search.food",
+    "fields": {
+      "nama_makanan": "Nasi Campur Bali",
+      "restoran": "https://maps.app.goo.gl/1YehUNQTKqDLR9HD7",
+      "kategori": "Nasi",
+      "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9E37tGtTymsQHCBq2kYNs4t1qpTweslXWhg&usqp=CAU",
+      "deskripsi": "Nasi Campur Bali merupakan campuran nasi dengan berbagai macam lauk pauk seperti ayam, telur sayuran dan juga sate lilit yang biasanya terbuat dari ikan atau ayam.",
+      "harga": 18000,
+      "rating": 0
+    }
+  }
+]
