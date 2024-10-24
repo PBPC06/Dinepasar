@@ -19,5 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main.urls')),
+    path('', include('main.urls')),  # Rute untuk aplikasi utama (misalnya landing page)
+    path('favorites/', include('favorite.urls')),  # Rute untuk aplikasi favorite
 ]
