@@ -32,9 +32,9 @@
                 <!-- Profile and Log Out Section -->
                 <div class="hidden sm:flex items-center space-x-4">
                     <!-- Display the user's name dynamically -->
-                    <span class="text-yellow-600 text-sm font-medium">Hi, {{ user.username }}!</span>
+                    <span class="text-yellow-600 text-2l font-medium">Hi, {{ user.username }}!</span>
                     <a 
-                        href="{% url 'main:login' %}"
+                        href="{% url 'manageData:login' %}"
                         class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700">
                         Log Out
                 </a>

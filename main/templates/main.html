@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% include 'navbar.html' %}
+
 <!-- Moving Text for Dinepasar Title -->
 <div class="moving-text-container">
   <h1 class="moving-text">Dinepasar</h1>
@@ -39,14 +40,8 @@
   </a>
 </div>
 
-<!-- Logout Button -->
-<div>
-  <a href="{% url 'main:logout' %}">
-    <button>Logout</button>
-  </a>
-</div>
-
 <!-- Last Login Information -->
 <h5>Sesi terakhir login: {{ last_login }}</h5>
+<h5>Role kamu: {{ role }}</h5>
 
 {% endblock content %}
