@@ -12,12 +12,12 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'search:owner_dashboard' %}", // Ganti dengan URL view yang sesuai
+                    url: "{% url 'search:owner_dashboard' %}", 
                     data: $(this).serialize(),
                     success: function(response) {
                         // Tindakan setelah sukses (misalnya, menampilkan pesan sukses)
                         alert("Makanan berhasil ditambahkan!");
-                        // Anda bisa melakukan pengalihan atau memperbarui tampilan di sini
+                
                     },
                     error: function(xhr) {
                         // Menangani kesalahan

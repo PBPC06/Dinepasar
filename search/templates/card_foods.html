@@ -3,30 +3,28 @@
 {% if foods %}
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 md:px-16">
         {% for food in foods %}
-        <div class="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-105 flex flex-col justify-between">
+        <div class="max-w-xs rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-105 flex flex-col justify-between">
             
             <!-- Nama Makanan (Bold) -->
-            <div class="p-4 flex-grow">
-                <div class="font-bold text-xl mb-2">{{ food.nama_makanan }}</div>
+            <div class="p-3 flex-grow">
+                <div class="font-bold text-lg mb-2">{{ food.nama_makanan }}</div>
                 
                 <!-- Gambar -->
-                <img class="w-full h-48 object-cover rounded-lg mb-4" src="{{ food.gambar }}" alt="{{ food.nama_makanan }}">
+                <img class="w-full h-36 object-cover rounded-lg mb-3" src="{{ food.gambar }}" alt="{{ food.nama_makanan }}">
 
-                <!-- Lokasi Restoran -->
-                <p class="text-gray-700 mb-2">Lokasi: 
-                    <a href="{{ food.restoran }}" class="text-yellow-600 underline" target="_blank">{{ food.restoran }}</a>
-                </p>
+                <!-- Deskripsi Makanan -->
+                <p class="text-gray-700 mb-2">{{ food.deskripsi|truncatewords:20 }}</p>
 
                 <!-- Rating (Bintang dan Angka) -->
                 <div class="flex items-center space-x-2 mb-2">
                     <!-- Bintang -->
-                    <img src="{% static 'images/star.png' %}" alt="Star" class="h-5 w-5">
+                    <img src="{% static 'images/star.png' %}" alt="Star" class="h-4 w-4">
                     <!-- Rating Angka -->
-                    <span class="text-gray-700">{{ food.rating }} / 5</span>
+                    <span class="text-gray-700 text-sm">{{ food.rating }} / 5</span>
                 </div>
 
                 <!-- Harga (Bold) -->
-                <p class="font-bold text-gray-900">Rp {{ food.harga }}</p>
+                <p class="font-bold text-gray-900 text-sm">Rp {{ food.harga }}</p>
             </div>
 
             <!-- Button Details (inside the loop) -->

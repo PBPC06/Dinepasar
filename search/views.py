@@ -109,6 +109,8 @@ def owner_dashboard(request):
         'foods': foods,
         'is_owner': True  # Menandakan bahwa ini adalah halaman owner
     }
+
+    # foods = FoodForm.object.all()
     return render(request, 'owner_dashboard.html', context)
 
 
@@ -117,6 +119,7 @@ def owner_dashboard(request):
 
 @login_required
 @user_passes_test(owner_required)
+@csrf_exempt
 def add_food(request):
 
     if request.method == "POST":
@@ -169,48 +172,24 @@ def add_food(request):
 
 @login_required(login_url='/login')
 def edit_food(request, food_id):
-        food = get_object_or_404(Food, pk=food_id)
-        nama_makanan = strip_tags(request.POST.get("nama_makanan"))
-        restoran = strip_tags(request.POST.get("restoran"))
-        kategori = strip_tags(request.POST.get("kategori"))
-        gambar = strip_tags(request.POST.get("gambar")) 
-        deskripsi = strip_tags(request.POST.get("deskripsi")) 
-        harga = request.POST.get("harga")
-        rating = request.POST.get("rating")
+    # Get product entry berdasarkan id
+    food = get_object_or_404(Food, pk=food_id)
 
-        # Mengisi form dengan data produk saat ini
-        form = FoodForm(request.POST or None, instance=food)
-        errors = {}
+    if request.method == "POST":
+        # Set product sebagai instance dari form dengan POST data
+        form = FoodForm(request.POST, instance=food)
+    else:
+        # Saat GET request, set form dengan instance data
+        form = FoodForm(instance=food)
 
-        # Validasi input
-        if not nama_makanan:
-            errors['nama_makanan'] = "Nama makanan tidak boleh kosong."
-        if not restoran:
-            errors['restoran'] = "Nama restoran tidak boleh kosong."
-        if not kategori:
-            errors['kategori'] = "Kategori tidak boleh kosong."
-        if not gambar:
-            errors['gambar'] = "Gambar tidak boleh kosong."
-        if not deskripsi:
-            errors['deskripsi'] = "Deskripsi tidak boleh kosong."
-        if not harga or not harga.isdigit():
-            errors['harga'] = "Harga harus diisi dan berupa angka."
-        if not rating:
-            errors['rating'] = "Rating tidak boleh kosong"
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return redirect('search:owner_dashboard')
+    
+    context = {'form': form}
+    return render(request, "edit_foods.html", context)
 
-        # Jika tidak ada error, simpan kendaraan baru
-        if not errors:
-                food.nama_makanan=nama_makanan,
-                food.restoran=restoran,
-                food.kategori=kategori,
-                food.gambar=gambar,
-                food.deskripsi=deskripsi,
-                food.harga=harga,
-                food.rating=rating
-                food.save()
-                return redirect('food_search')
-        
-        return render(request, "edit_product.html", {'form': form, 'errors': errors})
 
 
 
@@ -274,6 +253,6 @@ def owner_dashboard_awal(request):
 
 def logout_user(request):
     logout(request)
-    response = HttpResponseRedirect(reverse('joinpartner:login'))
+    response = HttpResponseRedirect(reverse('search:login'))
     response.delete_cookie('last_login')
     return response

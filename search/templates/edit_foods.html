@@ -14,39 +14,45 @@
         <div class="w-full flex items-center justify-center bg-yellow-600">
             <div class="bg-white p-8 rounded-lg shadow-md w-11/12 md:w-3/4 lg:w-1/2 opacity-95 max-h-full overflow-y-auto">
                 <h2 class="text-2xl font-bold mb-6 text-gray-900">Edit Makanan</h2>
-                <form method="POST">
+
+                <!-- Form POST -->
+                <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <!-- Column 1 -->
                         <div>
                             <div class="mb-4">
-                                <label for="food_image" class="block text-gray-700 font-bold mb-2">Gambar Makanan</label>
-                                <input type="text" id="food_image" name="food_image" 
+                                <label for="gambar" class="block text-gray-700 font-bold mb-2">Gambar Makanan (URL)</label>
+                                <input type="text" id="gambar" name="gambar" 
                                        class="w-full px-3 py-2 border rounded-lg bg-yellow-50" 
                                        value="{{ form.gambar.value }}" 
-                                       required oninput="displayImage()">
+                                       required>
+                                {% if form.gambar.errors %}
+                                   <p class="text-red-500">{{ form.gambar.errors }}</p>
+                               {% endif %}
                             </div>
+
                             <div class="mb-4">
                                 <label for="nama_makanan" class="block text-gray-700 font-bold mb-2">Nama Makanan</label>
                                 <input type="text" id="nama_makanan" name="nama_makanan" 
                                        class="w-full px-3 py-2 border rounded-lg bg-yellow-50" 
                                        value="{{ form.nama_makanan.value }}" 
                                        required>
-                                {% if errors.nama_makanan %}
-                                   <p class="text-red-500">{{ errors.nama_makanan }}</p>
+                                {% if form.nama_makanan.errors %}
+                                   <p class="text-red-500">{{ form.nama_makanan.errors }}</p>
                                {% endif %}
                             </div>
+
                             <div class="mb-4">
                                 <label for="restoran" class="block text-gray-700 font-bold mb-2">Restoran</label>
                                 <input type="text" id="restoran" name="restoran" 
                                        class="w-full px-3 py-2 border rounded-lg bg-yellow-50" 
                                        value="{{ form.restoran.value }}" 
                                        required>
-                                {% if errors.restoran %}
-                                   <p class="text-red-500">{{ errors.restoran }}</p>
+                                {% if form.restoran.errors %}
+                                   <p class="text-red-500">{{ form.restoran.errors }}</p>
                                {% endif %}
                             </div>
-                            <img id="image_preview" src="" alt="Preview" class="mt-4 rounded-lg border" style="display:none; max-width: 100%;"/>
                         </div>
 
                         <!-- Column 2 -->
@@ -57,26 +63,45 @@
                                        class="w-full px-3 py-2 border rounded-lg bg-yellow-50" 
                                        value="{{ form.kategori.value }}" 
                                        required>
-                                {% if errors.kategori %}
-                                   <p class="text-red-500">{{ errors.kategori }}</p>
+                                {% if form.kategori.errors %}
+                                   <p class="text-red-500">{{ form.kategori.errors }}</p>
                                {% endif %}
                             </div>
+
                             <div class="mb-4">
                                 <label for="harga" class="block text-gray-700 font-bold mb-2">Harga</label>
                                 <input type="number" id="harga" name="harga" 
                                        class="w-full px-3 py-2 border rounded-lg bg-yellow-50" 
                                        value="{{ form.harga.value }}" 
                                        step="0.01" required>
+                                {% if form.harga.errors %}
+                                   <p class="text-red-500">{{ form.harga.errors }}</p>
+                               {% endif %}
                             </div>
+
                             <div class="mb-4">
                                 <label for="rating" class="block text-gray-700 font-bold mb-2">Rating</label>
                                 <input type="number" id="rating" name="rating" 
                                        class="w-full px-3 py-2 border rounded-lg bg-yellow-50" 
                                        value="{{ form.rating.value }}" 
-                                       step="0.1" required>
+                                       step="0.1" max="5" required>
+                                {% if form.rating.errors %}
+                                   <p class="text-red-500">{{ form.rating.errors }}</p>
+                               {% endif %}
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="deskripsi" class="block text-gray-700 font-bold mb-2">Deskripsi</label>
+                                <textarea id="deskripsi" name="deskripsi" 
+                                          class="w-full px-3 py-2 border rounded-lg bg-yellow-50"
+                                          required>{{ form.deskripsi.value }}</textarea>
+                                {% if form.deskripsi.errors %}
+                                   <p class="text-red-500">{{ form.deskripsi.errors }}</p>
+                               {% endif %}
                             </div>
                         </div>
                     </div>
+
                     <div class="mb-6 flex justify-end">
                         <button type="submit" class="bg-yellow-500 hover:bg-yellow-700 text-white py-2 px-4 rounded-lg font-bold">
                             Edit Makanan
@@ -84,7 +109,7 @@
                     </div>
                 </form>
 
-                <!-- Tampilkan pesan kesalahan jika ada -->
+                <!-- Display form errors if any -->
                 {% if form.errors %}
                     <ul>
                         {% for field in form %}
@@ -100,13 +125,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function displayImage() {
-            const imageInput = document.getElementById('food_image');
-            const imagePreview = document.getElementById('image_preview');
-            imagePreview.style.display = 'block'; // Menampilkan gambar
-        }
-    </script>
 </body>
 {% endblock %}
