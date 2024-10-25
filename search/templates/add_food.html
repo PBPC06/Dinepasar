@@ -12,15 +12,15 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'search:owner_dashboard' %}", 
+                    url: "{% url 'search:add_food' %}",  // Sesuaikan dengan URL yang benar
                     data: $(this).serialize(),
                     success: function(response) {
-                        // Tindakan setelah sukses (misalnya, menampilkan pesan sukses)
-                        alert("Makanan berhasil ditambahkan!");
-                
+                        if (response.success) {
+                            // Redirect ke halaman dashboard owner setelah berhasil
+                            window.location.href = "{% url 'search:owner_dashboard' %}";
+                        } 
                     },
                     error: function(xhr) {
-                        // Menangani kesalahan
                         let errors = xhr.responseJSON.errors;
                         for (const key in errors) {
                             if (errors.hasOwnProperty(key)) {

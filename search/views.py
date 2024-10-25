@@ -19,6 +19,7 @@ from django.contrib.auth.decorators import user_passes_test
 from .forms import CustomUserCreationForm
 from .models import CustomUser
 from django.db.models import Q
+from django.views.decorators.http import require_POST
 
 
 
@@ -115,13 +116,10 @@ def owner_dashboard(request):
 
 
 
-
-
 @login_required
 @user_passes_test(owner_required)
 @csrf_exempt
 def add_food(request):
-
     if request.method == "POST":
         nama_makanan = strip_tags(request.POST.get("nama_makanan"))
         restoran = strip_tags(request.POST.get("restoran"))
@@ -132,7 +130,6 @@ def add_food(request):
         rating = request.POST.get("rating")
 
         errors = {}
-
         # Validasi input
         if not nama_makanan:
             errors['nama_makanan'] = "Nama makanan tidak boleh kosong."
@@ -149,26 +146,25 @@ def add_food(request):
         if not rating:
             errors['rating'] = "Rating tidak boleh kosong"
 
-        # Jika tidak ada error, simpan kendaraan baru
-        if not errors:
-            new_food = Food(
-                nama_makanan=nama_makanan,
-                restoran=restoran,
-                kategori=kategori,
-                gambar=gambar,
-                deskripsi=deskripsi,
-                harga=harga,
-                rating=rating
-            )
-            new_food.save()
-            return redirect('owner_dashboard')
-        
-    else:
-        # Jika metode bukan POST, tidak perlu mengisi 'errors'
-        errors = {}
 
-    # Pastikan ada respons yang dikembalikan
-    return render(request, "add_food.html", {'errors': errors})
+        if errors:
+            return JsonResponse({'errors': errors}, status=400)
+
+        new_food = Food(
+            nama_makanan=nama_makanan,
+            restoran=restoran,
+            kategori=kategori,
+            gambar=gambar,
+            deskripsi=deskripsi,
+            harga=harga,
+            rating=rating
+        )
+        new_food.save()
+
+        return JsonResponse({'success': True})
+
+    # Jika request GET, tampilkan halaman form
+    return render(request, "add_food.html")
 
 @login_required(login_url='/login')
 def edit_food(request, food_id):
@@ -194,10 +190,10 @@ def edit_food(request, food_id):
 
 
 @login_required(login_url='/login')
-def delete_food(request, pk):
-    food = get_object_or_404(Food, id=pk)
+def delete_food(request, food_id):
+    food = get_object_or_404(Food, id=food_id)
     food.delete()
-    return redirect('food_search')
+    return redirect('search:owner_dashboard')
 
 
 def register(request):
