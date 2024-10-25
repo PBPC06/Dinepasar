@@ -1,11 +1,9 @@
 from django.urls import path
 from . import views
-from search.views import get_foods, login_user, register, edit_food, delete_food, add_food
+from search.views import get_foods,  edit_food, delete_food, add_food
 app_name = "search"
 
 urlpatterns = [
-    path('register/', register, name='register'),
-    path('login/', login_user, name='login'),
     path('search/', views.search_redirect, name='search_redirect'),
     path('food/add/', add_food, name='add_food'),
     path('owner/dashboard/', views.owner_dashboard, name='owner_dashboard'),

@@ -20,9 +20,9 @@ from manageData.views import login_user
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('search.urls')),
-    path('admin/', admin.site.urls),
     path('', include('main.urls')),
     path('manageData/', include('manageData.urls')),
     path('login/', login_user, name='login'),
+    path('search/', include('search.urls')),
+    # path('', include('manageData.urls'))
 ]

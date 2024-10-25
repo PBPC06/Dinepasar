@@ -2,7 +2,6 @@ from django import forms
 from .models import Food
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser
 from django.utils.html import strip_tags
 
 
@@ -11,14 +10,6 @@ class SearchForm(forms.Form):
         'class': 'form-input',
         'placeholder': 'Cari makanan/resto...',
     }))
-
-
-class CustomUserCreationForm(UserCreationForm):
-    role = forms.ChoiceField(choices=CustomUser.ROLE_CHOICES, required=True)
-
-    class Meta:
-        model = CustomUser
-        fields = ('username', 'email', 'role', 'password1', 'password2')
 
 
 class FoodForm(ModelForm):

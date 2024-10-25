@@ -41,9 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'search',
     'main',
     'manageData',
+    'search',
 ]
 
 MIDDLEWARE = [
@@ -141,4 +141,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost","http://127.0.0.1","http://namira-aulia31-dinepasar.pbp.cs.ui.ac.id", "https://namira-aulia31-dinepasar.pbp.cs.ui.ac.id"]
 
-AUTH_USER_MODEL = 'search.CustomUser'
+
+

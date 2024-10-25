@@ -8,16 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.html import strip_tags
 from .forms import FoodForm
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect, HttpResponseForbidden
-import datetime
 from django.urls import reverse
-from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import user_passes_test
-from .forms import CustomUserCreationForm
-from .models import CustomUser
 from django.db.models import Q
 from django.views.decorators.http import require_POST
 
@@ -71,11 +63,11 @@ def food_search(request):
 
 
 def owner_required(user):
-    return user.role == CustomUser.OWNER
+    return user.isAdmin
 
 
-@login_required(login_url='/login')
-@user_passes_test(owner_required)
+# @login_required(login_url='/login')
+# @user_passes_test(owner_required)
 def owner_dashboard(request):
     keyword = request.GET.get('keyword', '')
     kategori = request.GET.get('kategori', '')
@@ -116,9 +108,9 @@ def owner_dashboard(request):
 
 
 
-@login_required
-@user_passes_test(owner_required)
-@csrf_exempt
+# @login_required(login_url='/login')
+# @user_passes_test(owner_required)
+# @csrf_exempt
 def add_food(request):
     if request.method == "POST":
         nama_makanan = strip_tags(request.POST.get("nama_makanan"))
@@ -166,7 +158,7 @@ def add_food(request):
     # Jika request GET, tampilkan halaman form
     return render(request, "add_food.html")
 
-@login_required(login_url='/login')
+# @login_required(login_url='/login')
 def edit_food(request, food_id):
     # Get product entry berdasarkan id
     food = get_object_or_404(Food, pk=food_id)
@@ -189,55 +181,16 @@ def edit_food(request, food_id):
 
 
 
-@login_required(login_url='/login')
+# @login_required(login_url='/login')
 def delete_food(request, food_id):
     food = get_object_or_404(Food, id=food_id)
     food.delete()
     return redirect('search:owner_dashboard')
 
 
-def register(request):
-    if request.method == "POST":
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('search:login')
-    else:
-        form = CustomUserCreationForm()
-    
-    context = {'form': form}
-    return render(request, 'register.html', context)
 
-
-def login_user(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
-
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            
-            # Cek apakah pengguna adalah owner atau user
-            if user.role == CustomUser.OWNER:
-                response = HttpResponseRedirect(reverse('search:owner_dashboard'))
-            else:
-                response = HttpResponseRedirect(reverse('search:food_search'))
-            
-            # Set cookie last_login
-            response.set_cookie('last_login', str(datetime.datetime.now()))
-            return response
-        else:
-            messages.error(request, "Username atau password salah. Silakan coba lagi.")
-
-    else:
-        form = AuthenticationForm()
-    
-    context = {'form': form}
-    return render(request, 'login.html', context)
-
-
-@login_required(login_url='/login')
-@user_passes_test(owner_required)
+# @login_required(login_url='/login')
+# @user_passes_test(owner_required)
 def owner_dashboard_awal(request):
     foods = Food.objects.all()  # Data makanan yang bisa dilihat dan dikelola owner
     context = {
@@ -250,9 +203,7 @@ def owner_dashboard_awal(request):
 def search_redirect(request):
     if request.user.is_authenticated:
         # Periksa peran pengguna menggunakan field 'role'
-        if request.user.role == CustomUser.OWNER:  # Cek jika pengguna adalah owner
+        if request.user.is_admin:  # Cek jika pengguna adalah owner
             return redirect('search:owner_dashboard')  # Ganti dengan nama URL untuk owner_dashboard
         else:
             return redirect('search:food_search')  # Ganti dengan nama URL untuk food_search
-    else:
-        return redirect('login')  # Arahkan pengguna yang belum login ke halaman login
