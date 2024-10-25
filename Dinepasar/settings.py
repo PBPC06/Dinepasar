@@ -10,6 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
+PRODUCTION = os.getenv("PRODUCTION", False)
+DEBUG = not PRODUCTION
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,10 +42,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'search',
+    'main',
+    'manageData',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -69,6 +76,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Dinepasar.wsgi.application'
+
+AUTH_USER_MODEL = 'manageData.CustomUser'
 
 
 # Database
@@ -116,7 +125,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'
+
+STATIC_URL = 'static/'
+if DEBUG:
+    STATICFILES_DIRS = [
+        BASE_DIR / 'static' # merujuk ke /static root project pada mode development
+    ]
+else:
+    STATIC_ROOT = BASE_DIR / 'static' # merujuk ke /static root project pada mode production
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

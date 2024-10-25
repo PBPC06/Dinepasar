@@ -1,0 +1,79 @@
+/* General form input styling */
+.form-style form input, form textarea, form select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 2px solid #FFD700; /* Updated border color to golden yellow */
+    border-radius: 0.375rem;
+    background-color: #ffffff; /* White background */
+    color: #333; /* Text color for better readability */
+}
+
+/* Focus effect for inputs */
+.form-style form input:focus, form textarea:focus, form select:focus {
+    outline: none;
+    border-color: #FFBF00; /* Border changes to a deeper golden yellow on focus */
+    box-shadow: 0 0 0 3px rgba(255, 191, 0, 0.5); /* Soft shadow with golden color */
+}
+
+/* Shine animation effect */
+@keyframes shine {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.animate-shine {
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.3), rgba(255, 191, 0, 0.3) 50%, rgba(255, 215, 0, 0.3)); /* Gradient using golden tones */
+    background-size: 200% 100%;
+    animation: shine 3s infinite;
+}
+
+/* Glow animation effect for buttons */
+/* Keyframes for soft-shine effect */
+@keyframes soft-shine {
+    0% { left: -150%; }
+    100% { left: 150%; }
+}
+
+/* Glow animation effect for buttons */
+.btn-glow {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    background-color: #FFD700; /* Golden yellow button background */
+    border-radius: 0.375rem;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-glow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%; /* Start position outside the left */
+    width: 200%; /* Slightly bigger than button to create smooth transition */
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), rgba(255, 255, 255, 0.3), rgba(255, 215, 0, 0.1)); /* Softer golden shine */
+    animation: soft-shine 2s infinite;
+}
+
+.btn-glow:hover {
+    background-color: #FFC300; /* Slightly darker golden yellow on hover */
+    transition: background-color 0.3s ease;
+}
+
+
+/* Custom font import */
+@font-face {
+    font-family: 'CharpentierClassic';
+    src: url('/static/font/CharpentierClassicRed_Reg.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1 {
+    font-family: 'CharpentierClassic', sans-serif;
+    color: #FFD700; /* Golden yellow for headings */
+}
