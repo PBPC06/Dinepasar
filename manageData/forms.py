@@ -1,24 +1,23 @@
 from django import forms
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import CustomUser
 
 class NewUserForm(UserCreationForm):
     referral_code = forms.CharField(max_length=10, required=False)
     isAdmin = forms.ChoiceField(choices=[(True, "Admin"), (False, "User")], label="Admin/User", required=False)
 
     class Meta:
-        model = User
+        model = CustomUser
         fields = ('username', 'password1', 'password2', 'referral_code')
 
     def clean(self):
         cleaned_data = super().clean()
         referral_code = cleaned_data.get('referral_code')
         is_admin = cleaned_data.get('isAdmin')
-        
-        # Check if the referral code matches for admin role
-        if referral_code == "PBPC06WOW!":
-            cleaned_data['isAdmin'] = True  # Assign admin role
-        else:
-            cleaned_data['isAdmin'] = False  # Default to user if code doesn't match
-        
+
+        # Validate the referral code
+        if referral_code != "PBPC06WOW!" and is_admin:
+            self.add_error('referral_code', "Invalid referral code. Please enter a valid code to register as an admin.")
+            cleaned_data['isAdmin'] = False  # Reset to default user role if code is incorrect
+
         return cleaned_data

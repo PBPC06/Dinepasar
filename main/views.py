@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from main.forms import FoodEntryForm
 from main.models import FoodEntry
-from manageData.models import User
+from manageData.models import CustomUser
 
 @login_required(login_url='/login')
 def show_main(request):

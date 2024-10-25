@@ -76,7 +76,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Dinepasar.wsgi.application'
 
-# AUTH_USER_MODEL = 'manageData.User'
+AUTH_USER_MODEL = 'manageData.CustomUser'
 
 
 # Database

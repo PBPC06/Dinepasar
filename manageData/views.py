@@ -4,28 +4,19 @@ from django.urls import reverse
 from django.shortcuts import render, redirect 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout 
 from django.contrib import messages
 from main.forms import FoodEntryForm
 from main.models import FoodEntry
 from django.views.decorators.csrf import csrf_exempt
 from .forms import NewUserForm
-
-
-# from django.http import JsonResponse
-# from .models import FoodEntry
-
-# def food_entries_json(request):
-#     # Mengambil semua data dari model FoodEntry
-#     food_entries = FoodEntry.objects.all().values('name', 'description', 'price', 'rating')
-    
-#     # Mengonversi queryset ke list dan mengembalikan sebagai JSON
-#     return JsonResponse(list(food_entries), safe=False)
-
-
+from django.http import JsonResponse
+from django.contrib.auth.models import User
 
 @csrf_exempt
 def register(request):
+    
+
     if request.method == "POST":
         form = NewUserForm(request.POST)
         if form.is_valid():
@@ -47,11 +38,10 @@ def register(request):
     context = {'form': form}
     return render(request, 'register.html', context)
 
-
+@csrf_exempt
 def login_user(request):
-    # username = request.POST['username']
-    # password = request.POST['password']
-    # user = authenticate(username=username, password=password)
+    
+
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
 
@@ -68,6 +58,8 @@ def login_user(request):
     return render(request, 'login.html', context)
 
 def logout_user(request):
+
+
     logout(request)
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
