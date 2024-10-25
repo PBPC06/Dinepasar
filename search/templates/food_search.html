@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block content %}
-
-<div class="min-h-screen flex flex-col items-center justify-start py-10">
+{% include 'navbar.html' %}
+<div class="min-h-screen flex flex-col items-center justify-start py-10 bg-yellow-50">
     
     <!-- Search Bar -->
     <div class="search-bar mt-24 mb-6 w-full flex justify-center">
@@ -16,7 +16,7 @@
 
     <!-- Filter Section -->
     <form method="GET" class="w-full md:w-3/4 flex justify-center space-x-4 my-6">
-        <div>
+        <div class="flex items-center space-x-2">
             <label for="kategori" class="text-gray-700">Kategori:</label>
             <select id="kategori" name="kategori" class="border border-gray-300 py-2 px-4 rounded">
                 <option value="">Semua Kategori</option>
@@ -38,7 +38,7 @@
                 <option value="babi guling">Babi Guling</option>
             </select>
         </div>
-        <div>
+        <div class="flex items-center space-x-2">
             <label for="harga" class="text-gray-700">Harga:</label>
             <select id="harga" name="harga" class="border border-gray-300 py-2 px-4 rounded">
                 <option value="">Semua Harga</option>

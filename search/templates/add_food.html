@@ -34,6 +34,7 @@
     </script>
 {% endblock meta %}
 {% block content %}
+{% include 'navbar.html' %}
 <body class="bg-gray-50">
     <div class="flex flex-col items-center justify-center min-h-screen bg-yellow-50">
         <!-- Form Card -->
@@ -102,12 +103,19 @@
                     </div>
                 </div>
 
-                <!-- Submit Button -->
-                <div class="flex justify-center mt-4">
-                    <button type="submit" class="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded-lg font-bold">
+                <!-- Tombol Back dan Submit-->
+                <div class="flex justify-between mt-4 space-x-4">
+                    <!-- Back Button -->
+                    <a href="{% url 'search:owner_dashboard' %}" class="w-1/2 text-center bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg font-bold">
+                        ← Back to Dashboard
+                    </a>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-1/2 bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded-lg font-bold">
                         Tambah Makanan
                     </button>
                 </div>
+
             </form>
 
             {% if form.errors %}

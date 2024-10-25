@@ -2,10 +2,17 @@
 {% load static %}
 
 {% block content %}
-<div class="min-h-screen flex flex-col items-center justify-start py-10">
+{% include 'navbar.html' %}
+<div class="min-h-screen flex flex-col items-center justify-start py-10 bg-yellow-50"> <!-- Kurangi padding py-5 agar lebih dekat ke navbar -->
+
+
+    <!-- Updated Greeting Section -->
+    <div class="greeting text-center text-3xl font-extrabold text-yellow-600 mb-4">
+        HAI! Kamu mau makan apa hari ini?
+    </div>
 
     <!-- Search Bar (With Filter) -->
-    <div class="search-bar mt-24 mb-3 w-full flex justify-center"> <!-- Ubah mb-6 jadi mb-3 -->
+    <div class="search-bar mt-8 mb-3 w-full flex justify-center"> 
         <form method="GET" class="w-3/4 md:w-2/3 lg:w-1/2 flex">
             {% csrf_token %}
             <input type="text" name="keyword" placeholder="Cari makanan..." class="flex-grow py-2 px-4 rounded-l-lg border border-gray-300">
@@ -14,8 +21,8 @@
     </div>
 
     <!-- Filter Section -->
-    <form method="GET" class="w-full md:w-3/4 flex justify-center space-x-4 my-6">
-        <div>
+    <form method="GET" class="w-full md:w-3/4 flex justify-center space-x-4 my-4"> <!-- Kurangi margin my-4 -->
+        <div class="flex items-center space-x-2">
             <label for="kategori" class="text-gray-700">Kategori:</label>
             <select id="kategori" name="kategori" class="border border-gray-300 py-2 px-4 rounded">
                 <option value="">Semua Kategori</option>
@@ -37,7 +44,7 @@
                 <option value="babi guling">Babi Guling</option>
             </select>
         </div>
-        <div>
+        <div class="flex items-center space-x-2">
             <label for="harga" class="text-gray-700">Harga:</label>
             <select id="harga" name="harga" class="border border-gray-300 py-2 px-4 rounded">
                 <option value="">Semua Harga</option>
@@ -50,7 +57,7 @@
     </form>
 
     <!-- Add New Food Button -->
-    <div class="mt-10 mb-8"> <!-- Tambahkan mt-10 untuk menurunkan posisi tombol -->
+    <div class="mt-8 mb-8"> <!-- Kurangi margin mt-8 -->
         <a href="{% url 'search:add_food' %}" class="bg-yellow-600 text-white py-2 px-4 rounded-md hover:bg-yellow-700 transition duration-300">
             + Add New Food
         </a>

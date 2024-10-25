@@ -247,8 +247,12 @@ def owner_dashboard_awal(request):
     return render(request, 'owner_dashboard.html', context)
 
 
-def logout_user(request):
-    logout(request)
-    response = HttpResponseRedirect(reverse('search:login'))
-    response.delete_cookie('last_login')
-    return response
+def search_redirect(request):
+    if request.user.is_authenticated:
+        # Periksa peran pengguna menggunakan field 'role'
+        if request.user.role == CustomUser.OWNER:  # Cek jika pengguna adalah owner
+            return redirect('search:owner_dashboard')  # Ganti dengan nama URL untuk owner_dashboard
+        else:
+            return redirect('search:food_search')  # Ganti dengan nama URL untuk food_search
+    else:
+        return redirect('login')  # Arahkan pengguna yang belum login ke halaman login

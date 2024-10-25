@@ -9,10 +9,12 @@
 {% endblock %}
 
 {% block content %}
+{% include 'navbar.html' %}
 <body class="bg-gray-100">
     <div class="flex h-screen overflow-y-auto">
-        <div class="w-full flex items-center justify-center bg-yellow-600">
+        <div class="w-full flex items-center justify-center bg-yellow-50">
             <div class="bg-white p-8 rounded-lg shadow-md w-11/12 md:w-3/4 lg:w-1/2 opacity-95 max-h-full overflow-y-auto">
+
                 <h2 class="text-2xl font-bold mb-6 text-gray-900">Edit Makanan</h2>
 
                 <!-- Form POST -->
@@ -89,21 +91,28 @@
                                    <p class="text-red-500">{{ form.rating.errors }}</p>
                                {% endif %}
                             </div>
-
-                            <div class="mb-4">
-                                <label for="deskripsi" class="block text-gray-700 font-bold mb-2">Deskripsi</label>
-                                <textarea id="deskripsi" name="deskripsi" 
-                                          class="w-full px-3 py-2 border rounded-lg bg-yellow-50"
-                                          required>{{ form.deskripsi.value }}</textarea>
-                                {% if form.deskripsi.errors %}
-                                   <p class="text-red-500">{{ form.deskripsi.errors }}</p>
-                               {% endif %}
-                            </div>
                         </div>
                     </div>
 
-                    <div class="mb-6 flex justify-end">
-                        <button type="submit" class="bg-yellow-500 hover:bg-yellow-700 text-white py-2 px-4 rounded-lg font-bold">
+                    <!-- Deskripsi Field as Full Width -->
+                    <div class="mb-6">
+                        <label for="deskripsi" class="block text-gray-700 font-bold mb-2">Deskripsi</label>
+                        <textarea id="deskripsi" name="deskripsi" 
+                                class="w-full px-3 py-2 border rounded-lg bg-yellow-50"
+                                rows="6" cols="50" 
+                                required>{{ form.deskripsi.value }}</textarea>
+                        {% if form.deskripsi.errors %}
+                        <p class="text-red-500">{{ form.deskripsi.errors }}</p>
+                        {% endif %}
+                    </div>
+
+
+                    <!-- Buttons -->
+                    <div class="mb-6 flex justify-between">
+                        <a href="{% url 'search:owner_dashboard' %}" class="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg font-bold">
+                            ← Back to Dashboard
+                        </a>
+                        <button type="submit" class="bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded-lg font-bold">
                             Edit Makanan
                         </button>
                     </div>
