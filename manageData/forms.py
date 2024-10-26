@@ -8,16 +8,16 @@ class NewUserForm(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'password1', 'password2', 'referral_code')
+        fields = ('username', 'password1', 'password2', 'referral_code', 'isAdmin')
 
     def clean(self):
         cleaned_data = super().clean()
         referral_code = cleaned_data.get('referral_code')
-        is_admin = cleaned_data.get('isAdmin')
+        is_admin = cleaned_data.get('isAdmin') == 'True'  # Konversi pilihan ke boolean
 
-        # Validate the referral code
-        if referral_code != "PBPC06WOW!" and is_admin:
+        # Validasi referral_code jika pendaftar memilih Admin
+        if is_admin and referral_code != "PBPC06WOW!":
             self.add_error('referral_code', "Invalid referral code. Please enter a valid code to register as an admin.")
-            cleaned_data['isAdmin'] = False  # Reset to default user role if code is incorrect
+            cleaned_data['isAdmin'] = False  # Kembalikan ke User jika kode referral salah
 
         return cleaned_data
