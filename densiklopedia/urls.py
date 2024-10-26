@@ -4,7 +4,7 @@ from densiklopedia.views import show_profil, show_sejarah, show_wisata, show_bud
 app_name = 'densiklopedia'
 
 urlpatterns = [
-    path('profil/', show_profil, name='profil'),
+    path('', show_profil, name='profil'),
     path('sejarah/', show_sejarah, name='sejarah'),
     path('wisata/', show_wisata, name='wisata'),
     path('budaya/', show_budaya, name='budaya'),

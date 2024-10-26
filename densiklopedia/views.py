@@ -1,12 +1,10 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from django.utils.html import strip_tags
 from django.core import serializers
-# from django.contrib.auth.models import User
-# from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from manageData.models import CustomUser
 from .models import ArticleEntry
 from .forms import ArticleEntryForm
 
@@ -35,15 +33,15 @@ def show_xml(request):
 
 def show_json(request):
     articles = ArticleEntry.objects.filter(user=request.user)
-    data = []
-    for article in articles:
-            data.append({
-                'id': article.id,
-                'judul': article.title,
-                'gambar': article.image,
-                'subjudul': article.subtitle
-            })
-
+    data = [
+        {
+            'id': article.id,
+            'judul': article.judul,
+            'gambar': article.gambar,
+            'subjudul': article.subjudul
+        }
+        for article in articles
+    ]
     return JsonResponse(data, safe=False)
 
 def show_xml_by_id(request, id):
@@ -51,7 +49,7 @@ def show_xml_by_id(request, id):
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
 
 def show_json_by_id(request, id):
-    article = ArticleEntry.objects.filter(pk=id)
+    article = ArticleEntry.objects.filter(pk=id).first()
     if article:
         data = {
             'id': article.id,
@@ -65,22 +63,18 @@ def show_json_by_id(request, id):
 
 @csrf_exempt
 @require_POST
+@login_required
 def add_artikel(request):
-    if request.method == 'POST':
-        judul = request.POST.get('judul')
-        gambar = request.POST.get('gambar')
-        subjudul = request.POST.get('subjudul')
-        konten = request.POST.get('konten')
-        # user = request.user
+    form = ArticleEntryForm(request.POST)
+    if form.is_valid():
+        artikel = form.save(commit=False)
+        artikel.user = request.user  # Set user yang sedang login
+        artikel.save()
 
-        artikel = ArticleEntry.objects.create(judul=judul, gambar=gambar, subjudul=subjudul, konten=konten)
-
-        # Kembalikan artikel yang baru saja ditambahkan dalam format JSON
         return JsonResponse({
             'id': artikel.id,
             'judul': artikel.judul,
             'gambar': artikel.gambar,
             'subjudul': artikel.subjudul
         })
-
-    return JsonResponse({'error': 'Invalid request'}, status=400)
+    return JsonResponse({'error': form.errors}, status=400)  # Kembalikan kesalahan form

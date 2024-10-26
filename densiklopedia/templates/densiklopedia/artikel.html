@@ -4,6 +4,7 @@
 <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
 {% endblock meta %}
 {% block content %}
+{% include 'navbar.html' %}
 {% include 'densiklopedia/sidebar.html' %}
 <div class="main-content p-10 bg-white min-h-screen mt-24">
     <div class="flex justify-between items-start mb-5">
@@ -16,7 +17,7 @@
     </div>
 
     <!-- Kontainer untuk menampilkan daftar artikel -->
-    <div class="flex flex-wrap justify-center gap-7" id="article_container"></div>
+    <div class="flex flex-wrap justify-center gap-4" id="article_container"></div>
 
     <!-- Modal untuk menambah artikel -->
     <div id="addArticleModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center overflow-x-hidden overflow-y-auto transition-opacity duration-300 ease-out">
@@ -54,13 +55,13 @@
 
 <script>
     async function getArticlesEntry() {
-    return fetch("{% url 'densiklopedia:show_json' %}").then((res) => res.json())
+        return fetch("{% url 'densiklopedia:show_json' %}").then((res) => res.json());
     }
 
     async function refreshArticles() {
         const articles = await getArticlesEntry();
-        console.log(articles); // Cek output JSON
-        
+        console.log(articles); 
+
         let htmlString = "";
         let classNameString = "";
 
@@ -71,21 +72,21 @@
                 </div>
             `;
         } else {
-            classNameString = "columns-1 sm:columns-2 lg:columns-3 gap-6";
+            classNameString = "columns-1 sm:columns-2 lg:columns-2 gap-2";
             articles.forEach((article) => {
                 const judul = DOMPurify.sanitize(article.judul);
                 const gambar = DOMPurify.sanitize(article.gambar);
                 const subjudul = DOMPurify.sanitize(article.subjudul);
 
                 htmlString += `
-                    <div class="bg-white rounded-xl shadow-lg flex w-full sm:w-[48%] max-w-3xl">
-                        <div class="w-3/4 p-3">
+                    <div class="bg-white rounded-xl shadow-lg flex flex-col sm:flex-row w-full sm:w-[48%] max-w-3xl mx-2 my-4">
+                        <div class="flex-1 p-4">
                             <h1 class="text-xl font-semibold mb-1">${judul}</h1>
                             <a href="/view/${article.id}" class="text-yellow-500 font-bold hover:underline">Read more...</a>
                             <p class="text-sm">${subjudul}</p>
                         </div>
-                        <div class="w-1/4 bg-gray-100 p-3 flex items-center justify-center rounded-xl">
-                            <img src="${gambar}" alt="Image for ${judul}" class="w-full h-full object-cover rounded-lg">
+                        <div class="w-1/3 bg-gray-100 p-2 flex items-center justify-center rounded-xl">
+                            <img src="${gambar}" alt="Image for ${judul}" class="w-full h-auto object-cover rounded-lg">
                         </div>
                     </div>
                 `;
@@ -99,16 +100,20 @@
 
     function addArticleEntry() {
         const form = document.querySelector('#addArticleForm');
-      
+
         fetch("{% url 'densiklopedia:add_artikel' %}", {
             method: "POST",
             body: new FormData(form),
         })
-        .then((response) => response.json())
-        .then(() => {
-            // Setelah artikel berhasil ditambahkan, refresh daftar artikel
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then((newArticle) => {
+            // After the article is added, refresh the articles
             refreshArticles();
-            // Tutup modal dan reset form
             closeModal();
             form.reset();
         })
@@ -117,20 +122,18 @@
         return false;
     }
 
-    // Fungsi untuk menampilkan modal
     function showModal() {
         document.getElementById('addArticleModal').classList.remove('hidden');
     }
 
-    // Fungsi untuk menutup modal
     function closeModal() {
         document.getElementById('addArticleModal').classList.add('hidden');
     }
 
-    // Event listener untuk form submission
+    // Event listener for form submission
     document.getElementById("addArticleForm").addEventListener("submit", (e) => {
         e.preventDefault();
         addArticleEntry();
     });
-</script>  
+</script>
 {% endblock content %}
