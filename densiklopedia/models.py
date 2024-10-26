@@ -1,9 +1,9 @@
 import uuid
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 class ArticleEntry(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     judul = models.CharField(max_length=255)
     gambar = models.URLField(max_length=200)
@@ -15,5 +15,4 @@ class ArticleEntry(models.Model):
         return self.judul
 
     def can_edit_delete(self, user):
-        # To check if the article can be edited or deleted by the current user
         return self.user == user
