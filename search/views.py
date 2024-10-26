@@ -178,19 +178,13 @@ def edit_food(request, food_id):
     context = {'form': form}
     return render(request, "edit_foods.html", context)
 
-
-
-
 # @login_required(login_url='/login')
 def delete_food(request, food_id):
     food = get_object_or_404(Food, id=food_id)
     food.delete()
     return redirect('search:owner_dashboard')
 
-
-
 # @login_required(login_url='/login')
-# @user_passes_test(owner_required)
 def owner_dashboard_awal(request):
     foods = Food.objects.all()  # Data makanan yang bisa dilihat dan dikelola owner
     context = {
