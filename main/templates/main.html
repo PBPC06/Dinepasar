@@ -1,47 +1,101 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 {% include 'navbar.html' %}
 
-<!-- Moving Text for Dinepasar Title -->
-<div class="moving-text-container">
-  <h1 class="moving-text">Dinepasar</h1>
+<!-- Image Carousel -->
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="background: linear-gradient(135deg, #fff0e0, #fffefe);">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'image/food1.png' %}" class="d-block w-100" alt="Food Image 1">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'image/food2.png' %}" class="d-block w-100" alt="Food Image 2">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'image/food3.png' %}" class="d-block w-100" alt="Food Image 3">
+    </div>
+  </div>
+  
+  <!-- Kontrol carousel -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true">&lt;</span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true">&gt;</span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
 
-<!-- Display Food Entries if available -->
-{% if not food_entries %}
-<p>Belum ada makanan yang terdaftar.</p>
-{% else %}
-<table>
-  <thead>
-    <tr>
-      <th>Food Name</th>
-      <th>Description</th>
-      <th>Price</th>
-      <th>Rating</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for food_entry in food_entries %}
-    <tr>
-      <td>{{ food_entry.food }}</td>
-      <td>{{ food_entry.description }}</td>
-      <td>{{ food_entry.price }}</td>
-      <td>{{ food_entry.rating }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-{% endif %}
-
-<!-- Add New Food Entry Button -->
-<div>
-  <a href="{% url 'main:create_food_entry' %}">
-    <button>Add New Food Entry</button>
-  </a>
+<!-- Teks Selamat Datang -->
+<div class="text-center mt-4">
+  <h1 style="font-family: 'CharpentierClassic'; font-size: 2rem; color: #4a4a4a;">
+    Welcome to Dinepasar
+  </h1>
 </div>
 
-<!-- Last Login Information -->
-<h5>Sesi terakhir login: {{ last_login }}</h5>
-<h5>Role kamu: {{ role }}</h5>
+<style>
+  
+  /* Menambahkan gradasi pada background halaman */
+  body {
+    background: linear-gradient(135deg, #feead5, #fffefe);
+    margin: 0;
+  }
+
+  .carousel {
+    position: relative;
+    background: linear-gradient(135deg, #fff0e0, #fffefe); /* Menyamakan background carousel */
+    margin-bottom: 0; /* Menghilangkan jarak kosong di bawah carousel */
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+    color: black;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    padding: 0 10px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-control-prev {
+    left: 10px;
+  }
+
+  .carousel-control-next {
+    right: 10px;
+  }
+
+  /* Gaya untuk indikator carousel */
+  .carousel-indicators button {
+    background-color: #d3d3d3;
+    border: none;
+    border-radius: 10px;
+    width: 20px;
+    height: 10px;
+    margin: 0 5px;
+  }
+
+  .carousel-indicators .active {
+    background-color: #4a4a4a;
+  }
+
+  .carousel-indicators button:not(.active) {
+    opacity: 0.5;
+  }
+</style>
 
 {% endblock content %}
