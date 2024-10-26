@@ -7,7 +7,7 @@
     
     <!-- Search Bar -->
     <div class="search-bar mt-24 mb-6 w-full flex justify-center">
-        <form method="GET" class="w-3/4 md:w-2/3 lg:w-1/2 flex">
+        <form method="POST" class="w-3/4 md:w-2/3 lg:w-1/2 flex">
             {% csrf_token %}
             <input type="text" name="keyword" placeholder="Cari makanan..." class="flex-grow py-2 px-4 rounded-l-lg border border-gray-300">
             <button type="submit" class="bg-yellow-600 text-white py-2 px-4 rounded-r-lg hover:bg-yellow-700">Cari</button>
@@ -15,7 +15,8 @@
     </div>
 
     <!-- Filter Section -->
-    <form method="GET" class="w-full md:w-3/4 flex justify-center space-x-4 my-6">
+    <form method="POST" class="w-full md:w-3/4 flex justify-center space-x-4 my-6">
+        {% csrf_token %}
         <div class="flex items-center space-x-2">
             <label for="kategori" class="text-gray-700">Kategori:</label>
             <select id="kategori" name="kategori" class="border border-gray-300 py-2 px-4 rounded">
