@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+{% endblock meta %}
+
+{% block content %}
+    {% include 'navbar.html' %}
+    <div class="flex flex-col min-h-screen bg-gray-100">
+        <div class="container mx-auto px-4 py-6 mt-16 max-w-md"> <!-- Set max width for the card -->
+            <h1 class="text-3xl font-bold text-center mb-8 text-black">Edit Artikel</h1>
+
+            <div class="bg-white rounded-lg px-10 py-10 form-style shadow-md"> <!-- Card for the form -->
+                <form method="POST" action="{% url 'densiklopedia:edit_artikel' article.id %}"> 
+                    {% csrf_token %}
+                    
+                    <div class="flex flex-col space-y-4"> <!-- Single column layout for inputs -->
+                        <div class="flex flex-col">
+                            <label for="judul" class="mb-2 font-semibold text-gray-700">Judul:</label>
+                            <input type="text" name="judul" id="judul" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ article.judul }}" required>
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="gambar" class="mb-2 font-semibold text-gray-700">Link Gambar:</label>
+                            <input type="url" name="gambar" id="gambar" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ article.gambar }}" required>
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="subjudul" class="mb-2 font-semibold text-gray-700">Subjudul:</label>
+                            <input type="text" name="subjudul" id="subjudul" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ article.subjudul }}" required>
+                        </div>
+                        <div class="flex flex-col"> <!-- Larger textarea for content -->
+                            <label for="konten" class="mb-2 font-semibold text-gray-700">Isi Konten:</label>
+                            <textarea name="konten" id="konten" rows="8" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>{{ article.konten }}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center mt-6"> <!-- Centering buttons -->
+                        <div class="flex space-x-4"> <!-- Flex container for button spacing -->
+                            <a href="{% url 'densiklopedia:artikel' %}" class="bg-gray-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-gray-600 transition duration-300 ease-in-out">Kembali</a>
+                            <button type="submit" class="bg-yellow-700 text-white font-semibold px-6 py-3 rounded-lg hover:bg-yellow-600 transition duration-300 ease-in-out">
+                                Ubah
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

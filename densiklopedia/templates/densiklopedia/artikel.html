@@ -17,7 +17,7 @@
     </div>
 
     <!-- Kontainer untuk menampilkan daftar artikel -->
-    <div class="flex flex-wrap justify-center gap-4" id="article_container"></div>
+    <div id="article_container" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
 
     <!-- Modal untuk menambah artikel -->
     <div id="addArticleModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center overflow-x-hidden overflow-y-auto transition-opacity duration-300 ease-out">
@@ -27,7 +27,7 @@
             </div>
 
             <!-- Form untuk menambah artikel -->
-            <form id="addArticleForm">
+            <form id="addArticleForm" onsubmit="return addArticleEntry();">
                 {% csrf_token %}
                 <!-- Input fields -->
                 <div class="mb-4">
@@ -63,7 +63,6 @@
         console.log(articles); 
 
         let htmlString = "";
-        let classNameString = "";
 
         if (articles.length === 0) {
             htmlString = `
@@ -72,28 +71,42 @@
                 </div>
             `;
         } else {
-            classNameString = "columns-1 sm:columns-2 lg:columns-2 gap-2";
             articles.forEach((article) => {
                 const judul = DOMPurify.sanitize(article.judul);
                 const gambar = DOMPurify.sanitize(article.gambar);
                 const subjudul = DOMPurify.sanitize(article.subjudul);
+                const viewUrl = `/densiklopedia/view/${article.id}/`;
+                const editUrl = `/densiklopedia/edit/${article.id}/`;
 
                 htmlString += `
-                    <div class="bg-white rounded-xl shadow-lg flex flex-col sm:flex-row w-full sm:w-[48%] max-w-3xl mx-2 my-4">
-                        <div class="flex-1 p-4">
-                            <h1 class="text-xl font-semibold mb-1">${judul}</h1>
-                            <a href="/view/${article.id}" class="text-yellow-500 font-bold hover:underline">Read more...</a>
-                            <p class="text-sm">${subjudul}</p>
+                    <div class="bg-white rounded-2xl shadow-lg flex flex-row">
+                        <div class="flex-grow p-4 flex flex-col justify-between">
+                            <h1 class="text-xl font-semibold mb-2">${judul}</h1>
+                            <a href="${viewUrl}" class="text-yellow-500 font-bold hover:underline">Read more...</a>
+                            <p class="text-sm mt-2">${subjudul}</p>
+                            <div class="flex justify-between items-center mt-2">
+                                <div class="flex-grow"></div>
+                                <div class="flex space-x-2">
+                                    <a href="${editUrl}" class="bg-yellow-500 hover:bg-yellow-600 text-white rounded-full p-1 transition duration-300 shadow-md flex items-center justify-center h-8 w-8">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                        </svg>
+                                    </a>
+                                    <button onclick="deleteArticleEntry('${article.id}')" class="bg-red-500 hover:bg-red-600 text-white rounded-full p-1 transition duration-300 shadow-md flex items-center justify-center h-8 w-8">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="w-1/3 bg-gray-100 p-2 flex items-center justify-center rounded-xl">
-                            <img src="${gambar}" alt="Image for ${judul}" class="w-full h-auto object-cover rounded-lg">
+                        <div class="bg-gray-100 p-2 flex items-center justify-center rounded-r-2xl">
+                            <img src="${gambar}" alt="Image for ${judul}" class="object-cover w-32 h-32 rounded-r-2xl"> <!-- Set image size for consistency -->
                         </div>
                     </div>
                 `;
             });
         }
-
-        document.getElementById("article_container").className = classNameString;
         document.getElementById("article_container").innerHTML = htmlString;
     }
     refreshArticles();
@@ -112,7 +125,6 @@
             return response.json();
         })
         .then((newArticle) => {
-            // After the article is added, refresh the articles
             refreshArticles();
             closeModal();
             form.reset();
@@ -130,10 +142,23 @@
         document.getElementById('addArticleModal').classList.add('hidden');
     }
 
-    // Event listener for form submission
-    document.getElementById("addArticleForm").addEventListener("submit", (e) => {
-        e.preventDefault();
-        addArticleEntry();
-    });
+    function deleteArticleEntry(articleId) {
+        if (confirm("Apakah Anda yakin ingin menghapus artikel ini?")) {
+            fetch(`/densiklopedia/delete/${articleId}/`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+            })
+            .then((response) => {
+                if (response.ok) {
+                    refreshArticles();
+                } else {
+                    alert('Gagal menghapus artikel. Silakan coba lagi.');
+                }
+            })
+            .catch((error) => console.error('Error:', error));
+        }
+    }
 </script>
-{% endblock content %}
+{% endblock %}
