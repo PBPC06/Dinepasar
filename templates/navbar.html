@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dinepasar</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Link Google Fonts untuk Noto Serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cookie&family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 </head>
 <body class="pt-16">
 
@@ -13,7 +18,7 @@
             <div class="relative flex items-center justify-between h-16">
                 <!-- Logo -->
                 <div class="flex items-center">
-                  <h1 class="text-center text-black text-2xl font-extrabold text-yellow-600">
+                  <h1 class="text-center text-black text-2xl font-extrabold text-yellow-600" style="font-family: 'Noto Serif', serif;">
                     <a href="/" class="hover:underline text-yellow-600">Dinepasar</a>
                   </h1>
                 </div>
@@ -21,7 +26,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden sm:block sm:ml-6">
                     <div class="flex space-x-4">
-                        <a href="{% url 'main:show_main' %}" class="text-gray7500 px-3 py-2 rounded-md text-sm font-bold hover:text-yellow-600">Home</a>
+                        <a href="{% url 'main:show_main' %}" class="text-gray-700 px-3 py-2 rounded-md text-sm font-bold hover:text-yellow-600">Home</a>
                         <a href="#" class="text-gray-700 px-3 py-2 rounded-md text-sm font-bold hover:text-yellow-600">Search</a>
                         <a href="#" class="text-gray-700 px-3 py-2 rounded-md text-sm font-bold hover:text-yellow-600">Review</a>
                         <a href="#" class="text-gray-700 px-3 py-2 rounded-md text-sm font-bold hover:text-yellow-600">Favorite</a>
@@ -32,12 +37,12 @@
                 <!-- Profile and Log Out Section -->
                 <div class="hidden sm:flex items-center space-x-4">
                     <!-- Display the user's name dynamically -->
-                    <span class="text-yellow-600 text-2l font-medium">Hi, {{ user.username }}!</span>
+                    <span class="text-yellow-600 text-1xl font-medium">Hi, {{ user.username }}!</span>
                     <a 
                         href="{% url 'manageData:login' %}"
                         class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700">
                         Log Out
-                </a>
+                    </a>
                 </div>
             </div>
         </div>
