@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'main',
     'manageData',
     'search',
+    'deskripsi',
+    'favorite',
     'densiklopedia',
 ]
 

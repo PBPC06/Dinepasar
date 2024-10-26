@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="min-h-screen flex flex-col items-center justify-start py-5 bg-yellow-50">
+    <h2 class="text-2xl font-bold">Your Favorite Foods</h2>
+    <div class="mt-5 max-w-2xl w-full">
+        {% for favorite in favorites %}
+            <div class="flex items-center justify-between bg-white rounded-lg shadow-md p-4 mb-4">
+                <img src="{{ favorite.food.gambar }}" alt="{{ favorite.food.nama_makanan }}" class="h-20 w-20 object-cover rounded-lg">
+                <div class="flex-1 mx-3">
+                    <h3 class="font-bold">{{ favorite.food.nama_makanan }}</h3>
+                    <p>{{ favorite.food.deskripsi }}</p>
+                    <p class="text-gray-600">{{ favorite.food.kategori }}</p>
+                </div>
+                <p class="font-bold">Rp {{ favorite.food.harga }}</p>
+            </div>
+        {% empty %}
+            <p class="text-gray-500">No favorites yet!</p>
+        {% endfor %}
+    </div>
+    
+    <h3 class="text-xl font-bold mt-10">Recommended for You</h3>
+    <div class="mt-5">
+        {% for food in recommended_foods %}
+            <div class="bg-white rounded-lg shadow-md p-4 mb-4">
+                <h4 class="font-bold">{{ food.nama_makanan }}</h4>
+                <p>{{ food.deskripsi }}</p>
+                <p class="font-bold">Rp {{ food.harga }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -201,3 +201,11 @@ def search_redirect(request):
             return redirect('search:owner_dashboard')  # Ganti dengan nama URL untuk owner_dashboard
         else:
             return redirect('search:food_search')  # Ganti dengan nama URL untuk food_search
+        
+def food_preview(request, pk):
+    food = get_object_or_404(Food, pk=pk)
+    return render(request, 'search/food_preview.html', {'food': food})
+
+def food_detail(request, pk):
+    food = get_object_or_404(Food, pk=pk)
+    return render(request, 'food_detail.html', {'food': food})

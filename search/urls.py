@@ -11,5 +11,6 @@ urlpatterns = [
     path('delete/<int:food_id>', delete_food, name='delete_food'),
     path("api/foods/", get_foods, name="get_foods"),  # Mengakses data JSON
     path('food-search/', views.food_search, name='food_search'),  # Mengakses halaman search
-
+    path('<int:pk>/', views.food_preview, name='food_preview'),  # Untuk halaman detail
+    path('food/<int:pk>/', views.food_detail, name='food_detail'),
 ]
