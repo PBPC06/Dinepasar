@@ -27,7 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_z+h5hzom5x&zj&&b#janrv&5cuanbb5xmp3wr)djrxixd=))4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+PRODUCTION = os.getenv("PRODUCTION", False)
+DEBUG = not PRODUCTION
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "namira-aulia31-dinepasar.pbp.cs.ui.ac.id"]
 
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'manageData',
+    'search',
 ]
 
 MIDDLEWARE = [
@@ -124,6 +126,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+
 STATIC_URL = 'static/'
 if DEBUG:
     STATICFILES_DIRS = [
@@ -131,9 +134,13 @@ if DEBUG:
     ]
 else:
     STATIC_ROOT = BASE_DIR / 'static' # merujuk ke /static root project pada mode production
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost","http://127.0.0.1","http://namira-aulia31-dinepasar.pbp.cs.ui.ac.id", "https://namira-aulia31-dinepasar.pbp.cs.ui.ac.id"]
+
+
+
