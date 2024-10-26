@@ -15,9 +15,15 @@ class NewUserForm(UserCreationForm):
         referral_code = cleaned_data.get('referral_code')
         is_admin = cleaned_data.get('isAdmin') == 'True'  # Konversi pilihan ke boolean
 
-        # Validasi referral_code jika pendaftar memilih Admin
-        if is_admin and referral_code != "PBPC06WOW!":
-            self.add_error('referral_code', "Invalid referral code. Please enter a valid code to register as an admin.")
-            cleaned_data['isAdmin'] = False  # Kembalikan ke User jika kode referral salah
+        # Validasi untuk pengguna dengan peran "Admin"
+        if is_admin:
+            if not referral_code:
+                self.add_error('referral_code', "Referral code is required for Admin registration.")
+            elif referral_code != "PBPC06WOW!":
+                self.add_error('referral_code', "Invalid referral code. Please enter a valid code to register as an admin.")
+
+        # Validasi untuk pengguna dengan peran "User"
+        if not is_admin and referral_code:
+            self.add_error('referral_code', "Referral code should only be filled if registering as Admin.")
 
         return cleaned_data
