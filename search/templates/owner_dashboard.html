@@ -13,7 +13,7 @@
 
     <!-- Search Bar (With Filter) -->
     <div class="search-bar mt-8 mb-3 w-full flex justify-center"> 
-        <form method="GET" class="w-3/4 md:w-2/3 lg:w-1/2 flex">
+        <form method="POST" class="w-3/4 md:w-2/3 lg:w-1/2 flex">
             {% csrf_token %}
             <input type="text" name="keyword" placeholder="Cari makanan..." class="flex-grow py-2 px-4 rounded-l-lg border border-gray-300">
             <button type="submit" class="bg-yellow-600 text-white py-2 px-4 rounded-r-lg hover:bg-yellow-700">Cari</button>
@@ -21,7 +21,8 @@
     </div>
 
     <!-- Filter Section -->
-    <form method="GET" class="w-full md:w-3/4 flex justify-center space-x-4 my-4"> <!-- Kurangi margin my-4 -->
+    <form method="POST" class="w-full md:w-3/4 flex justify-center space-x-4 my-4"> <!-- Kurangi margin my-4 -->
+        {% csrf_token %}
         <div class="flex items-center space-x-2">
             <label for="kategori" class="text-gray-700">Kategori:</label>
             <select id="kategori" name="kategori" class="border border-gray-300 py-2 px-4 rounded">
@@ -94,8 +95,7 @@
 
             <!-- Buttons (Details, Edit, Delete) -->
             <div class="p-4 flex justify-between items-center">
-                <!-- Details Button (Left-aligned) -->
-                <button onclick="openModal('{{ food.pk }}')" class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700">Details</button>
+
                 <!-- Edit and Delete Buttons (Right-aligned) -->
                 <div class="flex space-x-2">
                     <!-- Tombol Delete -->
@@ -112,6 +112,10 @@
                         </svg>
                     </a>
                 </div>
+
+
+                <!-- Details Button (Left-aligned) -->
+                <button onclick="openModal('{{ food.pk }}')" class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700">Details</button>
             </div>
 
         </div>
