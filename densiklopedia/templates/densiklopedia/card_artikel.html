@@ -1,0 +1,11 @@
+<!-- card_article.html -->
+<div class="bg-white rounded-xl shadow-lg flex w-full sm:w-[48%] max-w-3xl">
+    <div class="w-3/4 p-3">
+        <h1 class="text-xl font-semibold mb-1">{{ judul }}</h1>
+        <a href="/view/{{ article.id }}" class="text-yellow-500 font-bold hover:underline">Read more...</a>
+        <p class="text-sm">{{ subjudul }}</p>
+    </div>
+    <div class="w-1/4 bg-gray-100 p-3 flex items-center justify-center rounded-xl">
+        <img src="{{ gambar }}" alt="Image for {{ judul }}" class="w-full h-full object-cover rounded-lg">
+    </div>
+</div>
