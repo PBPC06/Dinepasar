@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block meta %}
+    <title>Review | Dinepasar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+        .new-label {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #FFD700;
+            color: #fff;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+        .see-details-button {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            background-color: #D4A017;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+        .see-details-button:hover {
+            background-color: #FFBF00;
+        }
+        #id_rate,
+        #id_review {
+            padding: 0.5rem 0.75rem; 
+            border-width: 1px; 
+            width: 100%; 
+            border-radius: 5px;
+        }
+        #id_review {
+            resize: none; 
+        }
+    </style>
+{% endblock meta %}
+
+{% block content %}
+<div class="container mx-auto">
+    <div class="flex flex-col align-center justify-center my-8">
+        <p class="font-inter font-bold text-center text-3xl text-[#D4A017]">Which dish would you like to review?</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 px-4 md:px-0">
+        {% for food in products %}
+            <div class="max-w-md rounded overflow-hidden shadow-lg bg-white relative border border-[#D4A017]">
+                <div class="relative">
+                    <img class="w-full h-64 object-cover" src="{{ food.Image }}" alt="{{ food.food_name }}">
+                    <button onclick="showReviewModal({{food.id}})" class="see-details-button text-sm md:text-base font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Review this Dish!
+                    </button>
+                </div>
+                <div class="px-6 md:px-8 py-4">
+                    <div class="md:text-xl text-[#D4A017] font-inter font-bold mb-2">
+                        {{ food.food_name }}
+                    </div>
+                    <div class="text-sm md:text-sm text-gray-600 mb-2">
+                        Restaurant: {{ food.restaurant_name }}
+                    </div>
+                    <div class="text-sm md:text-sm text-gray-600 mb-4">
+                        Served Since: {{ food.year_introduced }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<div id="modal" class="hidden z-20 font-inter">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-20"></div>
+    <div class="fixed inset-0 z-20 w-screen overflow-y-auto">
+        <div id="modal-panel" class="flex min-h-full items-end justify-center p-4 text-center items-center sm:p-0">
+            <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg" onclick="event.stopPropagation()">
+                <div class="bg-white rounded-lg px-4 md:px-8 pt-4 md:pt-8 md:mb-4 mb-2 md:max-w-xl max-w-sm">
+                    <p class="md:text-2xl text-xl font-bold text-[#D4A017] pb-4">Share Your Review!</p>
+                    <form id="form" method="POST">
+                        {% csrf_token %}
+                        <div class="grid grid-cols-1 gap-y-3 gap-x-4 font-inter">
+                            <div class="flex">
+                                <div>
+                                    <img id="review-img" class="h-28 md:h-auto">
+                                </div>
+                                <div class="flex flex-col ml-6">
+                                    <p id="food-title" class="font-bold text-[#D4A017]"></p>
+                                    <p id="food-restaurant" class="text-sm"></p>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="id_rate" class="font-medium text-sm md:text-base text-gray-700">Rate this dish (1-5):</label>
+                                <div class="py-2">
+                                    {{form.rating}}
+                                </div>
+                            </div>
+                            <div>
+                                <label for="id_review" class="font-medium text-sm md:text-base text-gray-700">Your review about this dish:</label>
+                                <div class="py-2">
+                                    {{form.review_message}}
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="bg-gray-50 px-4 pb-4 pt-2 md:pt-4 sm:flex sm:flex-row-reverse sm:px-8">
+                    <button id="aplot" onclick="" class="cursor-pointer inline-flex w-full justify-center rounded-md bg-[#D4A017] hover:bg-[#FFBF00] px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto">Post Review</button>
+                    <button id="gagal" type="button" class="inline-flex mt-2 md:mt-0 w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-200 sm:mt-0 sm:w-auto">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block script %}
+<script src="/static/js/nav_script.js"></script>
+<script src="/static/js/review.js"></script>
+{% endblock script %}
