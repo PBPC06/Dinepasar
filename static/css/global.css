@@ -1,0 +1,82 @@
+/* General form input styling: Default border abu-abu tua */
+.form-style form input, 
+.form-style form textarea, 
+.form-style form select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1.5px solid #4B5563 !important; /* Abu-abu tua (default) */
+    border-radius: 0.375rem;
+    background-color: #ffffff; /* Background putih */
+    color: #333; /* Warna teks */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Efek transisi halus */
+}
+
+/* Fokus pada input field: border kuning tua dan shadow */
+.form-style form input:focus, 
+.form-style form textarea:focus, 
+.form-style form select:focus {
+    outline: none;
+    border-color: #c39f3c !important; /* Kuning tua */
+    /* box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.5); Shadow dengan tone kuning tua */
+}
+
+
+/* Shine animation effect */
+@keyframes shine {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.animate-shine {
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.3), rgba(255, 191, 0, 0.3) 50%, rgba(255, 215, 0, 0.3));
+    background-size: 200% 100%;
+    animation: shine 3s infinite;
+}
+
+/* Glow animation effect for buttons */
+@keyframes soft-shine {
+    0% { left: -150%; }
+    100% { left: 150%; }
+}
+
+.btn-glow {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    background-color: #FFD700; /* Golden yellow button background */
+    border-radius: 0.375rem;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-glow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), rgba(255, 255, 255, 0.3), rgba(255, 215, 0, 0.1));
+    animation: soft-shine 2s infinite;
+}
+
+.btn-glow:hover {
+    background-color: #FFC300; /* Slightly darker golden yellow on hover */
+    transition: background-color 0.3s ease;
+}
+
+/* Custom font import */
+@font-face {
+    font-family: 'CharpentierClassic';
+    src: url('/static/font/CharpentierClassicRed_Reg.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1 {
+    font-family: 'CharpentierClassic', sans-serif;
+    color: #FFD700; /* Golden yellow text */
+}

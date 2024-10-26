@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinepasar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="pt-16">
+
+    <nav class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+            <div class="relative flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                  <h1 class="text-center text-black text-2xl font-extrabold text-yellow-600">
+                    <a href="/" class="hover:underline text-yellow-600">Dinepasar</a>
+                  </h1>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="hidden sm:block sm:ml-6">
+                    <div class="flex space-x-4">
+                        <a href="{% url 'main:show_main' %}" class="text-gray7500 px-3 py-2 rounded-md text-sm font-bold hover:text-yellow-600">Home</a>
+                        <a href="{% url 'search:search_redirect' %}" class="text-gray-700 px-3 py-2 rounded-md text-sm font-bold hover:text-yellow-600">Search</a>
+                        <a href="#" class="text-gray-700 px-3 py-2 rounded-md text-sm font-bold hover:text-yellow-600">Review</a>
+                        <a href="#" class="text-gray-700 px-3 py-2 rounded-md text-sm font-bold hover:text-yellow-600">Favorite</a>
+                        <a href="#" class="text-gray-700 px-3 py-2 rounded-md text-sm font-bold hover:text-yellow-600">Densiklopedia</a>
+                    </div>
+                </div>
+
+                <!-- Profile and Log Out Section -->
+                <div class="hidden sm:flex items-center space-x-4">
+                    <!-- Display the user's name dynamically -->
+                    <span class="text-yellow-600 text-2l font-medium">Hi, {{ user.username }}!</span>
+                    <a 
+                        href="{% url 'manageData:login' %}"
+                        class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700">
+                        Log Out
+                </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+</body>
+</html>

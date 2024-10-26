@@ -16,11 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from densiklopedia.views import show_profil
-
+from manageData.views import login_user
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('main.urls')),
+    path('manageData/', include('manageData.urls')),
+    path('login/', login_user, name='login'),
+    path('search/', include('search.urls')),
     path('densiklopedia/', include('densiklopedia.urls')),
-    path('', show_profil, name='landing_page'),
 ]
