@@ -28,11 +28,11 @@ def show_artikel(request):
     return render(request, 'densiklopedia/artikel.html', context)
 
 def show_xml(request):
-    data = ArticleEntry.objects.filter(user=request.user)
+    data = ArticleEntry.objects.all()
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
 
 def show_json(request):
-    articles = ArticleEntry.objects.filter(user=request.user)
+    articles = ArticleEntry.objects.all()
     data = [
         {
             'id': article.id,
