@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.db.models import Q
 from django.views.decorators.http import require_POST
 from django.http import HttpResponseRedirect
+from manageData.models import CustomUser
 
 
 # Create your views here.
@@ -168,14 +169,14 @@ def delete_food(request, food_id):
     
     return JsonResponse({'success': False, 'message': 'Invalid request.'}, status=400)
 
-
 def search_redirect(request):
     if request.user.is_authenticated:
-        # Periksa peran pengguna menggunakan field 'role'
+        print(f"User is_admin: {request.user.is_admin}")
         if request.user.is_admin:  # Cek jika pengguna adalah owner
-            return redirect('search:owner_dashboard') 
+            return redirect('search:owner_dashboard')
         if not request.user.is_admin:
-            return redirect('search:food_search') 
+            return redirect('search:food_search')
+
         
 def fetch_foods(request):
     if request.method == "GET":
