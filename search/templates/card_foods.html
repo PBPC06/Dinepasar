@@ -17,10 +17,7 @@
 
                 <!-- Rating (Bintang dan Angka) -->
                 <div class="flex items-center space-x-2 mb-2">
-                    <!-- Bintang -->
-                    <img src="{% static 'images/star.png' %}" alt="Star" class="h-4 w-4">
-                    <!-- Rating Angka -->
-                    <span class="text-gray-700 text-sm">{{ food.rating }} / 5</span>
+                    <span class="text-gray-700 text-sm">⭐{{ food.rating }} / 5</span>
                 </div>
 
                 <!-- Harga (Bold) -->
@@ -28,9 +25,11 @@
             </div>
 
             <!-- Button Details (inside the loop) -->
-            <div class="p-4 flex flex-col space-y-2">
-                <button onclick="openModal('{{ food.pk }}')" class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700">Details</button>
-            </div>
+            <div class="flex justify-center">
+                <a href="{% url 'food_detail' food.pk %}" class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700">
+                    Details
+                </a>
+            </div>   
         </div>
         {% endfor %}
     </div>

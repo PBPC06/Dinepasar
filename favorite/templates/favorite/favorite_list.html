@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="min-h-screen flex flex-col items-center justify-start py-5 bg-yellow-50">
+    <h2 class="text-3xl font-bold text-gray-800 mb-4 animate-fade-in border-b-2 border-yellow-600 pb-2">Your Favorite Foods</h2>
+
+    <!-- Favorite Foods List -->
+    <div class="mt-5 max-w-2xl w-full">
+        {% for favorite in favorites %}
+            <div class="flex items-center justify-between bg-white rounded-lg shadow-md p-4 mb-4 transition-transform transform hover:scale-105 hover:shadow-lg animate-slide-up">
+                <img src="{{ favorite.food.gambar }}" alt="{{ favorite.food.nama_makanan }}" class="h-20 w-20 object-cover rounded-lg transition-transform transform hover:scale-110">
+                
+                <div class="flex-1 mx-3">
+                    <h3 class="font-bold text-lg text-gray-800">{{ favorite.food.nama_makanan }}</h3>
+                    <p class="text-sm text-gray-600">{{ favorite.food.deskripsi }}</p>
+                    <p class="text-xs font-semibold text-yellow-600">{{ favorite.food.kategori }}</p>
+                    <p class="font-bold text-yellow-800 text-lg">Rp {{ favorite.food.harga }}</p>
+                </div>
+
+                <form action="{% url 'favorite:delete_favorite' favorite.id %}" method="post" class="flex items-center">
+                    {% csrf_token %}
+                    <button type="submit" class="bg-[#F44336] hover:bg-[#D32F2F] text-white rounded-full p-2 transition duration-300 shadow-md">
+                        <!-- Trash Can Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </form>                             
+                
+            </div>
+        {% empty %}
+            <div class="text-center">
+                <img src="{% static 'images/notfound.png' %}" alt="Not Found" class="mb-4 h-40 w-40 object-cover mx-auto">
+                <p class="text-gray-500">No favorites yet!</p>
+            </div>
+        {% endfor %}
+
+    </div>
+    
+    <!-- Recommended Foods Section -->
+    <h3 class="text-3xl font-bold text-gray-800 mt-10 animate-fade-in border-b-2 border-yellow-600 pb-2">Recommended for You</h3>
+    <div class="mt-5 max-w-2xl w-full">
+        {% for food in recommended_foods %}
+            <div class="flex items-center justify-between bg-white rounded-lg shadow-md p-4 mb-4 transition-transform transform hover:scale-105 hover:shadow-lg animate-slide-up">
+                <img src="{{ food.gambar }}" alt="{{ food.nama_makanan }}" class="h-20 w-20 object-cover rounded-lg transition-transform transform hover:scale-110">
+                
+                <div class="flex-1 mx-3">
+                    <h4 class="font-bold text-gray-800 text-lg">{{ food.nama_makanan }}</h4>
+                    <p class="text-gray-700 text-sm mb-1">{{ food.deskripsi }}</p>
+                    <p class="font-bold text-yellow-800 text-md">Rp {{ food.harga }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    /* Animation for fade-in effect */
+    .animate-fade-in {
+        animation: fadeIn 1s ease-in-out;
+    }
+    
+    /* Animation for sliding up */
+    .animate-slide-up {
+        animation: slideUp 0.8s ease-in-out;
+    }
+    
+    /* Keyframes for fade-in effect */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    /* Keyframes for slide-up effect */
+    @keyframes slideUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+</style>
+{% endblock %}
