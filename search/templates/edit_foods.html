@@ -3,136 +3,161 @@
 {% load static %}
 
 {% block meta %}
-    <meta charset="UTF-8">
-    <title>Edit Makanan</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<title>Edit Makanan</title>
+<script src="https://cdn.tailwindcss.com"></script>
 {% endblock %}
 
 {% block content %}
 {% include 'navbar.html' %}
 <body class="bg-gray-100">
-    <div class="flex h-screen overflow-y-auto">
-        <div class="w-full flex items-center justify-center bg-yellow-50">
-            <div class="bg-white p-8 rounded-lg shadow-md w-11/12 md:w-3/4 lg:w-1/2 opacity-95 max-h-full overflow-y-auto">
-
-                <h2 class="text-2xl font-bold mb-6 text-gray-900">Edit Makanan</h2>
-
-                <!-- Form POST -->
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Column 1 -->
-                        <div>
-                            <div class="mb-4">
-                                <label for="gambar" class="block text-gray-700 font-bold mb-2">Gambar Makanan (URL)</label>
-                                <input type="text" id="gambar" name="gambar" 
-                                       class="w-full px-3 py-2 border rounded-lg bg-yellow-50" 
-                                       value="{{ form.gambar.value }}" 
-                                       required>
-                                {% if form.gambar.errors %}
-                                   <p class="text-red-500">{{ form.gambar.errors }}</p>
-                               {% endif %}
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="nama_makanan" class="block text-gray-700 font-bold mb-2">Nama Makanan</label>
-                                <input type="text" id="nama_makanan" name="nama_makanan" 
-                                       class="w-full px-3 py-2 border rounded-lg bg-yellow-50" 
-                                       value="{{ form.nama_makanan.value }}" 
-                                       required>
-                                {% if form.nama_makanan.errors %}
-                                   <p class="text-red-500">{{ form.nama_makanan.errors }}</p>
-                               {% endif %}
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="restoran" class="block text-gray-700 font-bold mb-2">Restoran</label>
-                                <input type="text" id="restoran" name="restoran" 
-                                       class="w-full px-3 py-2 border rounded-lg bg-yellow-50" 
-                                       value="{{ form.restoran.value }}" 
-                                       required>
-                                {% if form.restoran.errors %}
-                                   <p class="text-red-500">{{ form.restoran.errors }}</p>
-                               {% endif %}
-                            </div>
-                        </div>
-
-                        <!-- Column 2 -->
-                        <div>
-                            <div class="mb-4">
-                                <label for="kategori" class="block text-gray-700 font-bold mb-2">Kategori</label>
-                                <input type="text" id="kategori" name="kategori" 
-                                       class="w-full px-3 py-2 border rounded-lg bg-yellow-50" 
-                                       value="{{ form.kategori.value }}" 
-                                       required>
-                                {% if form.kategori.errors %}
-                                   <p class="text-red-500">{{ form.kategori.errors }}</p>
-                               {% endif %}
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="harga" class="block text-gray-700 font-bold mb-2">Harga</label>
-                                <input type="number" id="harga" name="harga" 
-                                       class="w-full px-3 py-2 border rounded-lg bg-yellow-50" 
-                                       value="{{ form.harga.value }}" 
-                                       step="0.01" required>
-                                {% if form.harga.errors %}
-                                   <p class="text-red-500">{{ form.harga.errors }}</p>
-                               {% endif %}
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="rating" class="block text-gray-700 font-bold mb-2">Rating</label>
-                                <input type="number" id="rating" name="rating" 
-                                       class="w-full px-3 py-2 border rounded-lg bg-yellow-50" 
-                                       value="{{ form.rating.value }}" 
-                                       step="0.1" max="5" required>
-                                {% if form.rating.errors %}
-                                   <p class="text-red-500">{{ form.rating.errors }}</p>
-                               {% endif %}
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Deskripsi Field as Full Width -->
-                    <div class="mb-6">
-                        <label for="deskripsi" class="block text-gray-700 font-bold mb-2">Deskripsi</label>
-                        <textarea id="deskripsi" name="deskripsi" 
-                                class="w-full px-3 py-2 border rounded-lg bg-yellow-50"
-                                rows="6" cols="50" 
-                                required>{{ form.deskripsi.value }}</textarea>
-                        {% if form.deskripsi.errors %}
-                        <p class="text-red-500">{{ form.deskripsi.errors }}</p>
-                        {% endif %}
-                    </div>
 
 
-                    <!-- Buttons -->
-                    <div class="mb-6 flex justify-between">
-                        <a href="{% url 'search:owner_dashboard' %}" class="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg font-bold">
-                            ← Back to Dashboard
-                        </a>
-                        <button type="submit" class="bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded-lg font-bold">
-                            Edit Makanan
-                        </button>
-                    </div>
-                </form>
+<div id="food-container">
+    <!-- Card makanan akan muncul di sini setelah di-refresh oleh `refreshFoodCards()` -->
+</div>
+<!-- Edit Modal -->
+<div id="editModal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+    <div class="bg-white p-8 rounded-lg shadow-md w-11/12 md:w-3/4 lg:w-1/2 opacity-95 max-h-full overflow-y-auto">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">Edit Makanan</h2>
 
-                <!-- Display form errors if any -->
-                {% if form.errors %}
-                    <ul>
-                        {% for field in form %}
-                            {% for error in field.errors %}
-                                <li class="text-red-500">{{ error }}</li>
-                            {% endfor %}
-                        {% endfor %}
-                        {% for error in form.non_field_errors %}
-                            <li class="text-red-500">{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
+        <form id="editFoodForm" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Form fields -->
+                <div class="mb-4">
+                    <label for="gambar" class="block text-gray-700 font-bold mb-2">Gambar Makanan (URL)</label>
+                    <input type="text" id="gambar" name="gambar" class="w-full px-3 py-2 border rounded-lg bg-yellow-50">
+                </div>
+
+                <div class="mb-4">
+                    <label for="nama_makanan" class="block text-gray-700 font-bold mb-2">Nama Makanan</label>
+                    <input type="text" id="nama_makanan" name="nama_makanan" class="w-full px-3 py-2 border rounded-lg bg-yellow-50" required>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="restoran" class="block text-gray-700 font-bold mb-2">Restoran</label>
+                    <input type="text" id="restoran" name="restoran" class="w-full px-3 py-2 border rounded-lg bg-yellow-50" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="kategori" class="block text-gray-700 font-bold mb-2">Kategori</label>
+                    <input type="text" id="kategori" name="kategori" class="w-full px-3 py-2 border rounded-lg bg-yellow-50" required>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="harga" class="block text-gray-700 font-bold mb-2">Harga</label>
+                    <input type="number" id="harga" name="harga" class="w-full px-3 py-2 border rounded-lg bg-yellow-50" step="0.01" required>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="rating" class="block text-gray-700 font-bold mb-2">Rating</label>
+                    <input type="number" id="rating" name="rating" class="w-full px-3 py-2 border rounded-lg bg-yellow-50" step="0.1" max="5" required>
+                </div>
             </div>
-        </div>
+
+            <div class="mb-6">
+                <label for="deskripsi" class="block text-gray-700 font-bold mb-2">Deskripsi</label>
+                <textarea id="deskripsi" name="deskripsi" class="w-full px-3 py-2 border rounded-lg bg-yellow-50" rows="6" required></textarea>
+            </div>
+
+            <div class="mb-6 flex justify-between">
+                <button type="button" onclick="closeModal()" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg font-bold">Cancel</button>
+                <button type="submit" class="bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded-lg font-bold">Save</button>
+            </div>
+        </form>
+        <div id="responseMessage" class="mt-4"></div>
     </div>
+</div>
+
+<script>
+    let currentFoodId = null;
+
+    async function openEditModal(foodId) {
+        currentFoodId = foodId;
+        const modal = document.getElementById('editModal');
+        modal.classList.remove('hidden');
+
+        try {
+            const response = await fetch(`/food/${foodId}/edit/`);
+            const result = await response.json();
+
+            if (response.ok) {
+                document.getElementById('gambar').value = result.food.gambar;
+                document.getElementById('nama_makanan').value = result.food.nama_makanan;
+                document.getElementById('restoran').value = result.food.restoran;
+                document.getElementById('kategori').value = result.food.kategori;
+                document.getElementById('harga').value = result.food.harga;
+                document.getElementById('rating').value = result.food.rating;
+                document.getElementById('deskripsi').value = result.food.deskripsi;
+            } else {
+                alert('Gagal mengambil data makanan.');
+            }
+        } catch (error) {
+            console.error("Error loading data:", error);
+        }
+    }
+
+    document.getElementById('editFoodForm').onsubmit = function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        editFood(currentFoodId, formData);
+    };
+
+    async function editFood(foodId, formData) {
+        try {
+            const response = await fetch(`/edit_food/${foodId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+                body: formData,
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                await refreshFoodCards();
+                closeModal();
+            } else {
+                alert('Terjadi kesalahan: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    function closeModal() {
+        document.getElementById('editModal').classList.add('hidden');
+    }
+
+    async function refreshFoodCards() {
+        try {
+            const response = await fetch('/food/list'); // Sesuaikan endpoint
+            const foods = await response.json();
+
+            const foodContainer = document.getElementById('food-container');
+            foodContainer.innerHTML = '';
+
+            foods.forEach(food => {
+                const foodCard = `
+                    <div class="food-card">
+                        <img src="${food.gambar}" alt="${food.nama_makanan}" class="w-full h-48 object-cover rounded-lg">
+                        <h2 class="text-lg font-bold">${food.nama_makanan}</h2>
+                        <p class="text-sm">${food.deskripsi}</p>
+                        <p class="text-sm text-gray-500">Harga: ${food.harga}</p>
+                        <p class="text-sm text-gray-500">Rating: ${food.rating}</p>
+                        <button onclick="openEditModal(${food.id})" class="text-green-600">Edit</button>
+                    </div>
+                `;
+                foodContainer.innerHTML += foodCard;
+            });
+        } catch (error) {
+            console.error("Failed to refresh food cards:", error);
+        }
+    }
+</script>
+
 </body>
 {% endblock %}

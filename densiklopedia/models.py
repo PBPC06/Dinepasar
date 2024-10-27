@@ -15,4 +15,4 @@ class ArticleEntry(models.Model):
         return self.judul
 
     def can_edit_delete(self, user):
-        return self.user == user
+        return self.user == user or user.is_superuser

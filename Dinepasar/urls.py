@@ -24,6 +24,8 @@ urlpatterns = [
     path('manageData/', include('manageData.urls')),
     path('login/', login_user, name='login'),
     path('search/', include('search.urls')),
+    path('deskripsi/', include('deskripsi.urls')),
+    path('favorite/', include('favorite.urls', namespace='favorite')),
     path('densiklopedia/', include('densiklopedia.urls')),
     path('review/', include('review.urls')),
 ]

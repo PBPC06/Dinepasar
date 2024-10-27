@@ -22,18 +22,17 @@
                     <a href="/" class="hover:underline text-yellow-600">Dinepasar</a>
                   </h1>
                 </div>
-
+                
                 <!-- Navigation Links -->
                 <div class="hidden sm:block sm:ml-6">
                     <div class="flex space-x-4">
                         <a href="{% url 'main:show_main' %}" class="text-gray-700 px-3 py-2 rounded-md text-sm font-bold hover:text-yellow-600">Home</a>
                         <a href="{% url 'search:search_redirect' %}" class="text-gray-700 px-3 py-2 rounded-md text-sm font-bold hover:text-yellow-600">Search</a>
-                        <a href="{% url 'review:forum' %}" class="text-gray-700 px-3 py-2 rounded-md text-sm font-bold hover:text-yellow-600">Review</a>
-                        <a href="#" class="text-gray-700 px-3 py-2 rounded-md text-sm font-bold hover:text-yellow-600">Favorite</a>
+                        <a href="#" class="text-gray-700 px-3 py-2 rounded-md text-sm font-bold hover:text-yellow-600">Review</a>
+                        <a href="{% url 'favorite:favorite_list' %}" class="text-gray-700 px-3 py-2 rounded-md text-sm font-bold hover:text-yellow-600">Favorite</a>
                         <a href="{% url 'densiklopedia:profil' %}" class="text-gray-700 px-3 py-2 rounded-md text-sm font-bold hover:text-yellow-600">Densiklopedia</a>
                     </div>
                 </div>
-
 
                 <!-- Profile and Log Out Section -->
                 <div class="hidden sm:flex items-center space-x-4">

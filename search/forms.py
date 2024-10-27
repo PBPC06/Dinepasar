@@ -44,3 +44,4 @@ class FoodForm(ModelForm):
     def clean_rating(self):
         rating = self.cleaned_data["rating"]
         return strip_tags(rating)
+
