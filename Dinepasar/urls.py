@@ -27,6 +27,4 @@ urlpatterns = [
     path('deskripsi/', include('deskripsi.urls')),
     path('favorite/', include('favorite.urls', namespace='favorite')),
     path('densiklopedia/', include('densiklopedia.urls')),
-    path('', include('main.urls')),  # Rute untuk aplikasi utama (misalnya landing page)
-    path('favorites/', include('favorite.urls')),  # Rute untuk aplikasi favorite
 ]
