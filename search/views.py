@@ -145,33 +145,48 @@ def add_food(request):
     return render(request, "add_food.html")
 
 def edit_food(request, food_id):
-    food = get_object_or_404(Food, pk=food_id)
-    form = FoodForm(instance=food)
-    if request.method == 'POST':
+    print(f"Editing food with ID: {food_id}")
+    food = get_object_or_404(Food, id=food_id)
+    if request.method == 'GET':
+        # Return the data as JSON for the edit modal
+        return JsonResponse({'food': {
+            'gambar': food.gambar,
+            'nama_makanan': food.nama_makanan,
+            'restoran': food.restoran,
+            'kategori': food.kategori,
+            'harga': food.harga,
+            'rating': food.rating,
+            'deskripsi': food.deskripsi,
+        }})
+
+    elif request.method == 'POST':
+        # Mengupdate data makanan
         form = FoodForm(request.POST, instance=food)
         if form.is_valid():
             form.save()
-            # Kembalikan pesan sukses dan URL untuk pengalihan
-            return JsonResponse({'redirect_url': reverse('search:owner_dashboard')})
+            return JsonResponse({"success": True})
         else:
-            return JsonResponse({'errors': form.errors}, status=400)  # Kembalikan error form sebagai JSON
+            # Mengembalikan pesan kesalahan jika form tidak valid
+            return JsonResponse({"success": False, "errors": form.errors}, status=400)
 
-    return render(request, 'edit_foods.html', {'form': form, 'food': food})
 
-@csrf_exempt
 def delete_food(request, food_id):
     food = get_object_or_404(Food, id=food_id)
-    food.delete()
-    return redirect('search:owner_dashboard')
+
+    if request.method == 'DELETE':  # Check if the request method is DELETE
+        food.delete()
+        return JsonResponse({'success': True, 'message': 'Food item deleted successfully.'})
+    
+    return JsonResponse({'success': False, 'message': 'Invalid request.'}, status=400)
 
 
 def search_redirect(request):
     if request.user.is_authenticated:
         # Periksa peran pengguna menggunakan field 'role'
         if request.user.is_admin:  # Cek jika pengguna adalah owner
-            return redirect('search:owner_dashboard')  # Ganti dengan nama URL untuk owner_dashboard
-        else:
-            return redirect('search:food_search')  # Ganti dengan nama URL untuk food_search
+            return redirect('search:owner_dashboard') 
+        if not request.user.is_admin:
+            return redirect('search:food_search') 
         
 def food_preview(request, pk):
     food = get_object_or_404(Food, pk=pk)

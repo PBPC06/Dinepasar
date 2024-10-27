@@ -3,6 +3,8 @@
 
 {% block content %}
 {% include 'navbar.html' %}
+<script src="{% static 'js/edit_modal.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div class="min-h-screen flex flex-col items-center justify-start py-10 bg-yellow-50"> <!-- Kurangi padding py-5 agar lebih dekat ke navbar -->
 
 
@@ -58,11 +60,12 @@
     </form>
 
     <!-- Add New Food Button -->
-    <div class="mt-8 mb-8"> <!-- Kurangi margin mt-8 -->
-        <a href="{% url 'search:add_food' %}" class="bg-yellow-600 text-white py-2 px-4 rounded-md hover:bg-yellow-700 transition duration-300">
+    <div class="mt-8 mb-8">
+        <button onclick="openModal()" class="bg-yellow-600 text-white py-2 px-4 rounded-md hover:bg-yellow-700 transition duration-300">
             + Add New Food
-        </a>
+        </button>
     </div>
+
 
     <!-- Food Cards -->
     {% if foods %}
@@ -103,24 +106,137 @@
                 <!-- Edit and Delete Buttons (Right-aligned) -->
                 <div class="flex space-x-2">
                     <!-- Tombol Delete -->
-                    <a href="{% url 'search:delete_food' food.id %}" class="bg-[#F44336] hover:bg-[#D32F2F] text-white rounded-full p-2 transition duration-300 shadow-md">
+                    <button data-id="{{ food.id }}" class="delete-food bg-[#F44336] hover:bg-[#D32F2F] text-white rounded-full p-2 transition duration-300 shadow-md">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                         </svg>
-                    </a>
+                    </button>
 
-                    <!-- Tombol Edit -->
-                    <a href="{% url 'search:edit_food' food.id %}" class="bg-[#4CAF50] hover:bg-[#388E3C] text-white rounded-full p-2 transition duration-300 shadow-md">
+                    <button onclick="openEditModal('{{ food.id }}')" class="bg-[#4CAF50] hover:bg-[#388E3C] text-white rounded-full p-2 transition duration-300 shadow-md">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793z" />
+                            <path d="M11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                         </svg>
-                    </a>
+                    </button>
+
                 </div>
             </div>
 
         </div>
         {% endfor %}
     </div>
+
+
+    <!-- Modal for Adding Food -->
+    <div id="addFoodModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-3xl">
+            <button id="closeModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">&times;</button>
+            <h2 class="text-2xl font-bold mb-6 text-gray-900 text-center">Tambah Makanan</h2>
+
+            <form id="addFoodForm" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="mb-4">
+                        <label for="food_image" class="block text-gray-700 font-bold mb-2">Link Gambar Makanan</label>
+                        <input type="text" id="food_image" name="gambar" class="w-full px-3 py-2 border rounded-lg bg-yellow-100" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="nama_makanan" class="block text-gray-700 font-bold mb-2">Nama Makanan</label>
+                        <input type="text" id="nama_makanan" name="nama_makanan" class="w-full px-3 py-2 border rounded-lg bg-yellow-100" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="restoran" class="block text-gray-700 font-bold mb-2">Restoran</label>
+                        <input type="text" id="restoran" name="restoran" class="w-full px-3 py-2 border rounded-lg bg-yellow-100" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="kategori" class="block text-gray-700 font-bold mb-2">Kategori</label>
+                        <input type="text" id="kategori" name="kategori" class="w-full px-3 py-2 border rounded-lg bg-yellow-100" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="harga" class="block text-gray-700 font-bold mb-2">Harga</label>
+                        <input type="number" id="harga" name="harga" class="w-full px-3 py-2 border rounded-lg bg-yellow-100" step="0.01" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="rating" class="block text-gray-700 font-bold mb-2">Rating</label>
+                        <input type="number" id="rating" name="rating" class="w-full px-3 py-2 border rounded-lg bg-yellow-100" step="0.1" min="0" max="5" required>
+                    </div>
+
+                    <div class="mb-4 col-span-2">
+                        <label for="deskripsi" class="block text-gray-700 font-bold mb-2">Deskripsi</label>
+                        <textarea id="deskripsi" name="deskripsi" rows="4" class="w-full px-3 py-2 border rounded-lg bg-yellow-100" required></textarea>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded-lg font-bold">
+                    Tambah Makanan
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+
+
+    <div id="editModal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-md w-11/12 md:w-3/4 lg:w-1/3 opacity-95 max-h-full overflow-y-auto">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Edit Makanan</h2>
+    
+            <form id="editFoodForm" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Form fields -->
+                    <div class="mb-4">
+                        <label for="gambar" class="block text-gray-700 font-bold mb-2">Gambar Makanan (URL)</label>
+                        <input type="text" id="gambar" name="gambar" class="w-full px-3 py-2 border rounded-lg bg-yellow-50">
+                    </div>
+    
+                    <div class="mb-4">
+                        <label for="nama_makanan" class="block text-gray-700 font-bold mb-2">Nama Makanan</label>
+                        <input type="text" id="nama_makanan" name="nama_makanan" class="w-full px-3 py-2 border rounded-lg bg-yellow-50" required>
+                    </div>
+        
+                    <div class="mb-4">
+                        <label for="restoran" class="block text-gray-700 font-bold mb-2">Restoran</label>
+                        <input type="text" id="restoran" name="restoran" class="w-full px-3 py-2 border rounded-lg bg-yellow-50" required>
+                    </div>
+    
+                    <div class="mb-4">
+                        <label for="kategori" class="block text-gray-700 font-bold mb-2">Kategori</label>
+                        <input type="text" id="kategori" name="kategori" class="w-full px-3 py-2 border rounded-lg bg-yellow-50" required>
+                    </div>
+        
+                    <div class="mb-4">
+                        <label for="harga" class="block text-gray-700 font-bold mb-2">Harga</label>
+                        <input type="number" id="harga" name="harga" class="w-full px-3 py-2 border rounded-lg bg-yellow-50" step="0.01" required>
+                    </div>
+        
+                    <div class="mb-4">
+                        <label for="rating" class="block text-gray-700 font-bold mb-2">Rating</label>
+                        <input type="number" id="rating" name="rating" class="w-full px-3 py-2 border rounded-lg bg-yellow-50" step="0.1" max="5" required>
+                    </div>
+                </div>
+    
+                <div class="mb-6">
+                    <label for="deskripsi" class="block text-gray-700 font-bold mb-2">Deskripsi</label>
+                    <textarea id="deskripsi" name="deskripsi" class="w-full px-3 py-2 border rounded-lg bg-yellow-50" rows="6" required></textarea>
+                </div>
+    
+                <div class="mb-6 flex justify-between">
+                    <button type="button" onclick="closeModal()" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg font-bold">Cancel</button>
+                    <button type="submit" class="bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded-lg font-bold">Save</button>
+                </div>
+            </form>
+            <div id="responseMessage" class="mt-4"></div>
+        </div>
+    </div>
+    
 {% else %}
     <!-- Section jika tidak ada produk -->
     <div class="flex flex-col justify-center items-center text-center w-full min-h-[50vh] mx-auto">
@@ -128,5 +244,115 @@
         <p class="text-gray-600 text-xl mt-4">Maaf, produk yang kamu cari tidak tersedia :(</p>
     </div>
 {% endif %}
+
+
+<!-- Script Section -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Delete Food Functionality
+        document.querySelectorAll('.delete-food').forEach(button => {
+            button.addEventListener('click', function() {
+                const foodId = this.getAttribute('data-id'); // Get food ID from data attribute
+                const url = `{% url 'search:delete_food' 0 %}`.replace('0', foodId); // Create URL
+
+                // Use fetch to send DELETE request
+                fetch(url, {
+                    method: 'DELETE', // Specify the request method
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}', // Send CSRF token
+                        'Content-Type': 'application/json' // Set content type
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Remove the food item from the DOM
+                        const card = button.closest('.max-w-xs'); // Find the card element
+                        card.remove(); // Remove the card from the UI
+                    } else {
+                        // Handle error
+                        console.error('Error deleting food item:', response.statusText);
+                    }
+                })
+                .catch(error => {
+                    console.error('Network error:', error); // Handle network error
+                });
+            });
+        });
+
+        // Add Food Functionality
+        const form = document.querySelector("#addFoodForm");
+        const modal = document.querySelector("#addFoodModal");
+        const closeModal = document.querySelector("#closeModal");
+
+        closeModal.addEventListener("click", function() {
+            modal.classList.add("hidden");
+        });
+
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch("{% url 'search:add_food' %}", {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    modal.classList.add("hidden");
+                    form.reset();
+                    addNewFoodCard(data.food); // Call function to add the new card to the page
+                } else {
+                    const errors = data.errors || {};
+                    let errorMessage = "Error: ";
+                    for (const key in errors) {
+                        if (errors.hasOwnProperty(key)) {
+                            errorMessage += errors[key].join(", ") + " ";
+                        }
+                    }
+                    alert(errorMessage || "Terjadi kesalahan. Silakan coba lagi.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Terjadi kesalahan. Silakan coba lagi.");
+            }
+        });
+    });
+
+    function openModal() {
+        const modal = document.querySelector("#addFoodModal");
+        modal.classList.remove("hidden");
+    }
+
+    function addNewFoodCard(food) {
+        const cardContainer = document.querySelector(".grid");
+        const foodCard = `
+            <div class="max-w-xs rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-105 flex flex-col justify-between">
+                <div class="p-3 flex-grow">
+                    <div class="font-bold text-lg mb-2">${food.nama_makanan}</div>
+                    <img class="w-full h-36 object-cover rounded-lg mb-3" src="${food.gambar}" alt="${food.nama_makanan}">
+                    <p class="text-gray-700 mb-2">${food.deskripsi}</p>
+                    <div class="flex items-center space-x-2 mb-2">
+                        <span class="text-gray-700 text-sm">⭐${food.rating} / 5</span>
+                    </div>
+                    <p class="font-bold text-gray-900 text-sm">Rp ${food.harga}</p>
+                </div>
+                <div class="p-4 flex flex-col space-y-2">
+                    <button onclick="openModal('${food.pk}')" class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700">Details</button>
+                </div>
+            </div>
+        `;
+        cardContainer.insertAdjacentHTML('afterbegin', foodCard); // Add new card to the top
+    }
+</script>
+
+
+
 </div>
 {% endblock %}
