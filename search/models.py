@@ -10,3 +10,6 @@ class Food(models.Model):
     deskripsi = models.TextField()
     harga = models.PositiveIntegerField()
     rating = models.FloatField()
+
+    def __str__(self):
+        return self.nama_makanan
