@@ -39,3 +39,9 @@ def favorite_list(request):
         'favorites': favorites,
         'recommended_foods': recommended_foods
     })
+
+def delete_favorite(request, favorite_id):
+    if request.method == 'POST':
+        favorite = get_object_or_404(Favorite, id=favorite_id)
+        favorite.delete()
+        return redirect('favorite:favorite_list') 
