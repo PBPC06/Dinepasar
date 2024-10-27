@@ -69,4 +69,4 @@ Selain memiliki akses seperti user, juga dapat menambahkan dan menghapus card re
 
 
 ## Tautan Deployment Aplikasi
-https://pbp.cs.ui.ac.id/namira.aulia31/dinepasar
+http://namira-aulia31-dinepasar.pbp.cs.ui.ac.id/
