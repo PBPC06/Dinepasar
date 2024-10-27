@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'deskripsi',
     'favorite',
     'densiklopedia',
-    'favorite',
 ]
 
 MIDDLEWARE = [
