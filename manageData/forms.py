@@ -13,16 +13,14 @@ class NewUserForm(UserCreationForm):
     def clean(self):
         cleaned_data = super().clean()
         referral_code = cleaned_data.get('referral_code')
-        is_admin = cleaned_data.get('isAdmin') == "Admin"  # Set to True if 'Admin' is chosen
+        is_admin = cleaned_data.get('isAdmin') == "Admin" # True kalo admin
 
-        # Validation for Admin
         if is_admin:
             if not referral_code:
                 self.add_error('referral_code', "Referral code is required for Admin registration.")
             elif referral_code != "PBPC06WOW!":
                 self.add_error('referral_code', "Invalid referral code. Please enter a valid code to register as an admin.")
 
-        # Validation for User
         if not is_admin and referral_code:
             self.add_error('referral_code', "Referral code should only be filled if registering as Admin.")
 

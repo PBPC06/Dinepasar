@@ -10,7 +10,6 @@
     <div class="min-h-screen bg-cover bg-center" style="background-image: url('/static/image/login.png');"></div>
   </div>
 
-  <!-- Right section for login -->
   <div class="relative w-1/2 p-8">
     <div class="text-center">
       <h1 class="text-5xl font-extrabold text-yellow-600" style="font-family: 'CharpentierClassic';">
@@ -21,7 +20,6 @@
       </h5>
     </div>
 
-    <!-- Display messages -->
     {% if messages %}
     <div class="mt-4">
       {% for message in messages %}
@@ -46,7 +44,6 @@
       {% csrf_token %}
       <input type="hidden" name="remember" value="true">
 
-      <!-- Username input -->
       <div class="rounded-md shadow-sm -space-y-px">
         <div>
           <label for="username" class="sr-only">Username</label>
@@ -55,7 +52,6 @@
             placeholder="Username">
         </div>
 
-        <!-- Password input -->
         <div>
           <label for="password" class="sr-only">Password</label>
           <input id="password" name="password" type="password" required
@@ -64,7 +60,6 @@
         </div>
       </div>
 
-      <!-- Sign in button -->
       <div>
         <button type="submit"
         class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 btn-glow">
@@ -73,7 +68,6 @@
       </div>
     </form>
 
-    <!-- Register section -->
     <div class="text-right mt-4">
       <p class="text-sm text-black">
         New here?
