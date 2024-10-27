@@ -10,9 +10,3 @@ urlpatterns = [
     path('', favorite_list, name='favorite_list'),
     path('delete_favorite/<int:favorite_id>/', delete_favorite, name='delete_favorite'),  # URL for deleting favorite
 ]
-
-# Serve media files in production mode
-if not settings.DEBUG:
-    urlpatterns += [
-        re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
-    ]

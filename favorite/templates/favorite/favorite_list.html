@@ -3,17 +3,17 @@
 
 {% block content %}
 {% include 'navbar.html' %}
-<div class="min-h-screen flex flex-col items-center justify-start py-5 bg-yellow-50">
-    <h2 class="text-3xl font-bold text-gray-800 mb-6 animate-fade-in border-b-2 border-yellow-600 pb-2">Your Favorite Foods</h2>
+<div class="min-h-screen flex flex-col items-center justify-start py-5 bg-gradient-to-b from-yellow-50 to-yellow-20">
+    <h2 class="text-4xl font-bold text-gray-800 mb-6 animate-fade-in border-b-4 border-yellow-600 pb-2">Your Favorite Foods</h2>
 
     <!-- Favorite Foods List -->
     <div class="mt-4 max-w-2xl w-full">
         {% for favorite in favorites %}
-            <div class="flex items-center justify-between bg-white rounded-lg shadow-md p-3 mb-4 transition-transform transform hover:scale-105 hover:shadow-lg animate-slide-up">
-                <img src="{{ favorite.food.gambar }}" alt="{{ favorite.food.nama_makanan }}" class="h-20 w-20 object-cover rounded-lg transition-transform transform hover:scale-110">
+            <div class="flex items-center justify-between bg-white rounded-lg shadow-lg p-4 mb-6 transition-transform transform hover:scale-105 hover:shadow-xl animate-slide-up">
+                <img src="{{ favorite.food.gambar }}" alt="{{ favorite.food.nama_makanan }}" class="h-24 w-24 object-cover rounded-lg transition-transform transform hover:scale-110">
                 
                 <div class="flex-1 mx-3">
-                    <h3 class="font-bold text-lg text-gray-800">{{ favorite.food.nama_makanan }}</h3>
+                    <h3 class="font-bold text-xl text-gray-800">{{ favorite.food.nama_makanan }}</h3>
                     <p class="text-xs font-semibold text-yellow-600">{{ favorite.food.kategori }}</p>
                     <p class="text-gray-700 mb-1">{{ favorite.food.deskripsi }}</p> 
                     <div class="flex items-center mb-1">
@@ -28,31 +28,31 @@
 
                 <form action="{% url 'favorite:delete_favorite' favorite.id %}" method="post" class="flex items-center">
                     {% csrf_token %}
-                    <button type="submit" class="bg-[#F44336] hover:bg-[#D32F2F] text-white rounded-full p-2 transition duration-300 shadow-md">
+                    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white rounded-full p-2 transition duration-300 shadow-md">
                         <!-- Trash Can Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                         </svg>
                     </button>
                 </form>                             
             </div>
         {% empty %}
-            <div class="text-center">
-                <img src="{% static 'images/notfound.png' %}" alt="Not Found" class="mb-4 h-40 w-40 object-cover mx-auto">
-                <p class="text-gray-500">No favorites yet!</p>
+            <div class="flex flex-col items-center justify-center bg-yellow-50 border border-yellow-200 rounded-lg p-5 mb-6 shadow-md">
+                <p class="text-gray-500 text-lg font-semibold">No favorites yet!</p>
+                <p class="text-gray-400 text-sm mt-1">Explore our menu and add some delicious dishes to your favorites.</p>
             </div>
         {% endfor %}
     </div>
     
     <!-- Recommended Foods Section -->
-    <h3 class="text-3xl font-bold text-gray-800 mt-10 mb-6 animate-fade-in border-b-2 border-yellow-600 pb-2">Recommended for You</h3>
+    <h3 class="text-4xl font-bold text-gray-800 mt-10 mb-6 animate-fade-in border-b-4 border-yellow-600 pb-2">Recommended for You</h3>
     <div class="mt-4 max-w-2xl w-full">
         {% for food in recommended_foods %}
-            <div class="flex items-center justify-between bg-white rounded-lg shadow-md p-3 mb-4 transition-transform transform hover:scale-105 hover:shadow-lg animate-slide-up">
-                <img src="{{ food.gambar }}" alt="{{ food.nama_makanan }}" class="h-20 w-20 object-cover rounded-lg transition-transform transform hover:scale-110">
+            <div class="flex items-center justify-between bg-white rounded-lg shadow-lg p-4 mb-6 transition-transform transform hover:scale-105 hover:shadow-xl animate-slide-up">
+                <img src="{{ food.gambar }}" alt="{{ food.nama_makanan }}" class="h-24 w-24 object-cover rounded-lg transition-transform transform hover:scale-110">
                 
                 <div class="flex-1 mx-3">
-                    <h4 class="font-bold text-gray-800 text-lg">{{ food.nama_makanan }}</h4>
+                    <h4 class="font-bold text-gray-800 text-xl">{{ food.nama_makanan }}</h4>
                     <p class="text-xs font-semibold text-yellow-600">{{ food.kategori }}</p>
                     <p class="text-gray-700 mb-1">{{ food.deskripsi }}</p> 
                     <div class="flex items-center mb-1">
@@ -66,8 +66,9 @@
                 </div>
             </div>
         {% empty %}
-            <div class="text-center">
-                <p class="text-gray-500">No recommended foods available at the moment!</p>
+            <div class="flex flex-col items-center justify-center bg-yellow-50 border border-yellow-200 rounded-lg p-5 mb-6 shadow-md">
+                <p class="text-gray-500 text-lg font-semibold">No recommended foods available at the moment!</p>
+                <p class="text-gray-400 text-sm mt-1">Check back later for tasty suggestions just for you.</p>
             </div>
         {% endfor %}
     </div>
