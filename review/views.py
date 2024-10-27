@@ -50,13 +50,11 @@ def choose_food(request):
 @require_POST
 @login_required(login_url='/login')
 def add_review(request):
-    # Process a new review submission
-    review_message = strip_tags(request.POST.get("review_message", ""))
-    rating = request.POST.get("rating")
+    review_message = strip_tags(request.POST.get("review"))
+    rating = request.POST.get("food_rating")
     food_id = request.POST.get("food_id")
     user = request.user
 
-    # Validate input fields
     if not review_message or not rating or not food_id:
         return JsonResponse({"status": "error", "message": "All fields are required."}, status=400)
 
@@ -68,7 +66,6 @@ def add_review(request):
         return JsonResponse({"status": "error", "message": "Invalid rating."}, status=400)
 
     try:
-        # Retrieve food item and create a review
         food = Food.objects.get(pk=food_id)
         new_review = FoodReview(
             food_review=food,
