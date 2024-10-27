@@ -188,6 +188,12 @@ def search_redirect(request):
         if not request.user.is_admin:
             return redirect('search:food_search') 
         
+def fetch_foods(request):
+    if request.method == "GET":
+        foods = list(Food.objects.values())  # Adjust the fields as needed
+        return JsonResponse(foods, safe=False)
+
+        
 def food_preview(request, pk):
     food = get_object_or_404(Food, pk=pk)
     return render(request, 'search/food_preview.html', {'food': food})
