@@ -25,9 +25,11 @@
             </div>
 
             <!-- Button Details (inside the loop) -->
-            <div class="p-4 flex flex-col space-y-2">
-                <button onclick="openModal('{{ food.pk }}')" class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700">Details</button>
-            </div>
+            <div class="flex justify-center">
+                <a href="{% url 'food_detail' food.pk %}" class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700">
+                    Details
+                </a>
+            </div>   
         </div>
         {% endfor %}
     </div>

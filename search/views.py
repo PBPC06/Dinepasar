@@ -187,3 +187,11 @@ def search_redirect(request):
             return redirect('search:owner_dashboard') 
         if not request.user.is_admin:
             return redirect('search:food_search') 
+        
+def food_preview(request, pk):
+    food = get_object_or_404(Food, pk=pk)
+    return render(request, 'search/food_preview.html', {'food': food})
+
+def food_detail(request, pk):
+    food = get_object_or_404(Food, pk=pk)
+    return render(request, 'food_detail.html', {'food': food})

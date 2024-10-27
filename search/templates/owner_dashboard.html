@@ -96,6 +96,13 @@
             <!-- Buttons (Details, Edit, Delete) -->
             <div class="p-4 flex justify-between items-center">
 
+                <!-- Details Button (Left-aligned) -->
+                <div class="flex justify-center">
+                    <a href="{% url 'food_detail' food.pk %}" class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700">
+                        Details
+                    </a>
+                </div>   
+
                 <!-- Edit and Delete Buttons (Right-aligned) -->
                 <div class="flex space-x-2">
                     <!-- Tombol Delete -->
@@ -113,10 +120,6 @@
                     </button>
 
                 </div>
-
-
-                <!-- Details Button (Left-aligned) -->
-                <button onclick="openModal('{{ food.pk }}')" class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700">Details</button>
             </div>
 
         </div>
