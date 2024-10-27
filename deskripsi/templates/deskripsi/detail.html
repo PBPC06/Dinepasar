@@ -6,43 +6,39 @@
 <div class="min-h-screen flex flex-col items-center justify-start py-5 bg-yellow-50"> 
     
     <!-- Konten Detail Makanan -->
-    <div class="max-w-sm mx-auto bg-white bg-opacity-90 rounded-xl shadow-md overflow-hidden md:max-w-md transform transition duration-500 hover:scale-105"> 
-        <img class="w-full h-48 object-cover" src="{{ food.gambar }}" alt="{{ food.nama_makanan }}" class="transition-transform duration-500 hover:scale-110"> 
-        <div class="p-4"> 
-            <div class="font-bold text-lg mb-2">{{ food.nama_makanan }}</div>
-            
-            <!-- Kategori Makanan -->
-            <p class="text-sm font-bold text-gray-800 mb-1">{{ food.kategori }}</p>
-
+    <div class="max-w-sm mx-auto bg-white bg-opacity-90 rounded-xl shadow-lg overflow-hidden md:max-w-md transform transition duration-500 hover:scale-105"> 
+        <img class="w-full h-auto object-cover transition-transform duration-500 hover:scale-110" src="{{ food.gambar }}" alt="{{ food.nama_makanan }}"> 
+        <div class="p-6"> 
+            <div class="font-bold text-lg mb-2 text-gray-800">{{ food.nama_makanan }}</div>
+    
             <!-- Deskripsi Makanan, Restoran -->
             <p class="text-gray-700 mb-1">{{ food.deskripsi }}</p> 
-
-            <!-- Lokasi dengan gambar -->
+    
+            <!-- Lokasi with linkable restaurant name -->
             <div class="flex items-center mb-1">
-                <img src="{% static 'images/location.png' %}" alt="Lokasi" class="h-4 w-4 mr-1">
-                <p class="text-yellow-600 underline">{{ food.restoran }}</p>
+                <span class="text-yellow-600">📍</span>
+                <a href="{{ food.restoran }}" target="_blank" class="text-yellow-600 underline ml-1 hover:text-yellow-700 transition duration-300">{{ food.restoran }}</a>
             </div>
-
+    
             <!-- Rating (Bintang dan Angka) -->
             <div class="flex items-center space-x-1 mb-1"> 
-                <img src="{% static 'images/star.png' %}" alt="Star" class="h-4 w-4">
-                <span class="text-gray-700 text-sm">{{ food.rating }} / 5</span>
+                <span class="text-gray-700 text-sm">⭐{{ food.rating }} / 5</span>
             </div>
-
+    
             <!-- Harga (Bold) -->
-            <p class="font-bold text-gray-900 text-sm">Rp {{ food.harga }}</p>
+            <p class="font-bold text-yellow-800 text-lg">Rp {{ food.harga }}</p>
             
             <!-- Tombol Add to Favorite dan Add Review -->
-            <div class="flex justify-between items-center mt-3">
-                <button id="add-to-favorite-btn" class="bg-yellow-600 text-white px-3 py-1 rounded-md text-sm font-medium hover:bg-yellow-700 transition duration-300 transform hover:scale-105">Add to Favorite</button>
-
-                <button type="button" class="bg-yellow-600 text-white px-3 py-1 rounded-md text-sm font-medium hover:bg-yellow-700 transition duration-300 transform hover:scale-105">Add Review</button>
+            <div class="flex justify-between items-center mt-3 space-x-2">
+                <button id="add-to-favorite-btn" class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50">Add to Favorite</button>
+    
+                <button type="button" class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50">Add Review</button>
             </div>
-
+    
             <!-- Status pesan setelah ditambahkan ke favorit -->
             <div id="status-message" class="mt-2"></div>
         </div>
-    </div>
+    </div>    
 </div>
 
 <script>
