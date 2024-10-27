@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cookie&family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Metal&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 </head>
 
-<!-- Image Carousel -->
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false" style="background: linear-gradient(to right, #fff0e0, #fffefe);">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -42,31 +41,27 @@
   </button>
 </div>
 
-<!-- Teks tambahan -->
 <div class="text-center mt-4 fade-in-text" style="font-family: 'Metal', sans-serif; font-size: 3rem; color: #4a4a4a;">
   Dive into A Culinary Adventure in Denpasar
 </div>
 
-<!-- Gapura, Pesawat, dan Awan -->
 <div class="gate-container">
   <img src="{% static 'image/gapura_left.png' %}" class="gate gate-left" alt="Left Gate">
-  <a href="{% url 'manageData:login' %}" id="start-button" class="start-button">Start your journey</a>
+  <a href="{% url 'search:food_search' %}" id="start-button" class="start-button">Start your journey</a>
   <img src="{% static 'image/gapura_right.png' %}" class="gate gate-right" alt="Right Gate">
 </div>
 
-<!-- Footer -->
 <footer class="footer">
   <div class="copyright">
     © 2024 PBPC06
   </div>
 </footer>
 
-<!-- CSS -->
 <style>
   body {
     background: linear-gradient(to right, #fff0e0, #fffefe);
     margin: 0;
-    min-height: 100vh; /* Ensure the content covers the full height of the viewport */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -104,7 +99,6 @@
     right: 10px;
   }
 
-  /* Gaya untuk indikator carousel */
   .carousel-indicators button {
     background-color: #d3d3d3;
     border: none;
@@ -135,7 +129,7 @@
     width: 200px;
     opacity: 0;
     transition: opacity 2s ease-in-out, transform 1s ease-in-out;
-    z-index: 1; /* Pastikan gapura berada di belakang awan */
+    z-index: 1;
   }
 
   .gate-left {
@@ -163,7 +157,7 @@
   .start-button {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%) scale(0.9); /* Awal lebih kecil */
+    transform: translateX(-50%) scale(0.9);
     padding: 15px 30px;
     font-size: 1.5rem;
     background-color: #d6a600;
@@ -173,8 +167,8 @@
     cursor: pointer;
     opacity: 0;
     transition: 
-        opacity 0.8s ease-in-out, /* Fade-in lebih halus */
-        transform 0.5s ease-out;  /* Transformasi dengan durasi berbeda */
+        opacity 0.8s ease-in-out,
+        transform 0.5s ease-out; 
     font-family: 'Merriweather Sans', sans-serif;
     font-weight: bold;
     text-decoration: none;
@@ -183,20 +177,18 @@
 
 .start-button.visible {
     opacity: 1;
-    transform: translateX(-50%) scale(1); /* Kembali ke ukuran normal */
+    transform: translateX(-50%) scale(1);
 }
 
-/* Hover dan Focus: Animasi tanpa glitch */
 .start-button:hover,
 .start-button:focus {
     background-color: #a16207;
-    transform: translateX(-50%) scale(1.05); /* Sedikit membesar */
+    transform: translateX(-50%) scale(1.05);
     outline: none;
 }
 
-/* Animasi saat tombol ditekan */
 .start-button:active {
-    transform: translateX(-50%) scale(0.95); /* Efek menekan */
+    transform: translateX(-50%) scale(0.95);
     transition: transform 0.1s ease-out;
 }
 
@@ -218,7 +210,6 @@
 
 </style>
 
-<!-- JavaScript -->
 <script>
   document.addEventListener('scroll', function () {
     const fadeInText = document.querySelector('.fade-in-text');
@@ -238,13 +229,12 @@
       rightGate.classList.add('visible');
     }
 
-    // Tampilkan tombol setelah gapura dan teks muncul
     if (fadeInText.classList.contains('visible') &&
         leftGate.classList.contains('visible') &&
         rightGate.classList.contains('visible')) {
       setTimeout(() => {
         startButton.classList.add('visible');
-      }, 1000); // Delay 2 detik sebelum tombol muncul
+      }, 1000); // Delay 1 detik
     }
   });
 </script>

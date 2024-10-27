@@ -31,19 +31,23 @@ Lebih dari itu, Dinepasar dapat menjadi teman setia dalam mengeksplorasi cita ra
 ## Modul Aplikasi
 - Autentikasi, Role Pengguna, dan Halaman Utama
 
-Dinepasar menyediakan fitur autentikasi dengan halaman registrasi dan login. Setelah login, pengguna akan diarahkan ke landing page yang menampilkan pesan “welcome”. Halaman ini juga menyajikan deskripsi singkat tentang Dinepasar. Fitur yang dapat digunakan pengguna akan ditentukan oleh rolenya, sebagai user biasa atau sebagai admin.
+Dinepasar menyediakan fitur autentikasi dengan halaman registrasi dan login. Setelah login, pengguna akan diarahkan ke landing page yang menampilkan pesan pembuka. Sejak memasuki halaman utama dan seterusnya, fitur yang dapat digunakan pengguna akan ditentukan oleh rolenya, sebagai user biasa atau sebagai admin.
 - Pencarian dan Daftar Restoran
 
 Pengguna dapat mencari restoran melalui search bar di bagian atas halaman. Daftar restoran ditampilkan dari A-Z sesuai dataset, dan setiap restoran menampilkan preview saat diklik.
-- Preview Restoran dan Ulasan
+- Preview Restoran dan Tambahkan ke Favorit
 
-Halaman preview restoran menampilkan informasi lengkap tentang satu restoran, termasuk ulasan dari pengguna lain. Di halaman ini, pengguna juga dapat menambahkan restoran tersebut ke daftar favorit atau wishlist melalui tombol yang disediakan.
-- Tambahkan ke Favorit
+Pada halaman preview makanan, pengguna dapat melihat informasi lengkap mengenai suatu makanan. Di halaman ini, pengguna juga memiliki opsi untuk menambahkan makanan tersebut ke dalam daftar favorit atau wishlist melalui tombol yang telah disediakan. Halaman favorit memungkinkan pengguna untuk melihat daftar makanan favorit mereka, dan di bagian bawah halaman, terdapat rekomendasi restoran lain yang sesuai dengan kategori makanan yang disukai pengguna.
+- Ulasan
 
-Halaman favorit memungkinkan pengguna menyimpan restoran favorit. Di bagian bawah halaman, pengguna juga akan diberikan rekomendasi restoran lain berdasarkan preferensi mereka.
+Pengguna dapat menambahkan ulasan melalui tombol yang tersedia di halaman preview dan melihat ulasan tersebut di halaman khusus ulasan. Hal ini memungkinkan pengguna untuk berbagi pengalaman dan membantu pengguna lain dalam menemukan hidangan yang sesuai dengan selera mereka.
+
 - Informasi tentang Denpasar
 
-Dinepasar menyediakan halaman khusus yang berisi informasi tentang berbagai hal terkait Denpasar. Halaman ini juga dilengkapi dengan search bar untuk memudahkan pengguna dalam mencari informasi yang lebih spesifik tentang kota Denpasar.
+Dinepasar menyediakan halaman khusus yang berisi informasi tentang berbagai hal terkait Denpasar. Halaman ini juga dilengkapi dengan penambahan artikel sebagai cara untuk setiap pengguna berbagi informasi spesifik mengenai Denpasar.
+
+Berikut link menuju detail penjelasan modul dan pembagiannya:
+https://docs.google.com/spreadsheets/d/1D2Tk0wCMrCWT3HMLjPZVTOpfQ64sDqC_8w8SRwu9P0g/edit?usp=sharing
 
 
 ## Sumber Initial Dataset
