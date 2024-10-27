@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Make sidebar fixed to the left of the viewport */
+        .fixed-sidebar {
+            position: fixed; /* Fix it to the viewport */
+            top: 80px; /* Add space for navbar (adjust height as needed) */
+            left: 0;
+            width: 240px; /* Set the fixed width */
+            background-color: white; /* Set the background */
+            padding: 20px;
+            z-index: 1000; /* Ensure it's above other elements */
+        }
+
+        /* Animation for active state */
+        .active {
+            background-color: #fefcbf !important; /* Light yellow when active */
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease; /* Added transform for scaling */
+            transform: scale(1.05); /* Slightly scale up the active item */
+        }
+
+        /* Effect when hovered */
+        li:hover {
+            background-color: #fef9c3; /* Lighter yellow when hovered */
+        }
+
+        /* Effect transition for all items */
+        li {
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Added transition for transform */
+            padding: 16px 24px; /* Adjust padding for more spacing */
+        }
+
+        /* Additional style for the anchor tags to control vertical spacing */
+        a {
+            display: block; /* Make anchor a block element */
+            padding: 8px 0; /* Add vertical padding to anchor */
+            width: 100%; /* Ensure anchor takes full width */
+        }
+
+        /* Style for the main content to avoid overlapping with the fixed sidebar */
+        .main-content {
+            margin-left: 260px; /* Make room for the sidebar */
+            padding: 20px;
+        }
+
+        /* Styling for h1 and other main content */
+        h1 {
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="fixed-sidebar">
+        <ul class="flex flex-col w-full min-h-[711px] max-sm:pr-1 max-sm:-mr-0.5 max-sm:min-h-[231px]">
+            <li id="profil-item" class="flex gap-10 justify-between items-center pl-6 w-full whitespace-nowrap bg-yellow-50 text-yellow-600 transition-colors duration-300 ease-in-out hover:bg-yellow-100 cursor-pointer">
+                <a href="{% url 'densiklopedia:profil' %}" class="gap-3 self-stretch my-auto">Profil</a>
+            </li>
+            <li id="sejarah-item" class="flex gap-10 justify-between items-center pl-6 w-full whitespace-nowrap bg-white text-yellow-600 transition-colors duration-300 ease-in-out hover:bg-yellow-100 cursor-pointer">
+                <a href="{% url 'densiklopedia:sejarah' %}" class="gap-3 self-stretch my-auto">Sejarah</a>
+            </li>
+            <li id="wisata-item" class="flex gap-10 justify-between items-center pl-6 w-full whitespace-nowrap bg-yellow-50 text-yellow-600 transition-colors duration-300 ease-in-out hover:bg-yellow-100 cursor-pointer">
+                <a href="{% url 'densiklopedia:wisata' %}" class="gap-3 self-stretch my-auto">Wisata</a>
+            </li>
+            <li id="budaya-item" class="flex gap-10 justify-between items-center pl-6 w-full whitespace-nowrap bg-white text-yellow-600 transition-colors duration-300 ease-in-out hover:bg-yellow-100 cursor-pointer">
+                <a href="{% url 'densiklopedia:budaya' %}" class="gap-3 self-stretch my-auto">Budaya</a>
+            </li>
+            <li id="artikel-item" class="flex gap-10 justify-between items-center pl-6 w-full whitespace-nowrap bg-yellow-50 text-yellow-600 transition-colors duration-300 ease-in-out hover:bg-yellow-100 cursor-pointer">
+                <a href="{% url 'densiklopedia:artikel' %}" class="gap-3 self-stretch my-auto">Artikel</a>
+            </li>
+        </ul>
+    </nav>
+
+    <script>
+        // Get all <li> elements within <nav>
+        const sidebarItems = document.querySelectorAll('nav ul li');
+        
+        sidebarItems.forEach(item => {
+            // Add event listener when item is clicked
+            item.addEventListener('click', function() {
+                // Remove 'active' class from all items
+                sidebarItems.forEach(el => el.classList.remove('active'));
+
+                // Add 'active' class to the clicked item
+                this.classList.add('active');
+
+                // Remove 'active' class after a short delay
+                setTimeout(() => {
+                    this.classList.remove('active');
+                }, 300); // Delay matches the transition duration for smooth effect
+            });
+
+            // Ensure that the animation is applied when clicking on the anchor tag
+            const anchor = item.querySelector('a');
+            anchor.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevent the click event from bubbling up to the <li>
+                item.classList.add('active'); // Add active class
+                setTimeout(() => {
+                    item.classList.remove('active'); // Remove after delay
+                }, 300); // Delay matches the transition duration for smooth effect
+            });
+        });
+    </script>
+
+</body>
+</html>

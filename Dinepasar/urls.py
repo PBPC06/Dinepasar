@@ -23,5 +23,7 @@ urlpatterns = [
     path('', include('main.urls')),
     path('manageData/', include('manageData.urls')),
     path('login/', login_user, name='login'),
-    path('reviews/', include('review.urls')),
+    path('search/', include('search.urls')),
+    path('densiklopedia/', include('densiklopedia.urls')),
+    path('review/', include('review.urls')),
 ]
