@@ -31,7 +31,7 @@ Lebih dari itu, Dinepasar dapat menjadi teman setia dalam mengeksplorasi cita ra
 ## Modul Aplikasi
 - Autentikasi, Role Pengguna, dan Halaman Utama
 
-Dinepasar menyediakan fitur autentikasi dengan halaman registrasi dan login. Setelah login, pengguna akan diarahkan ke landing page yang menampilkan pesan “welcome”. Halaman ini juga menyajikan deskripsi singkat tentang Dinepasar. Fitur yang dapat digunakan pengguna akan ditentukan oleh rolenya, sebagai user biasa atau sebagai admin.
+Dinepasar menyediakan fitur autentikasi dengan halaman registrasi dan login. Setelah login, pengguna akan diarahkan ke landing page yang menampilkan pesan pembuka. Sejak memasuki halaman utama dan seterusnya, fitur yang dapat digunakan pengguna akan ditentukan oleh rolenya, sebagai user biasa atau sebagai admin.
 - Pencarian dan Daftar Restoran
 
 Pengguna dapat mencari restoran melalui search bar di bagian atas halaman. Daftar restoran ditampilkan dari A-Z sesuai dataset, dan setiap restoran menampilkan preview saat diklik.
@@ -44,6 +44,9 @@ Halaman favorit memungkinkan pengguna menyimpan restoran favorit. Di bagian bawa
 - Informasi tentang Denpasar
 
 Dinepasar menyediakan halaman khusus yang berisi informasi tentang berbagai hal terkait Denpasar. Halaman ini juga dilengkapi dengan search bar untuk memudahkan pengguna dalam mencari informasi yang lebih spesifik tentang kota Denpasar.
+
+Sebagai detail, berikut link menuju detail penjelasan modul dan pembagiannya:
+https://docs.google.com/spreadsheets/d/1D2Tk0wCMrCWT3HMLjPZVTOpfQ64sDqC_8w8SRwu9P0g/edit?usp=sharing
 
 
 ## Sumber Initial Dataset
