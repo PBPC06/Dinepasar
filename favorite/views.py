@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from .models import Favorite, FavoriteRestaurant
+from .models import Favorite
 from search.models import Food
 from django.db.models import Count
 
