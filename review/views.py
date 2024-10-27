@@ -51,7 +51,7 @@ def add_review(request):
         review_message = request.POST.get('review')
 
         # Create the review in your database
-        # Example: FoodReview.objects.create(food_id=food_id, rating=rating, review=review_message)
+        FoodReview.objects.create(food_name=food_id, rating=rating, review_message=review_message)
 
         return JsonResponse({'status': 'success', 'message': 'Review added successfully'})
 

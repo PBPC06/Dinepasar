@@ -34,11 +34,11 @@
                         <p class="text-start font-bold text-[#d4a017] text-lg">{{ p.food_review.food_name }}</p>
                         <p class="text-start text-sm text-gray-700">Restaurant: {{ p.food_review.restaurant_name }}</p>
                         <p class="text-start text-gray-600 mt-1">Rate: <span class="font-bold">{{ p.rating }}</span>/5</p>
+                        <p class="text-gray-800 italic mt-2">"{{ p.review_message }}"</p>
                     </div>
                 </div>
                 <div class="mt-4">
-                    <p class="text-gray-700 font-light">Reviewed by <span class="font-semibold">{{ p.user.userprofile.full_name }}</span></p>
-                    <p class="text-gray-800 italic mt-2">"{{ p.review_message }}"</p>
+                    <p class="text-gray-700 font-light">Reviewed by <span class="font-semibold">a person</span></p>
                 </div>
             </div>
             {% endfor %}
