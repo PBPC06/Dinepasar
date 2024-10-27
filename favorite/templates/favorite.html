@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Favorites</title>
+{% endblock meta %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<!-- Moving Text for Dinepasar Title -->
+<div class="moving-text-container">
+  <h1 class="moving-text">Favorite Restaurants</h1>
+</div>
+
+<!-- Display Favorite Restaurants if available -->
+<div class="min-h-screen flex flex-col items-center py-8 px-4 sm:px-6 lg:px-8">
+  {% if not favorite_restaurants %}
+  <p>Belum ada restoran favorit yang disimpan.</p>
+  {% else %}
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead>
+      <tr>
+        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Restoran</th>
+        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Alamat</th>
+        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rating</th>
+        <th class="px-6 py-3 bg-gray-50"></th>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      {% for restaurant in favorite_restaurants %}
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap">{{ restaurant.name }}</td>
+        <td class="px-6 py-4 whitespace-nowrap">{{ restaurant.address }}</td>
+        <td class="px-6 py-4 whitespace-nowrap">{{ restaurant.rating }}</td>
+        <td class="px-6 py-4 whitespace-nowrap">
+          <form method="POST" action="{% url 'main:remove_favorite' restaurant.id %}">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Remove</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+
+{% endblock content %}

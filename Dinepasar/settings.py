@@ -45,7 +45,10 @@ INSTALLED_APPS = [
     'main',
     'manageData',
     'search',
+    'deskripsi',
+    'favorite',
     'densiklopedia',
+    'favorite',
 ]
 
 MIDDLEWARE = [
