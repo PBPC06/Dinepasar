@@ -3,13 +3,13 @@
 {% block content %}
 {% include 'navbar.html' %}
 
-<!-- Image Carousel -->
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cookie&family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Metal&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 </head>
 
+<!-- Image Carousel -->
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false" style="background: linear-gradient(to right, #fff0e0, #fffefe);">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -31,8 +31,7 @@
       <img src="{% static 'image/food4.png' %}" class="d-block w-100" alt="Food Image 4">
     </div>
   </div>
-
-  <!-- Kontrol carousel -->
+  
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
     <span aria-hidden="true">&lt;</span>
     <span class="visually-hidden">Previous</span>
@@ -43,27 +42,41 @@
   </button>
 </div>
 
-<!-- Teks tambahan di bawah carousel dengan animasi fade-in -->
+<!-- Teks tambahan -->
 <div class="text-center mt-4 fade-in-text" style="font-family: 'Metal', sans-serif; font-size: 3rem; color: #4a4a4a;">
   Dive into A Culinary Adventure in Denpasar
 </div>
 
-<style>
-  /* Gaya tambahan untuk membuat transisi carousel lebih halus */
-  .carousel-item {
-    transition: transform 0.6s ease-in-out;
-  }
+<!-- Gapura, Pesawat, dan Awan -->
+<div class="gate-container">
+  <img src="{% static 'image/gapura_left.png' %}" class="gate gate-left" alt="Left Gate">
+  <a href="{% url 'manageData:login' %}" id="start-button" class="start-button">Start your journey</a>
+  <img src="{% static 'image/gapura_right.png' %}" class="gate gate-right" alt="Right Gate">
+</div>
 
-  /* Menambahkan gradasi pada background halaman */
+<!-- Footer -->
+<footer class="footer">
+  <div class="copyright">
+    © 2024 PBPC06
+  </div>
+</footer>
+
+<!-- CSS -->
+<style>
   body {
     background: linear-gradient(to right, #fff0e0, #fffefe);
     margin: 0;
-  }
+    min-height: 100vh; /* Ensure the content covers the full height of the viewport */
+    display: flex;
+    flex-direction: column;
+}
 
   .carousel {
-    position: relative;
-    background: linear-gradient(135deg, #fff0e0, #fffefe); /* Menyamakan background carousel */
-    margin-bottom: 0; /* Menghilangkan jarak kosong di bawah carousel */
+    margin-bottom: 0;
+  }
+
+  .carousel-item {
+    transition: transform 0.6s ease-in-out;
   }
 
   .carousel-control-prev,
@@ -109,35 +122,129 @@
     background-color: #878787;
   }
 
-  /* Gaya untuk teks petualangan */
-  h2 {
-    font-size: 2rem; /* Atur ukuran font sesuai kebutuhan */
-    margin: 0; /* Menghilangkan margin default */
+  .gate-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    position: relative;
+    height: 200px;
   }
 
-  
+  .gate {
+    width: 200px;
+    opacity: 0;
+    transition: opacity 2s ease-in-out, transform 1s ease-in-out;
+    z-index: 1; /* Pastikan gapura berada di belakang awan */
+  }
+
+  .gate-left {
+    transform: translateX(-100%);
+  }
+
+  .gate-right {
+    transform: translateX(100%);
+  }
+
+  .gate.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
 
   .fade-in-text {
-        opacity: 0; /* Mulai dengan tidak terlihat */
-        transition: opacity 1s ease-in-out; /* Animasi saat menjadi terlihat */
-    }
-    
-  /* Animasi fade-in */
-  .fade-in-text.visible {
-    opacity: 1; /* Tampilkan teks */
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
   }
+
+  .fade-in-text.visible {
+    opacity: 1;
+  }
+
+  .start-button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) scale(0.9); /* Awal lebih kecil */
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    background-color: #d6a600;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    opacity: 0;
+    transition: 
+        opacity 0.8s ease-in-out, /* Fade-in lebih halus */
+        transform 0.5s ease-out;  /* Transformasi dengan durasi berbeda */
+    font-family: 'Merriweather Sans', sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+}
+
+.start-button.visible {
+    opacity: 1;
+    transform: translateX(-50%) scale(1); /* Kembali ke ukuran normal */
+}
+
+/* Hover dan Focus: Animasi tanpa glitch */
+.start-button:hover,
+.start-button:focus {
+    background-color: #a16207;
+    transform: translateX(-50%) scale(1.05); /* Sedikit membesar */
+    outline: none;
+}
+
+/* Animasi saat tombol ditekan */
+.start-button:active {
+    transform: translateX(-50%) scale(0.95); /* Efek menekan */
+    transition: transform 0.1s ease-out;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    margin-top: 82px;
+    padding: 10px 0;
+    font-size: 0.9rem;
+    color: #4a4a4a;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #e0e0e0;
+  }
+
+
+
 </style>
 
+<!-- JavaScript -->
 <script>
-  // JavaScript untuk menampilkan teks dengan efek fade-in saat di-scroll
-  document.addEventListener('scroll', function() {
+  document.addEventListener('scroll', function () {
     const fadeInText = document.querySelector('.fade-in-text');
-    const textPosition = fadeInText.getBoundingClientRect().top;
+    const leftGate = document.querySelector('.gate-left');
+    const rightGate = document.querySelector('.gate-right');
+    const startButton = document.getElementById('start-button');
     const screenPosition = window.innerHeight;
 
-    // Jika teks berada dalam viewport
+    const textPosition = fadeInText.getBoundingClientRect().top;
     if (textPosition < screenPosition) {
       fadeInText.classList.add('visible');
+    }
+
+    const gatesPosition = leftGate.getBoundingClientRect().top;
+    if (gatesPosition < screenPosition) {
+      leftGate.classList.add('visible');
+      rightGate.classList.add('visible');
+    }
+
+    // Tampilkan tombol setelah gapura dan teks muncul
+    if (fadeInText.classList.contains('visible') &&
+        leftGate.classList.contains('visible') &&
+        rightGate.classList.contains('visible')) {
+      setTimeout(() => {
+        startButton.classList.add('visible');
+      }, 1000); // Delay 2 detik sebelum tombol muncul
     }
   });
 </script>
