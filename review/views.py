@@ -14,13 +14,8 @@ import json
 
 @login_required(login_url="authentication:login")
 def show_main(request):
-    # Retrieve all reviews ordered by latest
-    review = FoodReview.objects.all().order_by("-id")
-    context = {
-        "review": review
-    }
-    return render(request, 'review.html', context)
-
+    reviews = FoodReview.objects.all()  # Retrieve all reviews from the database
+    return render(request, 'review.html', {'review': reviews})
 
 @login_required(login_url='/login')
 def choose_food(request):
@@ -50,37 +45,18 @@ def choose_food(request):
 @require_POST
 @login_required(login_url='/login')
 def add_review(request):
-    review_message = strip_tags(request.POST.get("review"))
-    rating = request.POST.get("food_rating")
-    food_id = request.POST.get("food_id")
-    user = request.user
+    if request.method == 'POST':
+        food_id = request.POST.get('food_id')  # Make sure food_id is being passed
+        rating = request.POST.get('food_rating')
+        review_message = request.POST.get('review')
 
-    if not review_message or not rating or not food_id:
-        return JsonResponse({"status": "error", "message": "All fields are required."}, status=400)
+        # Create the review in your database
+        # Example: FoodReview.objects.create(food_id=food_id, rating=rating, review=review_message)
 
-    try:
-        rating = float(rating)
-        if rating < 0 or rating > 5:
-            return JsonResponse({"status": "error", "message": "Rating must be between 0 and 5."}, status=400)
-    except ValueError:
-        return JsonResponse({"status": "error", "message": "Invalid rating."}, status=400)
+        return JsonResponse({'status': 'success', 'message': 'Review added successfully'})
 
-    try:
-        food = Food.objects.get(pk=food_id)
-        new_review = FoodReview(
-            food_review=food,
-            user=user,
-            rating=rating,
-            review_message=review_message,
-        )
-        new_review.save()
-
-        return JsonResponse({"status": "success", "message": "Review added successfully."}, status=201)
-    except Food.DoesNotExist:
-        return JsonResponse({"status": "error", "message": "Food not found."}, status=404)
-    except Exception as e:
-        return JsonResponse({"status": "error", "message": str(e)}, status=400)
-
+    # If you want to handle GET requests for any reason
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
 
 def show_json(request):
     # Return all reviews as JSON

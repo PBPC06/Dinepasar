@@ -29,7 +29,7 @@
             {% for p in review %}
             <div style="background-color: #fff5cc;" class="border border-[#d4a017] rounded-lg p-6 shadow-lg transition-all hover:shadow-2xl">
                 <div class="flex">
-                    <img class="h-24 md:h-36 flex pr-4 rounded-lg" src="{{ p.food_review.Image }}" alt="{{ p.food_review.food_name }}">
+                    <img class="h-24 md:h-36 flex pr-4 rounded-lg" src="{{ p.food_review.Image.url }}" alt="{{ p.food_review.food_name }}">
                     <div class="flex-grow">
                         <p class="text-start font-bold text-[#d4a017] text-lg">{{ p.food_review.food_name }}</p>
                         <p class="text-start text-sm text-gray-700">Restaurant: {{ p.food_review.restaurant_name }}</p>
@@ -44,26 +44,65 @@
             {% endfor %}
         </div>
     </div>
-{% endblock content %}
 
-{% block script %}
-<script src="{% static 'js/review.js' %}"></script>
-<script>
-    document.getElementById('add-review-btn').addEventListener('click', function(event) {
-        event.preventDefault();
-        $.ajax({
-            url: "{% url 'review:add_review' %}", 
-            type: 'POST',
-            data: {
-                'food_id': selectedFoodId,
-                'rating': userRating,
-                'review_message': userReviewMessage,
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            success: function(response) {
-                $('#review-section').prepend(response.new_review_html);
-            }
-        });
-    });
-</script>
-{% endblock script %}
+    <script>
+        function addReviewEntry() {
+            const form = document.getElementById('reviewEntryForm');
+            const formData = new FormData(form);
+    
+            fetch("{% url 'review:add_review' %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                },
+                body: formData,
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Failed to submit review");
+                }
+            })
+            .then(data => {
+                if (data.status === "success") {
+                    // Append the new review to the review list
+                    appendReview(data.review);
+                    hideModal();             // Hide modal on success
+                    form.reset();            // Reset the form
+                } else {
+                    alert(data.message);     // Show error if any
+                }
+            })
+            .catch(error => {
+                console.error("Error submitting review:", error);
+            });
+    
+            return false;  // Prevent default form submission
+        }
+    
+        function appendReview(review) {
+            const reviewContainer = document.querySelector('.flex.flex-col.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3.gap-10.px-6.md\\:px-10');
+    
+            const reviewCard = `
+                <div style="background-color: #fff5cc;" class="border border-[#d4a017] rounded-lg p-6 shadow-lg transition-all hover:shadow-2xl">
+                    <div class="flex">
+                        <img class="h-24 md:h-36 flex pr-4 rounded-lg" src="${review.image_url}" alt="${review.food_name}">
+                        <div class="flex-grow">
+                            <p class="text-start font-bold text-[#d4a017] text-lg">${review.food_name}</p>
+                            <p class="text-start text-sm text-gray-700">Restaurant: ${review.restaurant_name}</p>
+                            <p class="text-start text-gray-600 mt-1">Rate: <span class="font-bold">${review.rating}</span>/5</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-gray-700 font-light">Reviewed by <span class="font-semibold">${review.user_name}</span></p>
+                        <p class="text-gray-800 italic mt-2">"${review.review_message}"</p>
+                    </div>
+                </div>
+            `;
+            
+            reviewContainer.insertAdjacentHTML('afterbegin', reviewCard);  // Add new review at the top
+        }
+    </script>
+    
+{% endblock content %}
