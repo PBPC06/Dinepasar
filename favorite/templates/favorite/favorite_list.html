@@ -3,9 +3,9 @@
 
 {% block content %}
 {% include 'navbar.html' %}
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cookie&family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Metal&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 <div class="min-h-screen flex flex-col items-center justify-start py-5 bg-gradient-to-b from-yellow-50 to-yellow-20">
-    <h2 class="text-4xl font-bold text-gray-800 mb-6 animate-fade-in border-b-4 border-yellow-600 pb-2">Your Favorite Foods</h2>
-
+    <h2 class="text-center mt-4 fade-in-text" style="font-family: 'Metal', sans-serif; font-size: 3rem; color: #4a4a4a;">Your Favorite Foods</h2>
     <!-- Favorite Foods List -->
     <div class="mt-4 max-w-2xl w-full">
         {% for favorite in favorites %}
@@ -45,7 +45,7 @@
     </div>
     
     <!-- Recommended Foods Section -->
-    <h3 class="text-4xl font-bold text-gray-800 mt-10 mb-6 animate-fade-in border-b-4 border-yellow-600 pb-2">Recommended for You</h3>
+    <h2 class="text-center mt-4 fade-in-text" style="font-family: 'Metal', sans-serif; font-size: 3rem; color: #4a4a4a;">Recommended for You</h2>
     <div class="mt-4 max-w-2xl w-full">
         {% for food in recommended_foods %}
             <div class="flex items-center justify-between bg-white rounded-lg shadow-lg p-4 mb-6 transition-transform transform hover:scale-105 hover:shadow-xl animate-slide-up">
