@@ -11,15 +11,13 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+from pathlib import Path
+
 PRODUCTION = os.getenv("PRODUCTION", False)
 DEBUG = not PRODUCTION
 
-from pathlib import Path
-import os
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -28,13 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-pt$3*iz6z*%4&pzs@zi*rwbbzk(ul2j2)3#aqv-#zdtf#!v3#*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-PRODUCTION = os.getenv("PRODUCTION", False)
-DEBUG = not PRODUCTION
-
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "namira-aulia31-dinepasar.pbp.cs.ui.ac.id"]
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -60,7 +54,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 ]
 
 ROOT_URLCONF = 'Dinepasar.urls'
@@ -86,8 +79,6 @@ WSGI_APPLICATION = 'Dinepasar.wsgi.application'
 AUTH_USER_MODEL = 'manageData.CustomUser'
 
 # Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -95,10 +86,7 @@ DATABASES = {
     }
 }
 
-
 # Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -114,38 +102,26 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
 STATIC_URL = '/static/'
 if DEBUG:
     STATICFILES_DIRS = [
-        BASE_DIR / 'static' # merujuk ke /static root project pada mode development
+        BASE_DIR / 'static'  # Refer to /static root project in development mode
     ]
 else:
-    STATIC_ROOT = BASE_DIR / 'static' # merujuk ke /static root project pada mode production
+    STATIC_ROOT = BASE_DIR / 'static'  # Refer to /static root project in production
 
-
+# Media files (uploaded by users)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'  # Adjust if your media folder is located elsewhere
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost","http://127.0.0.1","http://namira-aulia31-dinepasar.pbp.cs.ui.ac.id", "https://namira-aulia31-dinepasar.pbp.cs.ui.ac.id"]
-
-
-
+CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://127.0.0.1", "http://namira-aulia31-dinepasar.pbp.cs.ui.ac.id", "https://namira-aulia31-dinepasar.pbp.cs.ui.ac.id"]
