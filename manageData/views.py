@@ -14,25 +14,25 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 
 @csrf_exempt
+@csrf_exempt
 def register(request):
-    
-
     if request.method == "POST":
         form = NewUserForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)  # Save form tapi blm masuk ke database
+            user = form.save(commit=False)  # Save form but not to the database yet
 
-            if form.cleaned_data.get('isAdmin'):
+            # Set the is_admin attribute based on the form's selection
+            if form.cleaned_data.get('isAdmin') == "Admin":
                 user.is_admin = True
             else:
                 user.is_admin = False
             
-            user.save()  # Save ke database
+            user.save()  # Save to the database
             
             messages.success(request, 'Your account has been successfully created!')
             return redirect('manageData:login')
     else:
-        form = NewUserForm()  # Inisialisasi form saat method GET
+        form = NewUserForm()  # Initialize form on GET request
 
     context = {'form': form}
     return render(request, 'register.html', context)

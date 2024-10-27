@@ -4,7 +4,7 @@ from search.views import get_foods,  edit_food, delete_food, add_food, fetch_foo
 app_name = "search"
 
 urlpatterns = [
-    path('search/', views.search_redirect, name='search_redirect'),
+    path('', views.search_redirect, name='search_redirect'),
     path('food/add/', add_food, name='add_food'),
     path('owner/dashboard/', views.owner_dashboard, name='owner_dashboard'),
     path('food/<int:food_id>/edit/', edit_food, name='edit_food'),
