@@ -12,7 +12,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import user_passes_test
 from django.db.models import Q
 from django.views.decorators.http import require_POST
-
+from django.http import HttpResponseRedirect
 
 
 # Create your views here.
@@ -22,12 +22,12 @@ def get_foods(request):
     return HttpResponse(serializers.serialize("json", data),
     content_type="application/json")
 
-
+@csrf_exempt
 def food_search(request):
     # Ambil parameter pencarian dan filter
-    keyword = request.GET.get('keyword', '')
-    kategori = request.GET.get('kategori', '')
-    harga = request.GET.get('harga', '')
+    keyword = request.POST.get('keyword', '')
+    kategori = request.POST.get('kategori', '')
+    harga = request.POST.get('harga', '')
 
     # Query awal
     foods = Food.objects.all()
@@ -49,29 +49,17 @@ def food_search(request):
         foods = foods.filter(harga__gt=100000)
 
 
-    # Calculate stars
-    for food in foods:
-        food.full_stars = int(food.rating)  # Full stars
-        food.empty_stars = 5 - food.full_stars  # Empty stars
-
-
     # Masukkan hasil ke dalam context
     context = {
         'foods': foods,
     }
     return render(request, 'food_search.html', context)
 
-
-def owner_required(user):
-    return user.isAdmin
-
-
-# @login_required(login_url='/login')
-# @user_passes_test(owner_required)
+@csrf_exempt
 def owner_dashboard(request):
-    keyword = request.GET.get('keyword', '')
-    kategori = request.GET.get('kategori', '')
-    harga = request.GET.get('harga', '')
+    keyword = request.POST.get('keyword', '')
+    kategori = request.POST.get('kategori', '')
+    harga = request.POST.get('harga', '')
 
     # Query awal: ambil semua makanan
     foods = Food.objects.all()
@@ -108,8 +96,6 @@ def owner_dashboard(request):
 
 
 
-# @login_required(login_url='/login')
-# @user_passes_test(owner_required)
 # @csrf_exempt
 def add_food(request):
     if request.method == "POST":
@@ -158,40 +144,25 @@ def add_food(request):
     # Jika request GET, tampilkan halaman form
     return render(request, "add_food.html")
 
-# @login_required(login_url='/login')
 def edit_food(request, food_id):
-    # Get product entry berdasarkan id
     food = get_object_or_404(Food, pk=food_id)
-
-    if request.method == "POST":
-        # Set product sebagai instance dari form dengan POST data
+    form = FoodForm(instance=food)
+    if request.method == 'POST':
         form = FoodForm(request.POST, instance=food)
-    else:
-        # Saat GET request, set form dengan instance data
-        form = FoodForm(instance=food)
+        if form.is_valid():
+            form.save()
+            # Kembalikan pesan sukses dan URL untuk pengalihan
+            return JsonResponse({'redirect_url': reverse('search:owner_dashboard')})
+        else:
+            return JsonResponse({'errors': form.errors}, status=400)  # Kembalikan error form sebagai JSON
 
-    if form.is_valid() and request.method == "POST":
-        # Simpan form dan kembali ke halaman awal
-        form.save()
-        return redirect('search:owner_dashboard')
-    
-    context = {'form': form}
-    return render(request, "edit_foods.html", context)
+    return render(request, 'edit_foods.html', {'form': form, 'food': food})
 
-# @login_required(login_url='/login')
+@csrf_exempt
 def delete_food(request, food_id):
     food = get_object_or_404(Food, id=food_id)
     food.delete()
     return redirect('search:owner_dashboard')
-
-# @login_required(login_url='/login')
-def owner_dashboard_awal(request):
-    foods = Food.objects.all()  # Data makanan yang bisa dilihat dan dikelola owner
-    context = {
-        'foods': foods,
-        'is_owner': True  # Menandakan bahwa ini adalah halaman owner
-    }
-    return render(request, 'owner_dashboard.html', context)
 
 
 def search_redirect(request):

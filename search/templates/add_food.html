@@ -4,31 +4,43 @@
 {% block meta %}
     <title>Tambah Makanan</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Menambahkan jQuery -->
     <script>
-        $(document).ready(function() {
-            $("form").on("submit", function(event) {
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.querySelector("form");
+
+            form.addEventListener("submit", async function(event) {
                 event.preventDefault(); // Mencegah pengiriman form default
 
-                $.ajax({
-                    type: "POST",
-                    url: "{% url 'search:add_food' %}",  // Sesuaikan dengan URL yang benar
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        if (response.success) {
-                            // Redirect ke halaman dashboard owner setelah berhasil
-                            window.location.href = "{% url 'search:owner_dashboard' %}";
-                        } 
-                    },
-                    error: function(xhr) {
-                        let errors = xhr.responseJSON.errors;
+                const formData = new FormData(form);
+
+                try {
+                    const response = await fetch("{% url 'search:add_food' %}", {
+                        method: "POST",
+                        body: formData,
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                        }
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.success) {
+                        window.location.href = "{% url 'search:owner_dashboard' %}";
+                    } else {
+                        const errors = data.errors || {};
+                        let errorMessage = "Error: ";
                         for (const key in errors) {
                             if (errors.hasOwnProperty(key)) {
-                                alert(errors[key].join(", "));
+                                errorMessage += errors[key].join(", ") + " ";
                             }
                         }
+                        alert(errorMessage || "Terjadi kesalahan. Silakan coba lagi.");
                     }
-                });
+                } catch (error) {
+                    console.error("Error:", error);
+                    alert("Terjadi kesalahan. Silakan coba lagi.");
+                }
+
             });
         });
     </script>
@@ -38,11 +50,12 @@
 <body class="bg-gray-50">
     <div class="flex flex-col items-center justify-center min-h-screen bg-yellow-50">
         <!-- Form Card -->
-        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-3xl mt-32">
+        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-3xl mt-8">
             <!-- Image at the Top -->
             <div class="flex justify-center mb-6">
-                <img src="{% static 'images/dinepasar.avif' %}" alt="Dinepasar Background" class="w-full h-48 object-cover rounded-lg" />
+                    <img class="w-full h-48 rounded-lg object-cover" src="https://ristek.link/dinepasar-food" alt="Food Image" />
             </div>
+            
 
             <h2 class="text-2xl font-bold mb-6 text-gray-900 text-center">Tambah Makanan</h2>
 

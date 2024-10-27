@@ -1,6 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
@@ -78,3 +78,23 @@ def add_artikel(request):
             'subjudul': artikel.subjudul
         })
     return JsonResponse({'error': form.errors}, status=400)  # Kembalikan kesalahan form
+
+def view_artikel(request, id):
+    article = get_object_or_404(ArticleEntry, id=id)
+    article.konten = article.konten.replace(' ', '&nbsp;').replace('\n', '<br>')
+    return render(request, 'densiklopedia/view_artikel.html', {'article': article})
+
+def delete_artikel(request, id):
+    article = get_object_or_404(ArticleEntry, id=id)
+    article.delete()
+    return redirect(reverse('densiklopedia:artikel'))
+
+def edit_artikel(request, id):
+    article = get_object_or_404(ArticleEntry, pk=id)
+    form = ArticleEntryForm(request.POST or None, instance=article)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect(reverse('densiklopedia:artikel'))
+
+    context = {'form': form, 'article': article}
+    return render(request, 'densiklopedia/edit_artikel.html', context)

@@ -8,6 +8,25 @@
     {% endblock meta %}
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{% static 'css/global.css' %}"/>
+
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+      
+      <style>
+        .carousel {
+          margin: 0;
+          padding: 0;
+        }
+        .navbar {
+          margin-bottom: 0;
+        }
+        .carousel-item img {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
+      </style>
+    
   </head>
   <body>
     {% block content %} {% endblock content %}
