@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from search.views import get_foods,  edit_food, delete_food, add_food, fetch_foods
+from search.views import get_foods,  edit_food, delete_food, add_food, fetch_foods, mark_food_as_tried
 app_name = "search"
 
 urlpatterns = [
@@ -14,4 +14,5 @@ urlpatterns = [
     path('<int:pk>/', views.food_preview, name='food_preview'),  # Untuk halaman detail
     path('food/<int:pk>/', views.food_detail, name='food_detail'),
     path('fetch_foods/', fetch_foods, name='fetch_foods'),
+    path('mark-food-as-tried/<int:food_id>/', views.mark_food_as_tried, name='mark_food_as_tried'),
 ]

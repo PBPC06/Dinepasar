@@ -37,7 +37,11 @@
                 <!-- Profile and Log Out Section -->
                 <div class="hidden sm:flex items-center space-x-4">
                     <!-- Display the user's name dynamically -->
-                    <span class="text-yellow-600 text-1xl font-medium">Hi, {{ user.username }}!</span>
+                    <a 
+                        href="{% url 'editProfile:editProfile' %}"
+                        class="text-yellow-600 text-1xl font-medium hover:underline hover:text-yellow-800">
+                        Hi, {{ user.username }}!
+                    </a>
                     <a 
                         href="{% url 'manageData:login' %}"
                         class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700">
