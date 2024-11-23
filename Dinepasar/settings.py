@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'favorite',
     'densiklopedia',
     'review',
+    'editProfile',
 ]
 
 MIDDLEWARE = [

@@ -32,10 +32,13 @@ Lebih dari itu, Dinepasar dapat menjadi teman setia dalam mengeksplorasi cita ra
 - Autentikasi, Role Pengguna, dan Halaman Utama
 
 Dinepasar menyediakan fitur autentikasi dengan halaman registrasi dan login. Setelah login, pengguna akan diarahkan ke landing page yang menampilkan pesan pembuka. Sejak memasuki halaman utama dan seterusnya, fitur yang dapat digunakan pengguna akan ditentukan oleh rolenya, sebagai user biasa atau sebagai admin.
-- Pencarian dan Daftar Restoran
+- Edit Profile dan Riwayat Makanan yang Pernah Dicoba
 
-Pengguna dapat mencari restoran melalui search bar di bagian atas halaman. Daftar restoran ditampilkan dari A-Z sesuai dataset, dan setiap restoran menampilkan preview saat diklik.
-- Preview Restoran dan Tambahkan ke Favorit
+Pengguna dapat mengedit profile yang telah dibuat sebelumnya pada halaman tertentu. Halaman tersebut juga memuat riwayat makanan yang pernah dicoba oleh pengguna tersebut.
+- Pencarian dan Daftar Makanan
+
+Pengguna dapat mencari makanan melalui search bar di bagian atas halaman. Daftar makanan dari dataset dapat difilter sesuai kriteria tertentu, dan setiap makanan menampilkan preview saat diklik.
+- Preview Makanan dan Tambahkan ke Favorit
 
 Pada halaman preview makanan, pengguna dapat melihat informasi lengkap mengenai suatu makanan. Di halaman ini, pengguna juga memiliki opsi untuk menambahkan makanan tersebut ke dalam daftar favorit atau wishlist melalui tombol yang telah disediakan. Halaman favorit memungkinkan pengguna untuk melihat daftar makanan favorit mereka, dan di bagian bawah halaman, terdapat rekomendasi restoran lain yang sesuai dengan kategori makanan yang disukai pengguna.
 - Ulasan
@@ -65,11 +68,11 @@ https://gofood.co.id/
 ## Role Pengguna
 - User
 
-User setelah login bisa mengakses berbagai fitur seperti autentikasi, halaman profil pengguna untuk melihat dan mengedit profil, serta halaman utama yang mengintegrasikan seluruh data. User dapat mencari restoran menggunakan search bar, melihat daftar restoran dari A-Z, melihat detail restoran beserta ulasan, dan menyimpan restoran ke dalam favorit. Ada juga halaman khusus untuk informasi tentang Denpasar. 
+User setelah login bisa mengakses berbagai fitur seperti autentikasi, halaman profil pengguna untuk melihat dan mengedit profil, serta halaman utama yang mengintegrasikan seluruh data. User dapat mencari restoran menggunakan search bar, melihat daftar makanan yang terfilter, melihat detail makanan beserta ulasan, dan menyimpan makanan ke dalam favorit. Ada juga halaman khusus untuk informasi tentang Denpasar. 
 
 - Admin
 
-Selain memiliki akses seperti user, juga dapat menambahkan dan menghapus card restoran pada halaman pencarian.
+Selain memiliki akses seperti user, juga dapat menambahkan dan menghapus card makanan pada halaman pencarian.
 
 
 ## Tautan Deployment Aplikasi

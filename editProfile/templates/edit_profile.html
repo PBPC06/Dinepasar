@@ -1,0 +1,272 @@
+{% load static %}
+{% include 'navbar.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-[#fff0e0] to-[#fffefe] min-h-screen flex flex-col">
+    <div class="container mx-auto py-12">
+        <!-- Profile Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-700">
+                Hello, <span class="text-yellow-600">{{ user.username }}!</span>
+            </h1>
+        </div>
+
+        <!-- Personal Information Card -->
+        <div class="bg-white shadow-lg rounded-lg p-8 max-w-3xl mx-auto mt-8 mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-gray-700 text-center">Personal Information</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700 text-lg" id="personalInformation">
+                <!-- Username -->
+                <div>
+                    <p><span class="font-bold">Username:</span> {{ user.username }}</p>
+                </div>
+                <!-- Phone -->
+                <div>
+                    <p><span class="font-bold">Phone:</span> {{ profile.phone|default:"-" }}</p>
+                </div>
+                <!-- Email -->
+                <div>
+                    <p><span class="font-bold">Email:</span> {{ profile.email|default:"-" }}</p>
+                </div>
+                <!-- About Me -->
+                <div>
+                    <p><span class="font-bold">About me:</span> {{ profile.about_me|default:"-" }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Profile Button -->
+        <div class="text-center mt-8">
+            <a href="#" class="bg-yellow-600 text-white font-semibold py-2 px-6 rounded hover:bg-yellow-800">
+                Edit Profile
+            </a>
+        </div>
+
+        <!-- Popup Modal -->
+        <div class="container mx-auto py-8">
+            <div id="editProfileModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+                <div class="bg-white rounded-lg shadow-lg p-6 w-96">
+                    <h2 class="text-2xl font-bold mb-4">Edit Profile</h2>
+
+                    <!-- Form Edit Profile -->
+                    <form id="editProfileForm">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-md p-2 mb-4" value="{{ profile.email }}" required>
+                        <span class="text-xs text-red-600 mt-1 block"></span>
+
+                        <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                        <input type="text" id="phone" name="phone" class="w-full border border-gray-300 rounded-md p-2 mb-1" value="{{ profile.phone }}" required>
+                        <span class="text-xs text-red-600 mt-1 block"></span>
+
+                        <label for="about_me" class="block text-sm font-medium text-gray-700">About Me</label>
+                        <textarea id="about_me" name="about_me" rows="3" class="w-full border border-gray-300 rounded-md p-2 mb-4">{{ profile.about_me }}</textarea>
+
+                        <div class="flex justify-end space-x-2">
+                            <button type="button" id="cancelBtn" class="bg-gray-400 text-white py-2 px-4 rounded hover:bg-gray-500">Cancel</button>
+                            <button type="submit" class="bg-yellow-600 text-white py-2 px-4 rounded hover:bg-yellow-800">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="bg-white shadow-lg rounded-lg p-8 max-w-3xl mx-auto mt-8 mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-gray-700 text-center">Foods You've Tried</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" id="tried-foods-list">
+                {% for food in profile.tried_foods.all %}
+                <div class="bg-gray-100 p-4 rounded-lg relative">
+                    <button class="circle-close-button absolute top-2 right-2" data-id="{{ food.id }}" onclick="removeFood(this)">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M6.293 6.293a1 1 0 011.414 0L10 8.586l2.293-2.293a1 1 0 111.414 1.414L11.414 10l2.293 2.293a1 1 0 11-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 11-1.414-1.414L8.586 10 6.293 7.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>                                       
+                    <img src="{{ food.gambar }}" alt="{{ food.nama_makanan }}" class="w-full h-32 object-cover rounded-lg mb-2">
+                    <h3 class="font-semibold text-lg">{{ food.nama_makanan }}</h3>
+                    <p class="text-sm text-gray-600">{{ food.deskripsi|truncatewords:10 }}</p>
+                </div>
+                {% empty %}
+                <p class="text-gray-500">You haven't tried any foods yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        
+        
+        
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const editButton = document.querySelector("a[href='#']");
+            const modal = document.getElementById("editProfileModal");
+            const cancelButton = document.getElementById("cancelBtn");
+            const phoneInputClassList = document.getElementById("phone").classList;
+            const phoneInputMessage = document.querySelector("#phone + span");
+            const emailInputClassList = document.getElementById("email").classList;
+            const emailInputMessage = document.querySelector("#email + span");
+            let initialData = {}; // Menyimpan data awal
+
+            // Open modal
+            editButton.addEventListener("click", (event) => {
+                event.preventDefault();
+                modal.classList.remove("hidden");
+
+                // Simpan data awal saat modal dibuka pertama kali
+                initialData.email = document.getElementById("email").value;
+                initialData.phone = document.getElementById("phone").value;
+                initialData.about_me = document.getElementById("about_me").value;
+            });
+
+            // Close modal
+            cancelButton.addEventListener("click", () => {
+                modal.classList.add("hidden");
+                phoneInputClassList.remove("outline", "outline-red-600");
+                phoneInputMessage.innerText = "";
+                emailInputClassList.remove("outline", "outline-red-600");
+                emailInputMessage.innerText = "";
+
+                // Pulihkan data awal
+                document.getElementById("email").value = initialData.email;
+                document.getElementById("phone").value = initialData.phone;
+                document.getElementById("about_me").value = initialData.about_me;
+            });
+
+            // Handle form submission
+            const form = document.getElementById("editProfileForm");
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                
+                // Validasi nomor telepon
+                const formData = new FormData(form);
+                const phonePattern = /^08[0-9]{9,11}$/;
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[a-z]{2,3}$/i;
+
+                if (!phonePattern.test(formData.get("phone"))) {
+                    phoneInputClassList.add("outline", "outline-red-600");
+                    phoneInputMessage.innerText = "Invalid phone number!";
+                    return;
+                } else {
+                    phoneInputClassList.remove("outline", "outline-red-600");
+                    phoneInputMessage.innerText = "";
+                }
+
+                if (!emailPattern.test(formData.get("email"))) {
+                    emailInputClassList.add("outline", "outline-red-600");
+                    emailInputMessage.innerText = "Invalid email format!";
+                    return;
+                } else {
+                    emailInputClassList.remove("outline", "outline-red-600");
+                    emailInputMessage.innerText = "";
+                }
+
+                try {
+                    // Kirim permintaan AJAX
+                    const response = await fetch("{% url 'editProfile:editProfileAjax' %}", {
+                        method: "POST",
+                        body: formData,
+                        headers: {
+                            "X-CSRFToken": "{{ csrf_token }}",
+                        },
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+
+                        // Update data di DOM
+                        document.getElementById("personalInformation").children[1].innerHTML = `<span class="font-bold">Phone:</span> ${result.phone}`;
+                        document.getElementById("personalInformation").children[2].innerHTML = `<span class="font-bold">Email:</span> ${result.email}`;
+                        document.getElementById("personalInformation").children[3].innerHTML = `<span class="font-bold">About me:</span> ${result.about_me}`;
+
+                        // Update data awal
+                        initialData.email = result.email;
+                        initialData.phone = result.phone;
+                        initialData.about_me = result.about_me;
+
+                        // Tutup modal
+                        modal.classList.add("hidden");
+                    } else {
+                        alert("Failed to save changes. Please try again.");
+                    }
+                } catch (error) {
+                    alert("An error occurred. Please try again.");
+                }
+            });
+        });
+
+        function removeFood(button) {
+            const foodId = button.getAttribute('data-id'); // Mengambil ID makanan dari data-id
+            
+            if (confirm('Are you sure you want to remove this food from your tried history?')) {
+                fetch(`/editProfile/remove_food_from_history/${foodId}/`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    body: JSON.stringify({ food_id: foodId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Hapus elemen food dari DOM
+                        const foodElement = button.closest('.bg-gray-100'); // Mencari elemen induk dari tombol
+                        foodElement.remove(); // Menghapus elemen dari halaman
+
+                         // Cek jika sudah tidak ada makanan yang dicoba
+                        const foodList = document.getElementById("tried-foods-list");
+                        if (foodList.children.length === 0) {
+                            foodList.innerHTML = '<p class="text-gray-500">You haven\'t tried any foods yet.</p>';
+                        }
+                    
+                    } else {
+                        alert('Failed to remove food.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while removing the food.');
+                });
+            }
+        }
+
+
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(to right, #fff0e0, #fffefe);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .circle-close-button {
+        width: 30px;               /* Lebar tombol */
+        height: 30px;              /* Tinggi tombol */
+        border-radius: 50%;        /* Membuat tombol berbentuk lingkaran */
+        background-color: rgb(224, 33, 33);     /* Warna latar belakang merah */
+        display: flex;             /* Menggunakan flexbox untuk menempatkan silang di tengah */
+        justify-content: center;   /* Menyusun konten secara horizontal */
+        align-items: center;       /* Menyusun konten secara vertikal */
+        padding: 0;                /* Menghapus padding */
+        border: none;              /* Menghapus border default */
+        cursor: pointer;          /* Menambahkan pointer saat hover */
+        transition: background-color 0.3s ease;  /* Menambahkan transisi halus */
+    }
+
+    .circle-close-button:hover {
+        background-color: #770f0f; /* Menambahkan efek hover dengan warna latar lebih gelap */
+    }
+
+    </style>
+</body>
+</html>

@@ -95,15 +95,22 @@
             <!-- Buttons (Details, Edit, Delete) -->
             <div class="p-4 flex justify-between items-center">
 
-                <!-- Details Button (Left-aligned) -->
-                <div class="flex justify-center">
-                    <a href="{% url 'food_detail' food.pk %}" class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700">
-                        Details
-                    </a>
-                </div>
-
+                
                 <!-- Edit and Delete Buttons (Right-aligned) -->
                 <div class="flex space-x-2">
+                    <!-- Details Button (Left-aligned) -->
+                    <div class="flex justify-center">
+                        <a href="{% url 'food_detail' food.pk %}" class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700">
+                            Details
+                        </a>
+                    </div>
+                    <!-- New Orange Checkmark Button -->
+                    <button data-id="{{ food.id }}" class="check-food bg-orange-500 hover:bg-orange-700 text-white rounded-full p-2 transition duration-300 shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 00-1.414 0L9 11.586 6.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l7-7a1 1 0 000-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
                     <!-- Tombol Delete -->
                     <button data-id="{{ food.id }}" class="delete-food bg-[#F44336] hover:bg-[#D32F2F] text-white rounded-full p-2 transition duration-300 shadow-md">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
@@ -195,10 +202,61 @@
     </div>
 {% endif %}
 
+<!-- Notification Message -->
+<div id="notification" class="hidden fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-md shadow-lg text-sm">
+    <strong>Food added to your history in profile!</strong>
+</div>
+
+
+
 
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.classList.remove('hidden'); // Show the notification
+            setTimeout(function() {
+                notification.classList.add('hidden'); // Hide the notification after 3 seconds
+            }, 3000);
+        }
+
+        const checkButtons = document.querySelectorAll('.check-food');
+        checkButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const foodId = this.getAttribute('data-id');  // Ambil food_id
+                fetch(`/editProfile/mark_food_as_tried/${foodId}/`, {  // Gunakan URL yang sesuai
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    body: JSON.stringify({ food_id: foodId })  // Kirim food_id dalam body
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showNotification();  // Tampilkan notifikasi jika berhasil
+                    } else {
+                        alert('Failed to add food to history.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+        
+        // Add event listener to the checkmark button
+        checkButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // You can add additional logic here to add food to the user's history
+                showNotification(); // Show the notification
+            });
+        }); 
+
+
         // Function to open the modal
         window.openModal = function() {
             document.querySelector("#addFoodModal").classList.remove("hidden");
@@ -359,7 +417,5 @@
 
     });
 </script>
-
-
 
 {% endblock %}

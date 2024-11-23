@@ -191,3 +191,20 @@ def food_preview(request, pk):
 def food_detail(request, pk):
     food = get_object_or_404(Food, pk=pk)
     return render(request, 'food_detail.html', {'food': food})
+
+@csrf_exempt
+def mark_food_as_tried(request, food_id):
+    # print(f"Received food_id: {food_id}")
+    try:
+        # Ambil objek Food berdasarkan ID
+        food = Food.objects.get(id=food_id)
+        profile = request.user.profile
+
+        # Tandai makanan sebagai sudah dicoba
+        profile.tried_foods.add(food)
+        profile.save()
+
+        return JsonResponse({'success': True, 'message': 'Food added to your history in profile!'})
+    except Food.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Food not found'})
+
