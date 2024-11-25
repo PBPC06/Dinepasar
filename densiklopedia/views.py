@@ -96,7 +96,7 @@ def delete_artikel(request, id):
 def edit_artikel(request, id):
     article = get_object_or_404(ArticleEntry, pk=id)
     if article.user != request.user and not request.user.is_superuser:
-        return HttpResponseForbidden()
+        return HttpResponseForbidden("You do not have permission to delete this article.")
 
     form = ArticleEntryForm(request.POST or None, instance=article)
     if request.method == "POST" and form.is_valid():
