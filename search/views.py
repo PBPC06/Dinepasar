@@ -25,6 +25,11 @@ def get_foods(request):
 
 @csrf_exempt
 def food_search(request):
+
+    # Jika pengguna adalah admin, redirect ke owner_dashboard
+    if request.user.is_authenticated and request.user.is_admin:
+        return redirect('search:owner_dashboard')
+
     # Ambil parameter pencarian dan filter
     keyword = request.POST.get('keyword', '')
     kategori = request.POST.get('kategori', '')
@@ -56,8 +61,13 @@ def food_search(request):
     }
     return render(request, 'food_search.html', context)
 
-@csrf_exempt
+
 def owner_dashboard(request):
+
+    if request.user.is_authenticated and not request.user.is_admin:
+        return redirect('search:food_search')
+
+
     keyword = request.POST.get('keyword', '')
     kategori = request.POST.get('kategori', '')
     harga = request.POST.get('harga', '')
@@ -97,7 +107,7 @@ def owner_dashboard(request):
 
 
 
-# @csrf_exempt
+
 def add_food(request):
     if request.method == "POST":
         nama_makanan = strip_tags(request.POST.get("nama_makanan"))
@@ -145,6 +155,7 @@ def add_food(request):
     # Jika request GET, tampilkan halaman form
     return render(request, "add_food.html")
 
+
 def edit_food(request, food_id):
     food = get_object_or_404(Food, pk=food_id)
     form = FoodForm(instance=food)
@@ -158,7 +169,6 @@ def edit_food(request, food_id):
             return JsonResponse({'errors': form.errors}, status=400)  # Kembalikan error form sebagai JSON
 
     return render(request, 'edit_foods.html', {'form': form, 'food': food})
-
 
 def delete_food(request, food_id):
     food = get_object_or_404(Food, id=food_id)
