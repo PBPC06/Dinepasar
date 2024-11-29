@@ -1,82 +1,97 @@
-from django.shortcuts import render
+from django.db.models import Avg
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, JsonResponse
-from django.core import serializers
-from django.db.models import Q
-from django.utils.html import strip_tags
+from django.http import HttpResponseForbidden, JsonResponse
 from django.views.decorators.http import require_POST
 from review.models import FoodReview
-from review.forms import ReviewFoodForm
 from search.models import Food
-import json
-
-
-@login_required(login_url="authentication:login")
-def show_main(request):
-    reviews = FoodReview.objects.all()  # Retrieve all reviews from the database
-    return render(request, 'review.html', {'review': reviews})
+from django.contrib import messages
 
 @login_required(login_url='/login')
-def choose_food(request):
-    # Search and filter functionality
-    keyword = request.GET.get('keyword', '')
-    kategori = request.GET.get('kategori', '')
-    harga = request.GET.get('harga', '')
+def show_main(request):
+    user_reviews = FoodReview.objects.filter(user=request.user)
+    all_reviews = FoodReview.objects.all().select_related('user', 'food')
 
-    query_filter = Q()
-    if keyword:
-        query_filter &= Q(nama_makanan__icontains=keyword) | Q(restoran__icontains=keyword)
-    if kategori:
-        query_filter &= Q(kategori__iexact=kategori)
-    if harga == 'low':
-        query_filter &= Q(harga__lt=50000)
-    elif harga == 'medium':
-        query_filter &= Q(harga__gte=50000, harga__lte=100000)
-    elif harga == 'high':
-        query_filter &= Q(harga__gt=100000)
-
-    foods = Food.objects.filter(query_filter)
-
-    return render(request, 'choose_food.html', {'foods': foods})
-
+    context = {
+        'reviews': user_reviews,
+        'all_reviews': all_reviews,
+    }
+    return render(request, 'review.html', context)
 
 @csrf_exempt
 @require_POST
 @login_required(login_url='/login')
 def add_review(request):
-    if request.method == 'POST':
-        food_id = request.POST.get('food_id')  # Make sure food_id is being passed
-        rating = request.POST.get('food_rating')
-        review_message = request.POST.get('review')
+    if request.method == "POST":
+        food_id = request.POST.get("food_id")
+        rating = request.POST.get("rating")
+        review_message = request.POST.get("review_message")
 
-        # Create the review in your database
-        FoodReview.objects.create(food_name=food_id, rating=rating, review_message=review_message)
+        if not food_id or not rating or not review_message:
+            return JsonResponse({"status": "error", "message": "Invalid input"}, status=400)
 
-        return JsonResponse({'status': 'success', 'message': 'Review added successfully'})
+        food = Food.objects.get(pk=food_id)
 
-    # If you want to handle GET requests for any reason
-    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
+        # Cek apakah user sudah memberikan review
+        if FoodReview.objects.filter(user=request.user, food=food).exists():
+            JsonResponse({"status": "error", "message": "You have already reviewed this food."}, status=400)
+            return redirect('review:forum')  # Halaman tujuan jika review sudah ada
 
-def show_json(request):
-    # Return all reviews as JSON
-    data = FoodReview.objects.all()
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+        # Simpan review
+        FoodReview.objects.create(
+            user=request.user,
+            food=food,
+            rating=rating,
+            review_message=review_message,
+        )
+        return redirect('review:forum')
+            
+    else:
+        return JsonResponse({"status": "error", "message": "Invalid request method"}, status=405)
 
+@login_required(login_url='/login')
+@csrf_exempt
+def edit_review(request, review_id):
+    if request.method == "POST":
+        review = get_object_or_404(FoodReview, id=review_id)
 
-def get_latest_reviews(request):
-    # Retrieve and serialize the latest reviews
-    latest_reviews = FoodReview.objects.all().order_by('-id')[:3]
-    data = []
-    for p in latest_reviews:
-        each_data = {
-            "image": p.food_review.Image,
-            "fullname": p.user.userprofile.full_name,
-            "FoodName": p.food_review.FoodName,
-            "FoodRestaurant": p.food_review.FoodRestaurant,
-            "reviewMessage": p.review_message,
-            "rating": p.rating
-        }
-        data.append(each_data)
+        # Pastikan hanya pemilik atau admin yang dapat mengedit
+        if review.user != request.user and not request.user.is_admin:
+            return HttpResponseForbidden("You do not have permission to edit this review.")
 
-    return HttpResponse(json.dumps(data), content_type="application/json")
+        # Ambil rating baru dan pesan review baru
+        new_rating = request.POST.get("rating")
+        new_message = request.POST.get("review_message")
+        
+        if new_rating is None or new_message is None:
+            return JsonResponse({"status": "error", "message": "Rating and message are required."})
+
+        # Update review dengan rating baru dan pesan baru
+        review.rating = float(new_rating)
+        review.review_message = new_message
+        review.save()
+
+        return JsonResponse({
+            "status": "success",
+            "review": {
+                "id": review.id,
+                "rating": review.rating,
+                "review_message": review.review_message,
+                "created_at": review.created_at.strftime("%d %b %Y"),
+            }
+        })
+    return JsonResponse({"status": "error", "message": "Invalid request method."})
+
+@login_required
+def delete_review(request, review_id):
+    if request.method == "POST":
+        review = get_object_or_404(FoodReview, id=review_id)
+
+        # Pastikan hanya pemilik atau admin yang dapat menghapuss
+        if review.user != request.user and not request.user.is_admin:
+            return HttpResponseForbidden("You do not have permission to edit this review.")
+
+        review.delete()
+        return redirect('review:forum')
+    return JsonResponse({'error': 'Invalid request'}, status=400)

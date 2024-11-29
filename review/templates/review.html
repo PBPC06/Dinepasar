@@ -1,108 +1,247 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    {% include 'navbar.html' %}
+{% include 'navbar.html' %}
 
-    {% block meta %}
-    <title>Review | Dinepasar</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    {% endblock meta %}
+<title>Review | Dinepasar</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cookie&family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Metal&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+<div class="min-h-screen flex flex-col items-center justify-start py-5 bg-gradient-to-b from-yellow-50 to-yellow-20">
 
-    <div class="container mx-auto font-inter bg-cream min-h-screen py-10">
-        <p class="mt-12 text-center text-4xl font-bold text-[#d4a017]">Review Your Favorite Dish!</p>
-        <p class="mt-4 mb-12 text-center text-lg font-medium text-[#f9c748]">
-            Share your experiences and opinions by adding reviews for dishes around Dinepasar!
-        </p>
+    <!-- Container Reviews -->
+    <div class="mt-6 max-w-4xl w-full px-4">
 
-        <div class="flex justify-center my-12">
-            <a href="{% url 'review:choose_food' %}">
-                <button id="add-review-btn" style="border-radius: 15px;" class="bg-[#d4a017] hover:bg-[#f9c748] flex items-center justify-center gap-2 text-white font-medium pr-5 pl-4 py-2 shadow-lg transition-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                        <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-                    </svg>              
-                    <p class="-mb-0.5">Add Your Review</p>
-                </button>
-            </a>
+        <!-- Bagian Review Saya -->
+        <h2 class="text-center mt-4 fade-in-text" 
+            style="font-family: 'Metal', sans-serif; font-size: 3rem; color: #4a4a4a;">My Reviews</h2>
+        <div class="mt-4 max-w-2xl mx-auto space-y-6 my-reviews">
+            {% for review in reviews %}
+            <div class="bg-white border border-yellow-300 rounded-lg shadow-lg p-6 flex items-start space-x-4" data-review-id="{{ review.id }}"">
+                <img src="{{ review.food.gambar }}" alt="{{ review.food.nama_makanan }}" class="h-24 w-24 object-cover rounded-lg">
+                <div>
+                    <h3 class="font-bold text-xl text-gray-800">{{ review.food.nama_makanan }}</h3>
+                    <p class="text-gray-600">Rating: ⭐{{ review.rating|floatformat:1 }} / 5</p>
+                    <p class="text-gray-700 mt-2">"{{ review.review_message }}"</p>
+                    <p class="text-gray-500 text-sm mt-1">Reviewed by <span class="font-semibold">{{ review.user.username }}</span> on {{ review.created_at|date:"d M Y" }}</p>
+                    
+                    <!-- Tombol Edit dan Delete -->
+                    {% if review.user == request.user or request.user.is_admin %}
+                    <div class="mt-4 flex space-x-3">
+                        <button onclick="showEditModal('{{ review.id }}', '{{ review.rating }}', '{{ review.review_message }}')" 
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow">
+                            Edit
+                        </button>
+                        <form action="{% url 'review:delete_review' review.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" 
+                                    class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg shadow">Delete</button>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="bg-yellow-50 border border-yellow-300 rounded-lg p-6 text-center shadow-lg">
+                <p class="text-gray-500 text-lg font-semibold">You haven't reviewed any food yet!</p>
+                <p class="text-gray-400 text-sm mt-1">Start sharing your culinary experiences by adding a review.</p>
+                <a href="{% url 'search:food_search' %}" 
+                   class="mt-4 inline-block bg-[#d4a017] hover:bg-[#f9c748] text-white font-bold px-5 py-2 rounded-lg shadow-lg transition-all">
+                    Add Your Review
+                </a>
+            </div>
+            {% endfor %}
         </div>
 
-        <div class="flex flex-col grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-6 md:px-10">
-            {% for p in review %}
-            <div style="background-color: #fff5cc;" class="border border-[#d4a017] rounded-lg p-6 shadow-lg transition-all hover:shadow-2xl">
-                <div class="flex">
-                    <img class="h-24 md:h-36 flex pr-4 rounded-lg" src="{{ p.food_review.Image.url }}" alt="{{ p.food_review.food_name }}">
-                    <div class="flex-grow">
-                        <p class="text-start font-bold text-[#d4a017] text-lg">{{ p.food_review.food_name }}</p>
-                        <p class="text-start text-sm text-gray-700">Restaurant: {{ p.food_review.restaurant_name }}</p>
-                        <p class="text-start text-gray-600 mt-1">Rate: <span class="font-bold">{{ p.rating }}</span>/5</p>
-                        <p class="text-gray-800 italic mt-2">"{{ p.review_message }}"</p>
+        <!-- Bagian All Reviews -->
+        <h2 class="text-center mt-8 fade-in-text" 
+            style="font-family: 'Metal', sans-serif; font-size: 3rem; color: #4a4a4a;">All Reviews</h2>
+        <div class="mt-4 max-w-2xl mx-auto space-y-6 all-reviews">
+            {% for review in all_reviews %}
+            <div class="bg-white border border-yellow-300 rounded-lg shadow-lg p-6 flex items-start space-x-4" data-review-id="{{ review.id }}"">
+                <img src="{{ review.food.gambar }}" alt="{{ review.food.nama_makanan }}" class="h-24 w-24 object-cover rounded-lg">
+                <div>
+                    <h3 class="font-bold text-xl text-gray-800">{{ review.food.nama_makanan }}</h3>
+                    <p class="text-gray-600">Rating: ⭐{{ review.rating|floatformat:1 }} / 5</p>
+                    <p class="text-gray-700 mt-2">"{{ review.review_message }}"</p>
+                    <p class="text-gray-500 text-sm mt-1">Reviewed by <span class="font-semibold">{{ review.user.username }}</span> on {{ review.created_at|date:"d M Y" }}</p>
+                    
+                    <!-- Tombol Edit dan Delete untuk Admin -->
+                    {% if request.user.is_admin %}
+                    <div class="mt-4 flex space-x-3">
+                        <button onclick="showEditModal('{{ review.id }}', '{{ review.rating }}', '{{ review.review_message }}')" 
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow">
+                            Edit
+                        </button>
+                        <form action="{% url 'review:delete_review' review.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" 
+                                    class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg shadow">Delete</button>
+                        </form>
                     </div>
+                    {% endif %}
                 </div>
-                <div class="mt-4">
-                    <p class="text-gray-700 font-light">Reviewed by <span class="font-semibold">a person</span></p>
-                </div>
+            </div>
+            {% empty %}
+            <div class="bg-yellow-50 border border-yellow-300 rounded-lg p-6 text-center shadow-lg">
+                <p class="text-gray-500 text-lg font-semibold">No reviews yet!</p>
+                <p class="text-gray-400 text-sm mt-1">Be the first to share your thoughts about our dishes.</p>
             </div>
             {% endfor %}
         </div>
     </div>
+</div>
 
-    <script>
-        function addReviewEntry() {
-            const form = document.getElementById('reviewEntryForm');
-            const formData = new FormData(form);
-    
-            fetch("{% url 'review:add_review' %}", {
-                method: "POST",
-                headers: {
-                    "X-CSRFToken": "{{ csrf_token }}",
-                },
-                body: formData,
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error("Failed to submit review");
-                }
-            })
-            .then(data => {
-                if (data.status === "success") {
-                    // Append the new review to the review list
-                    appendReview(data.review);
-                    hideModal();             // Hide modal on success
-                    form.reset();            // Reset the form
-                } else {
-                    alert(data.message);     // Show error if any
-                }
-            })
-            .catch(error => {
-                console.error("Error submitting review:", error);
-            });
-    
-            return false;  // Prevent default form submission
-        }
-    
-        function appendReview(review) {
-            const reviewContainer = document.querySelector('.flex.flex-col.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3.gap-10.px-6.md\\:px-10');
-    
-            const reviewCard = `
-                <div style="background-color: #fff5cc;" class="border border-[#d4a017] rounded-lg p-6 shadow-lg transition-all hover:shadow-2xl">
-                    <div class="flex">
-                        <img class="h-24 md:h-36 flex pr-4 rounded-lg" src="${review.image_url}" alt="${review.food_name}">
-                        <div class="flex-grow">
-                            <p class="text-start font-bold text-[#d4a017] text-lg">${review.food_name}</p>
-                            <p class="text-start text-sm text-gray-700">Restaurant: ${review.restaurant_name}</p>
-                            <p class="text-start text-gray-600 mt-1">Rate: <span class="font-bold">${review.rating}</span>/5</p>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <p class="text-gray-700 font-light">Reviewed by <span class="font-semibold">${review.user_name}</span></p>
-                        <p class="text-gray-800 italic mt-2">"${review.review_message}"</p>
+<!-- Edit Review Modal -->
+<div id="editModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50 overflow-x-hidden overflow-y-auto transition-opacity duration-300 ease-out">
+    <div id="editModalContent" class="relative bg-white rounded-lg shadow-lg w-5/6 sm:w-3/4 md:w-1/2 lg:w-1/3 mx-4 sm:mx-0 transform scale-95 opacity-0 transition-transform transition-opacity duration-300 ease-out">
+        <div class="flex items-center justify-between p-4 border-b rounded-t">
+            <h3 class="text-xl font-semibold text-gray-900">Edit Review</h3>
+            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" onclick="hideEditModal()">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414 1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+        </div>
+        <div class="px-6 py-4 space-y-6 form-style">
+            <form id="editReviewForm" method="POST">
+                {% csrf_token %}
+                <input type="hidden" id="editReviewId">
+                <div class="mb-4">
+                    <label for="editRating" class="block text-sm font-medium text-gray-700">Food Rating | 1-5</label>
+                    <div class="flex items-center space-x-2">
+                        <input type="range" id="editRating" name="rating" min="1" max="5" step="0.5" class="w-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
+                        <span id="editStarRating" class="flex text-yellow-500"></span>
                     </div>
                 </div>
-            `;
-            
-            reviewContainer.insertAdjacentHTML('afterbegin', reviewCard);  // Add new review at the top
+                <div class="mb-4">
+                    <textarea id="editMessage" name="review_message" rows="3" class="mt-1 block w-full h-52 resize-none border border-gray-300 rounded-md p-2 hover:border-yellow-700" placeholder="Edit your review" required></textarea>
+                </div>
+                <div class="flex justify-end space-x-2">
+                    <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg" onclick="hideEditModal()">Cancel</button>
+                    <button type="submit" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-lg">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Menampilkan modal edit
+    function showEditModal(reviewId, rating, message) {
+        rating = parseFloat(rating); // Konversi rating ke float
+
+        document.getElementById("editModal").classList.remove("hidden");
+        document.getElementById("editModalContent").classList.add("opacity-100", "scale-100");
+        document.getElementById("editModalContent").classList.remove("opacity-0", "scale-95");
+
+        // Mengisi data review ke dalam form
+        document.getElementById("editReviewId").value = reviewId;
+        document.getElementById("editRating").value = rating;
+        document.getElementById("editMessage").value = message;
+
+        // Memperbarui tampilan bintang
+        updateStarRating(rating, "editStarRating");
+    }
+
+    // Menyembunyikan modal edit
+    function hideEditModal() {
+        document.getElementById("editModal").classList.add("hidden");
+        document.getElementById("editModalContent").classList.remove("opacity-100", "scale-100");
+        document.getElementById("editModalContent").classList.add("opacity-0", "scale-95");
+    }
+
+    // Mengirim data edit review
+    document.getElementById("editReviewForm").onsubmit = function (event) {
+        event.preventDefault();
+
+        const reviewId = document.getElementById("editReviewId").value;
+        const rating = document.getElementById("editRating").value;
+        const message = document.getElementById("editMessage").value;
+
+        fetch(`/review/edit/${reviewId}/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+            body: `rating=${rating}&review_message=${encodeURIComponent(message)}`,
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    // Perbarui tampilan review di My Reviews
+                    const myReviewCard = document.querySelector(`.my-reviews [data-review-id="${reviewId}"]`);
+                    
+                    if (myReviewCard) {
+                        myReviewCard.querySelector(".text-gray-600").innerText = `Rating: ⭐${data.review.rating.toFixed(1)} / 5`;
+                        myReviewCard.querySelector(".text-gray-700").innerText = `"${data.review.review_message}"`;
+                    }
+                    
+                    // Perbarui tampilan review di All Reviews
+                    const allReviewCard = document.querySelector(`.all-reviews [data-review-id="${reviewId}"]`);
+                    if (allReviewCard) {
+                        allReviewCard.querySelector(".text-gray-600").innerText = `Rating: ⭐${data.review.rating.toFixed(1)} / 5`;
+                        allReviewCard.querySelector(".text-gray-700").innerText = `"${data.review.review_message}"`;
+                    }
+                    
+                    // Update modal dengan data terbaru
+                    showEditModal(data.review.id, data.review.rating, data.review.review_message);
+
+                    document.getElementById("editReviewId").value = data.review.id;
+                    document.getElementById("editRating").value = data.review.rating;
+                    document.getElementById("editMessage").value = data.review.review_message;
+                    updateStarRating(data.review.rating, "editStarRating");
+                    // Sembunyikan modal
+                    hideEditModal();
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error("Error editing review:", error));
+    };
+
+
+    function updateStarRating(rating, elementId) {
+        const starRatingDisplay = document.getElementById(elementId);
+        if (!starRatingDisplay) return; // Pastikan elemen target ada
+
+        starRatingDisplay.innerHTML = ""; // Kosongkan tampilan bintang sebelumnya
+
+        // Hitung bintang penuh
+        const fullStars = Math.floor(rating);
+
+        // Cek jika ada setengah bintang
+        const halfStar = rating % 1 !== 0;
+
+        // Tambahkan bintang penuh
+        for (let i = 0; i < fullStars; i++) {
+            starRatingDisplay.innerHTML += "★";
         }
-    </script>
-    
+
+        // Tambahkan setengah bintang jika ada
+        if (halfStar) {
+            starRatingDisplay.innerHTML += "☆";
+        }
+
+        // Tambahkan label aksesibilitas (opsional)
+        starRatingDisplay.setAttribute("aria-label", `${rating} out of 5 stars`);
+    }
+
+    // Slider untuk bintang saat modal ditampilkan
+    const editRatingSlider = document.getElementById("editRating");
+    const editStarRatingDisplay = document.getElementById("editStarRating");
+
+    // Pastikan slider dan tampilan bintang ada sebelum menambahkan listener
+    if (editRatingSlider && editStarRatingDisplay) {
+        // Perbarui tampilan bintang saat slider digeser
+        editRatingSlider.addEventListener("input", function () {
+            const rating = parseFloat(this.value);
+            updateStarRating(rating, "editStarRating");
+        });
+
+        // Perbarui tampilan awal bintang
+        updateStarRating(editRatingSlider.value, "editStarRating");
+    }
+</script>
+
 {% endblock content %}
