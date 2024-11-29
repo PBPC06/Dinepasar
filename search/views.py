@@ -13,6 +13,9 @@ from django.contrib.auth.decorators import user_passes_test
 from django.db.models import Q
 from django.views.decorators.http import require_POST
 from django.http import HttpResponseRedirect
+from manageData.models import CustomUser
+from django.db.models import Avg
+from django.db.models.functions import Coalesce
 
 
 # Create your views here.
@@ -48,6 +51,10 @@ def food_search(request):
     elif harga == 'high':
         foods = foods.filter(harga__gt=100000)
 
+    # Tambahkan rata-rata rating untuk setiap makanan
+    foods = foods.annotate(
+        average_rating=Coalesce(Avg('foodreview__rating'), 0.0)
+    )
 
     # Masukkan hasil ke dalam context
     context = {
@@ -85,6 +92,11 @@ def owner_dashboard(request):
 
     # Terapkan semua filter pada query
     foods = foods.filter(query_filter)
+
+    # Tambahkan rata-rata rating untuk setiap makanan
+    foods = foods.annotate(
+    average_rating=Coalesce(Avg('foodreview__rating'), 0.0)
+    )
 
     context = {
         'foods': foods,

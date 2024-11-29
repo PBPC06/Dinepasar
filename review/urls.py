@@ -5,8 +5,7 @@ app_name = 'review'
 
 urlpatterns = [
     path('', views.show_main, name='forum'),
-    path('choose-food/', views.choose_food, name='choose_food'),
-    path('add-review', views.add_review, name='add_review'),
-    path('json/', views.show_json, name='show_json'),
-    path('get-latest-reviews/', views.get_latest_reviews, name='get_latest_reviews'),
+    path('add-review/', views.add_review, name='add_review'),
+    path('edit/<int:review_id>/', views.edit_review, name='edit_review'),
+    path('delete-review/<int:review_id>/', views.delete_review, name='delete_review'),
 ]
