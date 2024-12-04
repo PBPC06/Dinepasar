@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-pt$3*iz6z*%4&pzs@zi*rwbbzk(ul2j2)3#aqv-#zdtf#!v3#*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "namira-aulia31-dinepasar.pbp.cs.ui.ac.id"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "namira-aulia31-dinepasar.pbp.cs.ui.ac.id", "10.0.2.2"]
 
 # Application definition
 INSTALLED_APPS = [
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'densiklopedia',
     'review',
     'editProfile',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'Dinepasar.urls'
@@ -126,3 +128,10 @@ MEDIA_ROOT = BASE_DIR / 'media'  # Adjust if your media folder is located elsewh
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://127.0.0.1", "http://namira-aulia31-dinepasar.pbp.cs.ui.ac.id", "https://namira-aulia31-dinepasar.pbp.cs.ui.ac.id"]
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'
