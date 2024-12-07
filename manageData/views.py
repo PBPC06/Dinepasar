@@ -99,13 +99,14 @@ def login_flutter(request):
     
 
 @csrf_exempt
+@csrf_exempt
 def register_flutter(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         username = data['username']
         password1 = data['password1']
         password2 = data['password2']
-        referral_code = data.get('referral_code', '')
+        referral_code = data.get('referral_code', '')  # Ambil kode referal (bisa kosong)
 
         # Check if the passwords match
         if password1 != password2:
@@ -113,26 +114,30 @@ def register_flutter(request):
                 "status": False,
                 "message": "Passwords do not match."
             }, status=400)
-        
-        if referral_code != "PBPC06WOW!":
+
+        # Cek jika referral_code diberikan (hanya valid jika user mendaftar sebagai admin)
+        if referral_code and referral_code != "PBPC06WOW!":
             return JsonResponse({
                 "status": False,
                 "message": "Invalid referral code."
             }, status=400)
 
-
-        # Check if the username is already taken
+        # Cek apakah username sudah ada
         if User.objects.filter(username=username).exists():
             return JsonResponse({
                 "status": False,
                 "message": "Username already exists."
             }, status=400)
         
-        # Create the new user
+        # Jika referral_code diberikan, buat user sebagai admin
         user = User.objects.create_user(username=username, password=password1)
+        
+        # Jika referral code valid, set sebagai admin
         if referral_code == "PBPC06WOW!":
             user.is_admin = True
+        
         user.save()
+        
         return JsonResponse({
             "username": user.username,
             "status": 'success',
