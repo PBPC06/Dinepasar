@@ -105,6 +105,7 @@ def register_flutter(request):
         username = data['username']
         password1 = data['password1']
         password2 = data['password2']
+        referral_code = data.get('referral_code', '')
 
         # Check if the passwords match
         if password1 != password2:
@@ -113,6 +114,13 @@ def register_flutter(request):
                 "message": "Passwords do not match."
             }, status=400)
         
+        if referral_code != "PBPC06WOW!":
+            return JsonResponse({
+                "status": False,
+                "message": "Invalid referral code."
+            }, status=400)
+
+
         # Check if the username is already taken
         if User.objects.filter(username=username).exists():
             return JsonResponse({
@@ -122,8 +130,9 @@ def register_flutter(request):
         
         # Create the new user
         user = User.objects.create_user(username=username, password=password1)
+        if referral_code == "PBPC06WOW!":
+            user.is_admin = True
         user.save()
-        
         return JsonResponse({
             "username": user.username,
             "status": 'success',
