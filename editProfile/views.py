@@ -9,7 +9,6 @@ from django.utils.decorators import method_decorator
 from django.http import JsonResponse
 from search.models import Food
 
-
 @login_required
 def edit_profile(request):
     try:
@@ -38,8 +37,8 @@ def edit_profile(request):
     return render(request, 'edit_profile.html', context)
 
 
-@csrf_exempt
 @login_required
+@csrf_exempt
 def edit_profile_ajax(request):
     if request.method == "POST":
         email = request.POST.get("email", "")
@@ -62,11 +61,9 @@ def edit_profile_ajax(request):
 
     return JsonResponse({"error": "Invalid request"}, status=400)
 
-
 @login_required
 @csrf_exempt
 def remove_food_from_history(request, food_id):
-    print("apalahh")
     try:
         # Ambil makanan berdasarkan food_id
         food = Food.objects.get(id=food_id)
@@ -82,24 +79,3 @@ def remove_food_from_history(request, food_id):
         return JsonResponse({'success': False, 'error': 'Food not found.'})
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
-
-@csrf_exempt
-@login_required
-def get_profile(request):
-    print("yes")
-    try:
-        profile = UserProfile.objects.get(user=request.user)
-    except UserProfile.DoesNotExist:
-        return JsonResponse({
-            "status": "error",
-            "message": "Profile not found."
-        }, status=400)
-
-    print("masuk")
-    return JsonResponse({
-        "username": request.user.username,  # Menambahkan username
-        "email": profile.email,
-        "phone": profile.phone,
-        "aboutMe": profile.about_me,  # Mengubah kunci menjadi camelCase
-    })
-
