@@ -6,7 +6,9 @@ from django.http import HttpResponseForbidden, JsonResponse
 from django.views.decorators.http import require_POST
 from review.models import FoodReview
 from search.models import Food
-from django.contrib import messages
+from django.core import serializers
+from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 @login_required(login_url='/login')
 def show_main(request):
@@ -95,3 +97,29 @@ def delete_review(request, review_id):
         review.delete()
         return redirect('review:forum')
     return JsonResponse({'error': 'Invalid request'}, status=400)
+
+def show_xml(request):
+    data = FoodReview.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+def show_json(request):
+    data = FoodReview.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def show_xml_by_id(request, id):
+    data = FoodReview.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+def show_json_by_id(request, id):
+    data = FoodReview.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+@login_required(login_url='/login/')
+def show_json_by_user(request, username):
+    try:
+        user = User.objects.get(username=username)
+        reviews = FoodReview.objects.filter(user=user).select_related('food')
+        data = [review.to_json() for review in reviews]
+        return JsonResponse({"status": "success", "data": data}, safe=False)
+    except User.DoesNotExist:
+        return JsonResponse({"status": "error", "message": "User not found"}, status=404)
