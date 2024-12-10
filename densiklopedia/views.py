@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from manageData.models import CustomUser
 from .models import ArticleEntry
 from .forms import ArticleEntryForm
+import json
 
 def show_profil(request):
     return render(request, 'densiklopedia/profil.html')
@@ -105,3 +106,68 @@ def edit_artikel(request, id):
 
     context = {'form': form, 'article': article}
     return render(request, 'densiklopedia/edit_artikel.html', context)
+
+@csrf_exempt
+def create_article_flutter(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        new_article = ArticleEntry.objects.create(
+            user=request.user,
+            judul=data.get('judul', ''),
+            subjudul=data.get('subjudul', ''),
+            konten=data.get('konten', ''),
+            gambar=data.get('gambar', '')
+        )
+
+        new_article.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+    
+@csrf_exempt
+@login_required
+def edit_article_flutter(request, article_id):
+    if request.method == 'GET':
+        # Ambil artikel yang dimiliki oleh pengguna yang login
+        article = get_object_or_404(ArticleEntry, pk=article_id, user=request.user)
+        article_data = {
+            'judul': article.judul,
+            'subjudul': article.subjudul,
+            'konten': article.konten,
+            'gambar': article.gambar,
+        }
+        return JsonResponse(article_data, status=200)
+    elif request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            # Ambil artikel yang dimiliki oleh pengguna yang login
+            article = get_object_or_404(ArticleEntry, pk=article_id, user=request.user)
+            # Update data artikel
+            article.judul = data.get('judul', article.judul)
+            article.subjudul = data.get('subjudul', article.subjudul)
+            article.konten = data.get('konten', article.konten)
+            article.gambar = data.get('gambar', article.gambar)
+            article.save()
+            return JsonResponse({'message': 'Artikel berhasil diperbarui!'}, status=200)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+    
+@csrf_exempt
+def delete_article_flutter(request, article_id):
+    try:
+        article = get_object_or_404(ArticleEntry, id=article_id)
+        if request.method == 'DELETE':
+            if article.user == request.user:
+                article.delete()
+                return JsonResponse({'success': True, 'message': 'Article deleted successfully.'})
+            else:
+                return JsonResponse({'success': False, 'message': 'You are not authorized to delete this article.'}, status=403)
+        else:
+            return JsonResponse({'success': False, 'message': 'Invalid request method.'}, status=400)
+    except article.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Article not found.'}, status=404)
