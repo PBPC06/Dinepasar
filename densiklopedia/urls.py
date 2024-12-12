@@ -18,6 +18,6 @@ urlpatterns = [
     path('delete/<uuid:id>/', delete_artikel, name='delete_artikel'),
     path('edit/<uuid:id>/', edit_artikel, name='edit_artikel'),
     path('create-flutter/', create_article_flutter, name='create_article_flutter'),
-    path('edit-flutter/', edit_article_flutter, name='edit_article_flutter'),
-    path('delete-flutter/', delete_article_flutter, name='delete_article_flutter'),
+    path('edit-flutter/<uuid:id>/', edit_article_flutter, name='edit_article_flutter'),
+    path('delete-flutter/<uuid:id>/', delete_article_flutter, name='delete_article_flutter'),
 ]

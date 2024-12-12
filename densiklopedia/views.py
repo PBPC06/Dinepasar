@@ -36,14 +36,16 @@ def show_json(request):
     articles = ArticleEntry.objects.all()
     data = [
         {
-            'id': article.id,
+            'id': str(article.id),     
             'judul': article.judul,
             'gambar': article.gambar,
-            'subjudul': article.subjudul
+            'subjudul': article.subjudul,
+            'konten': article.konten,
         }
         for article in articles
     ]
     return JsonResponse(data, safe=False)
+
 
 def show_xml_by_id(request, id):
     data = ArticleEntry.objects.filter(pk=id)
@@ -108,9 +110,16 @@ def edit_artikel(request, id):
     return render(request, 'densiklopedia/edit_artikel.html', context)
 
 @csrf_exempt
+@login_required
 def create_article_flutter(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
+        # Mengakses data dari request.POST
+        data = request.POST
+        # Pastikan pengguna terautentikasi
+        if not request.user.is_authenticated:
+            return JsonResponse({'status': 'error', 'message': 'User not authenticated'}, status=401)
+
+        # Buat entri artikel baru
         new_article = ArticleEntry.objects.create(
             user=request.user,
             judul=data.get('judul', ''),
@@ -118,56 +127,58 @@ def create_article_flutter(request):
             konten=data.get('konten', ''),
             gambar=data.get('gambar', '')
         )
-
         new_article.save()
-
-        return JsonResponse({"status": "success"}, status=200)
+        return JsonResponse({"status": "success", "id": str(new_article.id)}, status=200)
     else:
-        return JsonResponse({"status": "error"}, status=401)
+        return JsonResponse({"status": "error", "message": "Method not allowed"}, status=405)
     
 @csrf_exempt
 @login_required
-def edit_article_flutter(request, article_id):
-    if request.method == 'GET':
-        # Ambil artikel yang dimiliki oleh pengguna yang login
-        article = get_object_or_404(ArticleEntry, pk=article_id, user=request.user)
-        article_data = {
-            'judul': article.judul,
-            'subjudul': article.subjudul,
-            'konten': article.konten,
-            'gambar': article.gambar,
-        }
-        return JsonResponse(article_data, status=200)
-    elif request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            # Ambil artikel yang dimiliki oleh pengguna yang login
-            article = get_object_or_404(ArticleEntry, pk=article_id, user=request.user)
-            # Update data artikel
+def edit_article_flutter(request, id):
+    try:
+        article = get_object_or_404(ArticleEntry, id=id)
+
+        # Periksa apakah pengguna memiliki izin untuk mengedit
+        if article.user != request.user and not request.user.is_superuser:
+            return JsonResponse({'status': 'error', 'message': 'You do not have permission to edit this article.'}, status=403)
+
+        if request.method == 'POST':
+            data = request.POST
             article.judul = data.get('judul', article.judul)
             article.subjudul = data.get('subjudul', article.subjudul)
             article.konten = data.get('konten', article.konten)
             article.gambar = data.get('gambar', article.gambar)
             article.save()
             return JsonResponse({'message': 'Artikel berhasil diperbarui!'}, status=200)
-        except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
-    else:
-        return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
-    
-@csrf_exempt
-def delete_article_flutter(request, article_id):
-    try:
-        article = get_object_or_404(ArticleEntry, id=article_id)
-        if request.method == 'DELETE':
-            if article.user == request.user:
-                article.delete()
-                return JsonResponse({'success': True, 'message': 'Article deleted successfully.'})
-            else:
-                return JsonResponse({'success': False, 'message': 'You are not authorized to delete this article.'}, status=403)
+        elif request.method == 'GET':
+            article_data = {
+                'judul': article.judul,
+                'subjudul': article.subjudul,
+                'konten': article.konten,
+                'gambar': article.gambar,
+            }
+            return JsonResponse(article_data, status=200)
         else:
-            return JsonResponse({'success': False, 'message': 'Invalid request method.'}, status=400)
-    except article.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
+@csrf_exempt
+@login_required
+@require_POST
+def delete_article_flutter(request, id):
+    try:
+        article = get_object_or_404(ArticleEntry, id=id)
+        
+        # Periksa izin pengguna
+        if article.user == request.user or request.user.is_superuser:
+            article.delete()
+            print(f"Deleted article: {article}")  # Debugging
+            return JsonResponse({'success': True, 'message': 'Article deleted successfully.'})
+        else:
+            return JsonResponse({'success': False, 'message': 'You are not authorized to delete this article.'}, status=403)
+    except ArticleEntry.DoesNotExist:
         return JsonResponse({'success': False, 'message': 'Article not found.'}, status=404)
+    except Exception as e:
+        print(f"Error in delete_article_flutter: {e}")  # Debugging
+        return JsonResponse({'success': False, 'message': str(e)}, status=400)
