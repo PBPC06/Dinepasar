@@ -17,6 +17,7 @@ from manageData.models import CustomUser
 from django.db.models import Avg
 from django.db.models.functions import Coalesce
 from manageData.models import CustomUser
+from editProfile.models import UserProfile
 
 
 # Create your views here.
@@ -230,3 +231,15 @@ def mark_food_as_tried(request, food_id):
     except Food.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Food not found'})
 
+
+@csrf_exempt
+def mark_food_flutter(request, id, food_id):
+    try:
+        user_profile = get_object_or_404(UserProfile, user__id=id)
+        food = get_object_or_404(Food, id=food_id)
+        user_profile.tried_foods.add(food)
+        user_profile.save()
+
+        return JsonResponse({'success': True, 'message': 'Food added to your history in profile!'})
+    except Food.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Food not found'})
