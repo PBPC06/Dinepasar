@@ -14,14 +14,10 @@ from django.db.models import Q
 from django.views.decorators.http import require_POST
 from django.http import HttpResponseRedirect
 from manageData.models import CustomUser
-
-import json
-from django.http import JsonResponse
-
 from django.db.models import Avg
 from django.db.models.functions import Coalesce
 from manageData.models import CustomUser
-
+from editProfile.models import UserProfile
 
 
 # Create your views here.
@@ -236,122 +232,14 @@ def mark_food_as_tried(request, food_id):
         return JsonResponse({'success': False, 'error': 'Food not found'})
 
 
-
 @csrf_exempt
-def add_food_flutter(request):
-    if request.method == 'POST':
-
-        data = json.loads(request.body)
-        new_food = Food.objects.create(
-            # user=request.user,
-            nama_makanan=data["nama_makanan"],
-            restoran=data["restoran"],
-            kategori=data["kategori"],
-            gambar=data["gambar"],
-            deskripsi=data["deskripsi"],
-            harga=int(data["harga"]),
-            rating=float(data["rating"]),
-        )
-
-        new_food.save()
-
-        return JsonResponse({"status": "success"}, status=200)
-    else:
-        return JsonResponse({"status": "error"}, status=401)
-
-@csrf_exempt
-def food_search_flutter(request):
-    if request.method == 'POST':
-        # Get data from POST body (assuming JSON)
-        data = json.loads(request.body)
-        keyword = data.get('keyword', '')
-        kategori = data.get('kategori', 'all')
-        harga = data.get('harga', 'all')
-
-        # Start with all food items
-        foods = Food.objects.all()
-
-        # Apply keyword filter if provided
-        if keyword:
-            foods = foods.filter(nama_makanan__icontains=keyword)
-
-        # Apply category filter if not 'all'
-        if kategori != 'all':
-            foods = foods.filter(kategori=kategori)
-
-        # Apply price filter if not 'all'
-        if harga != 'all':
-            if harga == 'di bawah Rp50.000':
-                foods = foods.filter(harga__lt=50000)
-            elif harga == 'Rp 50.000 - Rp 100.000':
-                foods = foods.filter(harga__gte=50000, harga__lt=100000)
-            elif harga == 'Di atas Rp 100.000':
-                foods = foods.filter(harga__gte=100000)
-
-        # Convert the queryset to a list of dictionaries to return as JSON
-        food_data = list(foods.values())
-        return JsonResponse(food_data, safe=False)
-
-    return JsonResponse({"error": "Invalid request method"}, status=405)
-
-
-
-@csrf_exempt
-def edit_food_flutter(request, food_id):
-    print(f"Fetching data for food_id: {food_id}")  # Debugging line
-
-    if request.method == 'GET':
-        # Mengambil data makanan berdasarkan ID
-        food = get_object_or_404(Food, pk=food_id)
-        food_data = {
-            'nama_makanan': food.nama_makanan,
-            'restoran': food.restoran,
-            'kategori': food.kategori,
-            'gambar': food.gambar,
-            'deskripsi': food.deskripsi,
-            'harga': food.harga,
-            'rating': food.rating,
-        }
-        return JsonResponse(food_data, status=200)
-
-    elif request.method == 'POST':
-        try:
-            # Mengambil data dari request body
-            data = json.loads(request.body)
-            food = get_object_or_404(Food, pk=food_id)
-
-            # Update data makanan dengan data yang diterima
-            food.nama_makanan = data.get('nama_makanan', food.nama_makanan)
-            food.restoran = data.get('restoran', food.restoran)
-            food.kategori = data.get('kategori', food.kategori)
-            food.gambar = data.get('gambar', food.gambar)
-            food.deskripsi = data.get('deskripsi', food.deskripsi)
-            food.harga = data.get('harga', food.harga)
-            food.rating = data.get('rating', food.rating)
-
-            food.save()  # Simpan perubahan ke database
-
-            # Kembalikan response sukses
-            return JsonResponse({'message': 'Data berhasil diperbarui!'}, status=200)
-        except json.JSONDecodeError:
-            # Jika JSON yang dikirim tidak valid
-            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
-        except Exception as e:
-            # Menangani error lainnya
-            return JsonResponse({'error': str(e)}, status=500)
-
-    else:
-        # Jika request method selain GET atau POST
-        return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
-    
-
-@csrf_exempt
-def delete_food_flutter(request, food_id):
+def mark_food_flutter(request, id, food_id):
     try:
+        user_profile = get_object_or_404(UserProfile, user__id=id)
         food = get_object_or_404(Food, id=food_id)
-        if request.method == 'DELETE':
-            food.delete()
-            return JsonResponse({'success': True, 'message': 'Food item deleted successfully.'})
-        return JsonResponse({'success': False, 'message': 'Invalid request.'}, status=400)
+        user_profile.tried_foods.add(food)
+        user_profile.save()
+
+        return JsonResponse({'success': True, 'message': 'Food added to your history in profile!'})
     except Food.DoesNotExist:
-        return JsonResponse({'success': False, 'message': 'Food not found'}, status=404)
+        return JsonResponse({'success': False, 'error': 'Food not found'})
