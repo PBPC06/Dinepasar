@@ -86,20 +86,18 @@ def view_artikel(request, id):
     article.konten = article.konten.replace(' ', '&nbsp;').replace('\n', '<br>')
     return render(request, 'densiklopedia/view_artikel.html', {'article': article})
 
-@login_required
 def delete_artikel(request, id):
     article = get_object_or_404(ArticleEntry, id=id)
     if article.user != request.user and not request.user.is_admin:
-        return HttpResponseForbidden()
+        return HttpResponseForbidden("You do not have permission to delte this article.")
 
     article.delete()
     return redirect(reverse('densiklopedia:artikel'))
 
-@login_required
 def edit_artikel(request, id):
     article = get_object_or_404(ArticleEntry, pk=id)
     if article.user != request.user and not request.user.is_admin:
-        return HttpResponseForbidden("You do not have permission to delete this article.")
+        return HttpResponseForbidden("You do not have permission to edit this article.")
 
     form = ArticleEntryForm(request.POST or None, instance=article)
     if request.method == "POST" and form.is_valid():
@@ -110,7 +108,6 @@ def edit_artikel(request, id):
     return render(request, 'densiklopedia/edit_artikel.html', context)
 
 @csrf_exempt
-@login_required
 def create_article_flutter(request):
     if request.method == 'POST':
         # Mengakses data dari request.POST
@@ -133,7 +130,6 @@ def create_article_flutter(request):
         return JsonResponse({"status": "error", "message": "Method not allowed"}, status=405)
     
 @csrf_exempt
-@login_required
 def edit_article_flutter(request, id):
     try:
         article = get_object_or_404(ArticleEntry, id=id)
@@ -164,7 +160,6 @@ def edit_article_flutter(request, id):
         return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
 
 @csrf_exempt
-@login_required
 @require_POST
 def delete_article_flutter(request, id):
     try:
