@@ -17,6 +17,7 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from .models import CustomUser
 User = get_user_model()
 
 @csrf_exempt
@@ -78,27 +79,26 @@ def login_flutter(request):
     if user is not None:
         if user.is_active:
             auth_login(request, user)
-            # Status login sukses.
+            # Kirim informasi role user
             return JsonResponse({
                 "username": user.username,
                 "status": True,
+                "is_admin": user.is_admin,  # Ambil nilai is_admin dari model CustomUser
                 "message": "Login sukses!"
-                # Tambahkan data lainnya jika ingin mengirim data ke Flutter.
             }, status=200)
         else:
             return JsonResponse({
                 "status": False,
                 "message": "Login gagal, akun dinonaktifkan."
             }, status=401)
-
     else:
         return JsonResponse({
             "status": False,
-            "message": "Login gagal, periksa kembali email atau kata sandi."
+            "message": "Login gagal, periksa kembali username atau kata sandi."
         }, status=401)
+
     
 
-@csrf_exempt
 @csrf_exempt
 def register_flutter(request):
     if request.method == 'POST':
@@ -123,24 +123,30 @@ def register_flutter(request):
             }, status=400)
 
         # Cek apakah username sudah ada
-        if User.objects.filter(username=username).exists():
+        if CustomUser.objects.filter(username=username).exists():
             return JsonResponse({
                 "status": False,
                 "message": "Username already exists."
             }, status=400)
-        
-        # Jika referral_code diberikan, buat user sebagai admin
-        user = User.objects.create_user(username=username, password=password1)
-        
+
+        # Default: pengguna bukan admin
+        is_admin = False
+
         # Jika referral code valid, set sebagai admin
         if referral_code == "PBPC06WOW!":
-            user.is_admin = True
-        
-        user.save()
-        
+            is_admin = True
+
+        # Buat pengguna baru
+        user = CustomUser.objects.create_user(
+            username=username,
+            password=password1,
+            is_admin=is_admin
+        )
+
         return JsonResponse({
             "username": user.username,
-            "status": 'success',
+            "is_admin": user.is_admin,  # Kirim status is_admin ke Flutter
+            "status": True,
             "message": "User created successfully!"
         }, status=200)
     
