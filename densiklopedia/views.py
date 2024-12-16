@@ -108,6 +108,7 @@ def edit_artikel(request, id):
     return render(request, 'densiklopedia/edit_artikel.html', context)
 
 @csrf_exempt
+@login_required
 def create_article_flutter(request):
     if request.method == 'POST':
         # Mengakses data dari request.POST
@@ -130,6 +131,7 @@ def create_article_flutter(request):
         return JsonResponse({"status": "error", "message": "Method not allowed"}, status=405)
     
 @csrf_exempt
+@login_required
 def edit_article_flutter(request, id):
     try:
         article = get_object_or_404(ArticleEntry, id=id)
