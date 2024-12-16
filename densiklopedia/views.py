@@ -163,6 +163,7 @@ def edit_article_flutter(request, id):
 
 @csrf_exempt
 @require_POST
+@login_required
 def delete_article_flutter(request, id):
     try:
         article = get_object_or_404(ArticleEntry, id=id)
