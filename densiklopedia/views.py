@@ -89,7 +89,7 @@ def view_artikel(request, id):
 @login_required
 def delete_artikel(request, id):
     article = get_object_or_404(ArticleEntry, id=id)
-    if article.user != request.user and not request.user.is_superuser:
+    if article.user != request.user and not request.user.is_admin:
         return HttpResponseForbidden()
 
     article.delete()
@@ -98,7 +98,7 @@ def delete_artikel(request, id):
 @login_required
 def edit_artikel(request, id):
     article = get_object_or_404(ArticleEntry, pk=id)
-    if article.user != request.user and not request.user.is_superuser:
+    if article.user != request.user and not request.user.is_admin:
         return HttpResponseForbidden("You do not have permission to delete this article.")
 
     form = ArticleEntryForm(request.POST or None, instance=article)
@@ -139,7 +139,7 @@ def edit_article_flutter(request, id):
         article = get_object_or_404(ArticleEntry, id=id)
 
         # Periksa apakah pengguna memiliki izin untuk mengedit
-        if article.user != request.user and not request.user.is_superuser:
+        if article.user != request.user and not request.user.is_admin:
             return JsonResponse({'status': 'error', 'message': 'You do not have permission to edit this article.'}, status=403)
 
         if request.method == 'POST':
@@ -171,7 +171,7 @@ def delete_article_flutter(request, id):
         article = get_object_or_404(ArticleEntry, id=id)
         
         # Periksa izin pengguna
-        if article.user == request.user or request.user.is_superuser:
+        if article.user == request.user or request.user.is_admin:
             article.delete()
             print(f"Deleted article: {article}")  # Debugging
             return JsonResponse({'success': True, 'message': 'Article deleted successfully.'})
