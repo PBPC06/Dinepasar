@@ -19,5 +19,4 @@ urlpatterns = [
     path('search-flutter/', food_search_flutter, name='food_search_flutter'),
     path('edit-flutter/<int:food_id>/', edit_food_flutter, name='edit_food_flutter'),
     path('delete-flutter/<int:food_id>/', delete_food_flutter , name='delete_food'),
-
 ]
