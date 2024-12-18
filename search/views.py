@@ -345,6 +345,7 @@ def edit_food_flutter(request, food_id):
         return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
     
 
+# Fungsi delete food flutter
 @csrf_exempt
 def delete_food_flutter(request, food_id):
     try:
@@ -355,3 +356,4 @@ def delete_food_flutter(request, food_id):
         return JsonResponse({'success': False, 'message': 'Invalid request.'}, status=400)
     except Food.DoesNotExist:
         return JsonResponse({'success': False, 'message': 'Food not found'}, status=404)
+    
