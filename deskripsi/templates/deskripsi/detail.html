@@ -161,16 +161,7 @@
             if (!response.ok) {
                 throw new Error("Failed to submit review");
             }
-            return response.json(); // Proses respons menjadi JSON
-        })
-        .then(data => {
-            if (data.status === "success") {
-                // Redirect ke halaman review
-                window.location.href = "{% url 'review:forum' %}";
-            } else {
-                // Tampilkan pesan error jika ada
-                alert(data.message);
-            }
+            window.location.href = "{% url 'review:forum' %}";
         })
         .catch(error => {
             console.error("Error submitting review:", error);
