@@ -4,7 +4,10 @@ from django.contrib.auth.decorators import login_required
 from .models import Favorite
 from search.models import Food
 from django.db.models import Count
+from django.middleware.csrf import get_token
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 @login_required
 def add_to_favorite(request):
     if request.method == "POST":
@@ -45,3 +48,6 @@ def delete_favorite(request, favorite_id):
         favorite = get_object_or_404(Favorite, id=favorite_id)
         favorite.delete()
         return redirect('favorite:favorite_list') 
+    
+def get_csrf_token(request):
+    return JsonResponse({'csrfToken': get_token(request)})
