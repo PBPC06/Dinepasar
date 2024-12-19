@@ -355,7 +355,7 @@ def edit_food_flutter(request, food_id):
     else:
         # Jika request method selain GET atau POST
         return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
-    
+
 
 # Fungsi delete food flutter
 @csrf_exempt
