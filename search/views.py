@@ -199,7 +199,7 @@ def delete_food(request, food_id):
 
 def search_redirect(request):
     if request.user.is_authenticated:
-        print(f"User is_admin: {request.user.is_admin}")
+        # print(f"User is_admin: {request.user.is_admin}")
         if request.user.is_admin:  # Cek jika pengguna adalah owner
             return redirect('search:owner_dashboard')
         if not request.user.is_admin:
@@ -310,26 +310,32 @@ def food_search_flutter(request):
 
 @csrf_exempt
 def edit_food_flutter(request, food_id):
-    print(f"Fetching data for food_id: {food_id}")  # Debugging line
+    # print(f"Fetching data for food_id: {food_id}")  # Debugging line
 
     if request.method == 'GET':
-        # Mengambil data makanan berdasarkan ID
-        food = get_object_or_404(Food, pk=food_id)
-        food_data = {
-            'nama_makanan': food.nama_makanan,
-            'restoran': food.restoran,
-            'kategori': food.kategori,
-            'gambar': food.gambar,
-            'deskripsi': food.deskripsi,
-            'harga': food.harga,
-            'rating': food.rating,
-        }
-        return JsonResponse(food_data, status=200)
+        try:
+            # Mengambil data makanan berdasarkan ID
+            food = get_object_or_404(Food, pk=food_id)
+            food_data = {
+                'nama_makanan': food.nama_makanan,
+                'restoran': food.restoran,
+                'kategori': food.kategori,
+                'gambar': food.gambar,
+                'deskripsi': food.deskripsi,
+                'harga': food.harga,
+                'rating': food.rating,
+            }
+            # print(f"Food data fetched successfully: {food_data}")  # Debugging line
+            return JsonResponse({'status': True, 'data': food_data}, status=200)
+        except Exception as e:
+            # print(f"Error fetching food data: {str(e)}")  # Debugging line
+            return JsonResponse({'status': False, 'message': str(e)}, status=500)
 
     elif request.method == 'POST':
         try:
             # Mengambil data dari request body
             data = json.loads(request.body)
+            # print(f"Decoded JSON: {data}")  # Debugging line
             food = get_object_or_404(Food, pk=food_id)
 
             # Update data makanan dengan data yang diterima
@@ -338,34 +344,33 @@ def edit_food_flutter(request, food_id):
             food.kategori = data.get('kategori', food.kategori)
             food.gambar = data.get('gambar', food.gambar)
             food.deskripsi = data.get('deskripsi', food.deskripsi)
-            food.harga = data.get('harga', food.harga)
-            food.rating = data.get('rating', food.rating)
+            food.harga = int(data.get('harga', food.harga))
+            food.rating = float(data.get('rating', food.rating))
 
             food.save()  # Simpan perubahan ke database
 
-            # Kembalikan response sukses
-            return JsonResponse({'message': 'Data berhasil diperbarui!'}, status=200)
+            # print("Data updated successfully!")  # Debugging line
+            return JsonResponse({'status': True, 'message': 'Data berhasil diperbarui!'}, status=200)
         except json.JSONDecodeError:
-            # Jika JSON yang dikirim tidak valid
-            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+            # print("Invalid JSON format received!")  # Debugging line
+            return JsonResponse({'status': False, 'message': 'Invalid JSON format'}, status=400)
         except Exception as e:
-            # Menangani error lainnya
-            return JsonResponse({'error': str(e)}, status=500)
+            # print(f"Error updating food data: {str(e)}")  # Debugging line
+            return JsonResponse({'status': False, 'message': str(e)}, status=500)
 
     else:
-        # Jika request method selain GET atau POST
+        # print("Invalid request method")  # Debugging line
         return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
 
 # Fungsi delete food flutter
 @csrf_exempt
 def delete_food_flutter(request, food_id):
-    try:
-        food = get_object_or_404(Food, id=food_id)
-        if request.method == 'DELETE':
+    if request.method == 'POST':
+        try:
+            food = get_object_or_404(Food, id=food_id)
             food.delete()
             return JsonResponse({'success': True, 'message': 'Food item deleted successfully.'})
-        return JsonResponse({'success': False, 'message': 'Invalid request.'}, status=400)
-    except Food.DoesNotExist:
-        return JsonResponse({'success': False, 'message': 'Food not found'}, status=404)
+        except ValueError:
+            return JsonResponse({'success': False, 'message': 'Invalid food ID format'}, status=404)
     
