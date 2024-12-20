@@ -29,6 +29,7 @@ def add_to_favorite(request):
 @login_required
 def favorite_list(request):
     favorites = Favorite.objects.filter(user=request.user)
+    print(f"User favorites queryset: {favorites}")  # Debug log for favorites
 
     # Get categories of favorite foods for recommendation
     favorite_categories = favorites.values('food__kategori').annotate(count=Count('food__kategori'))
@@ -37,6 +38,7 @@ def favorite_list(request):
     recommended_foods = Food.objects.filter(
         kategori__in=[cat['food__kategori'] for cat in favorite_categories]
     ).exclude(id__in=[fav.food.id for fav in favorites])
+    print(f"Recommended foods queryset: {recommended_foods}")  # Debug log for recommended foods
 
     return render(request, 'favorite/favorite_list.html', {
         'favorites': favorites,
@@ -51,3 +53,49 @@ def delete_favorite(request, favorite_id):
     
 def get_csrf_token(request):
     return JsonResponse({'csrfToken': get_token(request)})
+
+@login_required
+def get_recommended(request):
+    # Ambil semua kategori dari makanan favorit user
+    favorites = Favorite.objects.filter(user=request.user)
+    print(f"User favorites queryset: {favorites}")  # Debug log for favorites in recommendations
+    favorite_categories = favorites.values_list('food__kategori', flat=True).distinct()
+
+    # Ambil makanan rekomendasi berdasarkan kategori
+    recommended_foods = Food.objects.filter(kategori__in=favorite_categories).exclude(
+        id__in=favorites.values_list('food__id', flat=True)
+    )
+    print(f"Recommended foods queryset: {recommended_foods}")  # Debug log for recommended foods
+
+    # Serialisasi makanan yang direkomendasikan
+    data = [
+        {
+            'id': food.id,
+            'nama_makanan': food.nama_makanan,
+            'gambar': food.gambar,
+            'kategori': food.kategori,
+            'harga': food.harga,
+            'rating': food.rating,
+        }
+        for food in recommended_foods
+    ]
+    return JsonResponse(data, safe=False)
+
+@login_required
+def favorite_list_api(request):
+    print(f"Logged-in user: {request.user}")  # Debug user
+    favorites = Favorite.objects.filter(user=request.user)
+    print(f"Favorites for {request.user}: {favorites}")  # Debug data
+
+    data = [
+        {
+            'id': fav.food.id,
+            'nama_makanan': fav.food.nama_makanan,
+            'gambar': fav.food.gambar,
+            'kategori': fav.food.kategori,
+            'harga': fav.food.harga,
+            'rating': fav.food.rating,
+        }
+        for fav in favorites
+    ]
+    return JsonResponse(data, safe=False)
