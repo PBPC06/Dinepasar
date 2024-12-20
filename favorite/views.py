@@ -56,18 +56,16 @@ def get_csrf_token(request):
 
 @login_required
 def get_recommended(request):
-    # Ambil semua kategori dari makanan favorit user
     favorites = Favorite.objects.filter(user=request.user)
-    print(f"User favorites queryset: {favorites}")  # Debug log for favorites in recommendations
     favorite_categories = favorites.values_list('food__kategori', flat=True).distinct()
 
-    # Ambil makanan rekomendasi berdasarkan kategori
-    recommended_foods = Food.objects.filter(kategori__in=favorite_categories).exclude(
-        id__in=favorites.values_list('food__id', flat=True)
-    )
-    print(f"Recommended foods queryset: {recommended_foods}")  # Debug log for recommended foods
+    recommended_foods = Food.objects.filter(
+        kategori__in=favorite_categories
+    ).exclude(id__in=favorites.values_list('food__id', flat=True))
 
-    # Serialisasi makanan yang direkomendasikan
+    # Debug gambar
+    print([food.gambar for food in recommended_foods])
+
     data = [
         {
             'id': food.id,
@@ -83,18 +81,16 @@ def get_recommended(request):
 
 @login_required
 def favorite_list_api(request):
-    print(f"Logged-in user: {request.user}")  # Debug user
     favorites = Favorite.objects.filter(user=request.user)
-    print(f"Favorites for {request.user}: {favorites}")  # Debug data
 
     data = [
         {
             'id': fav.food.id,
             'nama_makanan': fav.food.nama_makanan,
-            'gambar': fav.food.gambar,
-            'kategori': fav.food.kategori,
-            'harga': fav.food.harga,
-            'rating': fav.food.rating,
+            'gambar': fav.food.gambar or '',
+            'kategori': fav.food.kategori or 'Unknown',
+            'harga': fav.food.harga or 0,
+            'rating': fav.food.rating or 0.0,
         }
         for fav in favorites
     ]
