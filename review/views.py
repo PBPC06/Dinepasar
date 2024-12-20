@@ -47,6 +47,7 @@ def add_review(request):
             review_message=review_message,
         )
         return JsonResponse({"status": "success", "message": "Review added successfully."})
+        # return redirect('review:forum')  # Halaman tujuan jika review sudah ada
             
     else:
         return JsonResponse({"status": "error", "message": "Invalid request method"}, status=405)
@@ -113,6 +114,7 @@ def show_json(request):
             "fields": {
                 "user": review.user.username,  # Menambahkan username
                 "food": review.food.pk,
+                "gambar": review.food.gambar,
                 "nama_makanan": review.food.nama_makanan,
                 "rating": review.rating,
                 "review_message": review.review_message,
@@ -133,6 +135,7 @@ def show_json_by_id(request, id):
             "fields": {
                 "user": review.user.username,  # Mengirimkan username sebagai string
                 "food": review.food.pk,
+                "gambar": review.food.gambar,
                 "nama_makanan": review.food.nama_makanan,
                 "rating": review.rating,
                 "review_message": review.review_message,
