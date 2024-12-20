@@ -20,6 +20,7 @@ def edit_profile(request):
     except UserProfile.DoesNotExist:
         # Jika tidak ada profil, buatkan profil baru
         profile = UserProfile.objects.create(user=request.user)
+        
 
     # Cek apakah semua field terisi
     all_fields_filled = bool(profile.email and profile.phone and profile.about_me)
