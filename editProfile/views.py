@@ -39,30 +39,69 @@ def edit_profile(request):
     }
     return render(request, 'edit_profile.html', context)
 
+# def show_json_all(request):
+#     if request.user.is_authenticated:
+#         data = UserProfile.objects.filter(user=request.user)
+#         print(f"Authenticated user: {request.user.username}")
+#         status = True  
+#     else:
+#         data = UserProfile.objects.all()
+#         status = True 
+
+#     user_profile = []
+#     for users in data:
+#         print(f"Found user profile: {users.user.username}")
+#         user_data = {
+#             "user_id": users.user.id,
+#             "username": users.user.username,
+#             "email": users.email,  
+#             "phone": users.phone, 
+#             "about_me": users.about_me, 
+#             "tried_foods": list(users.tried_foods.values('id', 'nama_makanan'))
+#         }
+#         user_profile.append(user_data)
+
+#     return JsonResponse({"status": status, "user_profile": user_profile}, safe=False)
+
 def show_json_all(request):
-    if request.user.is_authenticated:
-        data = UserProfile.objects.filter(user=request.user)
-        print(f"Authenticated user: {request.user.username}")
-        status = True  
-    else:
-        data = UserProfile.objects.all()
-        status = True 
+    try:
+        if request.user.is_authenticated:
+            # Get or create profile for authenticated user
+            profile, created = UserProfile.objects.get_or_create(
+                user=request.user,
+                defaults={
+                    'email': "",
+                    'phone': "",
+                    'about_me': ""
+                }
+            )
+            data = [profile]
+        else:
+            data = UserProfile.objects.all()
 
-    user_profile = []
-    for users in data:
-        print(f"Found user profile: {users.user.username}")
-        user_data = {
-            "user_id": users.user.id,
-            "username": users.user.username,
-            "email": users.email,  
-            "phone": users.phone, 
-            "about_me": users.about_me, 
-            "tried_foods": list(users.tried_foods.values('id', 'nama_makanan'))
-        }
-        user_profile.append(user_data)
+        user_profile = []
+        for users in data:
+            user_data = {
+                "user_id": users.user.id,
+                "username": users.user.username,
+                "email": users.email or "",  # Convert None to empty string
+                "phone": users.phone or "",
+                "about_me": users.about_me or "",
+                "tried_foods": list(users.tried_foods.values('id', 'nama_makanan'))
+            }
+            user_profile.append(user_data)
 
-    return JsonResponse({"status": status, "user_profile": user_profile}, safe=False)
+        return JsonResponse({
+            "status": True,
+            "user_profile": user_profile
+        }, safe=False)
 
+    except Exception as e:
+        return JsonResponse({
+            "status": False,
+            "message": f"Error fetching profile: {str(e)}",
+            "user_profile": []
+        }, status=500)
     
 @login_required
 @csrf_exempt
@@ -91,33 +130,37 @@ def edit_profile_ajax(request):
 @csrf_exempt
 def edit_profile_flutter(request, id):
     if request.method == 'POST':
+
         try:
-            # Ambil objek UserProfile berdasarkan ID
-            profile = get_object_or_404(UserProfile, user__id=id)
             data = json.loads(request.body)
+            profile, created = UserProfile.objects.get_or_create(user=request.user)
+            new_email = data.get('email', profile.email) or ""
+            new_phone = data.get('phone', profile.phone) or ""
+            new_about_me = data.get('about_me', profile.about_me) or ""
 
-            # Ambil nilai baru dari body request, jika kosong akan diset ke None
-            new_email = data.get('email', None) if data.get('email', None) != '' else None
-            new_phone = data.get('phone', None) if data.get('phone', None) != '' else None
-            new_about_me = data.get('about_me', None) if data.get('about_me', None) != '' else None
-
-            # Update nilai profil jika ada perubahan
             profile.email = new_email
             profile.phone = new_phone
             profile.about_me = new_about_me
-            profile.user.save()
             profile.save()
 
-            return JsonResponse({
-                'email': new_email,
-                'phone': new_phone,
-                'about_me': new_about_me
-            })
+            user_data = {
+                "user_id": profile.user.id,
+                "username": profile.user.username,
+                "email": profile.email,
+                "phone": profile.phone,
+                "about_me": profile.about_me,
+                "tried_foods": list(profile.tried_foods.values('id', 'nama_makanan'))
+            }
 
-        except json.JSONDecodeError as e:
-            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+            return JsonResponse({
+                "status": True,
+                "user_profile": user_data
+            }, status=200)
+
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Format JSON tidak valid'}, status=400)
         except Exception as e:
-            return JsonResponse({'error': 'Internal server error'}, status=500)
+            return JsonResponse({'error': f'Kesalahan server: {str(e)}'}, status=500)
     
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 

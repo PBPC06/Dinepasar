@@ -111,10 +111,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# settings.py
-LOGIN_URL = '/login/'  # Atau sesuai dengan URL login yang kamu gunakan
-
-
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 if DEBUG:
