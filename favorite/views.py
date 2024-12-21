@@ -6,6 +6,9 @@ from search.models import Food
 from django.db.models import Count
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
+import logging
+
+logger = logging.getLogger(__name__)
 
 @csrf_exempt
 @login_required
@@ -59,21 +62,24 @@ def get_recommended(request):
     favorites = Favorite.objects.filter(user=request.user)
     favorite_categories = favorites.values_list('food__kategori', flat=True).distinct()
 
+    # Hapus makanan dari kategori yang sama dengan yang dihapus
     recommended_foods = Food.objects.filter(
         kategori__in=favorite_categories
     ).exclude(id__in=favorites.values_list('food__id', flat=True))
 
-    # Debug gambar
-    print([food.gambar for food in recommended_foods])
+    # Log data yang dikirim
+    print("Updated recommended foods:")
+    for food in recommended_foods:
+        print(f"ID: {food.id}, Name: {food.nama_makanan}")
 
     data = [
         {
             'id': food.id,
             'nama_makanan': food.nama_makanan,
-            'gambar': food.gambar,
-            'kategori': food.kategori,
-            'harga': food.harga,
-            'rating': food.rating,
+            'gambar': food.gambar or '',
+            'kategori': food.kategori or 'Unknown',
+            'harga': food.harga or 0,
+            'rating': food.rating or 0.0,
         }
         for food in recommended_foods
     ]
@@ -83,9 +89,11 @@ def get_recommended(request):
 def favorite_list_api(request):
     favorites = Favorite.objects.filter(user=request.user)
 
+    # Gunakan ID dari Favorite, bukan Food
     data = [
         {
-            'id': fav.food.id,
+            'id': fav.id,  # ID dari Favorite
+            'food_id': fav.food.id,  # ID dari Food (opsional, jika diperlukan)
             'nama_makanan': fav.food.nama_makanan,
             'gambar': fav.food.gambar or '',
             'kategori': fav.food.kategori or 'Unknown',
@@ -95,3 +103,24 @@ def favorite_list_api(request):
         for fav in favorites
     ]
     return JsonResponse(data, safe=False)
+
+@csrf_exempt
+@login_required
+def delete_favorite_api(request, favorite_id):
+    logger.debug(f"Request received: User={request.user}, Favorite ID={favorite_id}")
+
+    if request.method == 'POST':
+        try:
+            # Cari Favorite berdasarkan ID dan pengguna
+            favorite = get_object_or_404(Favorite, id=favorite_id, user=request.user)
+            logger.debug(f"Deleting favorite: {favorite}")
+            favorite.delete()
+            return JsonResponse({'message': 'Item removed from favorites.'}, status=200)
+        except Favorite.DoesNotExist:
+            logger.warning(f"Favorite ID {favorite_id} not found for user {request.user}")
+            return JsonResponse({'error': 'Favorite not found or does not belong to the user.'}, status=404)
+        except Exception as e:
+            logger.error(f"Unexpected error: {str(e)}")
+            return JsonResponse({'error': f'Error deleting favorite: {str(e)}'}, status=400)
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
+
