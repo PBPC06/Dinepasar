@@ -37,7 +37,37 @@ def add_review(request):
         # Cek apakah user sudah memberikan review
         if FoodReview.objects.filter(user=request.user, food=food).exists():
             JsonResponse({"status": "error", "message": "You have already reviewed this food."}, status=400)
-            return redirect('review:forum')  # Halaman tujuan jika review sudah ada
+            return redirect('review:forum')  
+
+        # Simpan review
+        FoodReview.objects.create(
+            user=request.user,
+            food=food,
+            rating=rating,
+            review_message=review_message,
+        )
+        return redirect('review:forum')  
+            
+    else:
+        return JsonResponse({"status": "error", "message": "Invalid request method"}, status=405)
+    
+@csrf_exempt
+@require_POST
+@login_required(login_url='/login')
+def add_review_flutter(request):
+    if request.method == "POST":
+        food_id = request.POST.get("food_id")
+        rating = request.POST.get("rating")
+        review_message = request.POST.get("review_message")
+
+        if not food_id or not rating or not review_message:
+            return JsonResponse({"status": "error", "message": "Invalid input"}, status=400)
+
+        food = Food.objects.get(pk=food_id)
+
+        # Cek apakah user sudah memberikan review
+        if FoodReview.objects.filter(user=request.user, food=food).exists():
+            return JsonResponse({"status": "error", "message": "You have already reviewed this food."}, status=400)
 
         # Simpan review
         FoodReview.objects.create(
@@ -47,8 +77,6 @@ def add_review(request):
             review_message=review_message,
         )
         return JsonResponse({"status": "success", "message": "Review added successfully."})
-        # return redirect('review:forum')  # Halaman tujuan jika review sudah ada
-            
     else:
         return JsonResponse({"status": "error", "message": "Invalid request method"}, status=405)
 
@@ -111,6 +139,7 @@ def show_json(request):
         data.append({
             "model": "app_name.foodreview",  # Ganti 'app_name' dengan nama aplikasi Anda
             "pk": review.pk,
+            "is_admin": request.user.is_admin,
             "fields": {
                 "user": review.user.username,  # Menambahkan username
                 "food": review.food.pk,
@@ -123,17 +152,22 @@ def show_json(request):
         })
     
     return JsonResponse({"status": "success", "data": data}, safe=False)
-
-def show_json_by_id(request, id):
-    try:
-        review_id_int = int(id)
-        review = FoodReview.objects.get(pk=review_id_int)
         
-        data = {
-            "model": "review.foodreview",
+def show_json_all(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"status": "error", "message": "Unauthorized"}, status=401)
+
+    # Ambil semua FoodReview yang dibuat oleh user
+    all_reviews = FoodReview.objects.all().select_related('user', 'food')
+
+    data = []
+    for review in all_reviews:
+        data.append({
+            "model": "app_name.foodreview",  # Ganti 'app_name' dengan nama aplikasi Anda
             "pk": review.pk,
+            "is_admin": request.user.is_admin,
             "fields": {
-                "user": review.user.username,  # Mengirimkan username sebagai string
+                "user": review.user.username,  # Menambahkan username
                 "food": review.food.pk,
                 "gambar": review.food.gambar,
                 "nama_makanan": review.food.nama_makanan,
@@ -141,18 +175,9 @@ def show_json_by_id(request, id):
                 "review_message": review.review_message,
                 "created_at": review.created_at.isoformat(),
             }
-        }
-        
-        return JsonResponse({"status": "success", "data": data}, safe=False)
-
-    except ValueError:
-        return JsonResponse({"status": "error", "message": "Field 'id' expected a number but got invalid."}, status=400)
+        })
     
-    except FoodReview.DoesNotExist:
-        return JsonResponse({"status": "error", "message": "Review not found."}, status=404)
-    
-    except Exception as e:
-        return JsonResponse({"status": "error", "message": str(e)}, status=500)
+    return JsonResponse({"status": "success", "data": data}, safe=False)
         
 @login_required(login_url='/login/')
 def show_json_by_user(request, username):

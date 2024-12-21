@@ -15,6 +15,8 @@ def food_detail(request, food_id):
 
 def food_detail_api(request, food_id):
     food = get_object_or_404(Food, id=food_id)
+    average_rating = FoodReview.objects.filter(food=food).aggregate(Avg('rating'))['rating__avg'] or 0
+    
     return JsonResponse({
         'id': food.id,
         'nama_makanan': food.nama_makanan,
@@ -24,4 +26,5 @@ def food_detail_api(request, food_id):
         'deskripsi': food.deskripsi,
         'harga': food.harga,
         'rating': food.rating,
+        'rating': average_rating, 
     })
