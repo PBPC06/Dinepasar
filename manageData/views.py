@@ -13,7 +13,7 @@ from .forms import NewUserForm
 from django.http import JsonResponse
 # from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -97,7 +97,19 @@ def login_flutter(request):
             "message": "Login gagal, periksa kembali username atau kata sandi."
         }, status=401)
 
-    
+@csrf_exempt
+def logout_flutter(request):
+    if request.method == 'POST':
+        auth_logout(request)
+        return JsonResponse({
+            "status": True,
+            "message": "Logout successful!"
+        }, status=200)
+    else:
+        return JsonResponse({
+            "status": False,
+            "message": "Invalid request method."
+        }, status=400)
 
 @csrf_exempt
 def register_flutter(request):
