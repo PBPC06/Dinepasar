@@ -19,7 +19,7 @@
                 <img src="{{ review.food.gambar }}" alt="{{ review.food.nama_makanan }}" class="h-24 w-24 object-cover rounded-lg">
                 <div>
                     <h3 class="font-bold text-xl text-gray-800">{{ review.food.nama_makanan }}</h3>
-                    <p class="text-gray-600">Rating: ⭐{{ review.rating|floatformat:1 }} / 5</p>
+                    <p class="text-gray-600">Rating: ⭐{{ review.rating|floatformat:1 }} / 5.0</p>
                     <p class="text-gray-700 mt-2">"{{ review.review_message }}"</p>
                     <p class="text-gray-500 text-sm mt-1">Reviewed by <span class="font-semibold">{{ review.user.username }}</span> on {{ review.created_at|date:"d M Y" }}</p>
                     
@@ -60,7 +60,7 @@
                 <img src="{{ review.food.gambar }}" alt="{{ review.food.nama_makanan }}" class="h-24 w-24 object-cover rounded-lg">
                 <div>
                     <h3 class="font-bold text-xl text-gray-800">{{ review.food.nama_makanan }}</h3>
-                    <p class="text-gray-600">Rating: ⭐{{ review.rating|floatformat:1 }} / 5</p>
+                    <p class="text-gray-600">Rating: ⭐{{ review.rating|floatformat:1 }} / 5.0</p>
                     <p class="text-gray-700 mt-2">"{{ review.review_message }}"</p>
                     <p class="text-gray-500 text-sm mt-1">Reviewed by <span class="font-semibold">{{ review.user.username }}</span> on {{ review.created_at|date:"d M Y" }}</p>
                     
@@ -173,14 +173,14 @@
                     const myReviewCard = document.querySelector(`.my-reviews [data-review-id="${reviewId}"]`);
                     
                     if (myReviewCard) {
-                        myReviewCard.querySelector(".text-gray-600").innerText = `Rating: ⭐${data.review.rating.toFixed(1)} / 5`;
+                        myReviewCard.querySelector(".text-gray-600").innerText = `Rating: ⭐${data.review.rating.toFixed(1)} / 5.0`;
                         myReviewCard.querySelector(".text-gray-700").innerText = `"${data.review.review_message}"`;
                     }
                     
                     // Perbarui tampilan review di All Reviews
                     const allReviewCard = document.querySelector(`.all-reviews [data-review-id="${reviewId}"]`);
                     if (allReviewCard) {
-                        allReviewCard.querySelector(".text-gray-600").innerText = `Rating: ⭐${data.review.rating.toFixed(1)} / 5`;
+                        allReviewCard.querySelector(".text-gray-600").innerText = `Rating: ⭐${data.review.rating.toFixed(1)} / 5.0`;
                         allReviewCard.querySelector(".text-gray-700").innerText = `"${data.review.review_message}"`;
                     }
                     
