@@ -122,3 +122,4 @@ def delete_favorite_api(request, favorite_id):
             logger.error(f"Unexpected error: {str(e)}")
             return JsonResponse({'error': f'Error deleting favorite: {str(e)}'}, status=400)
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
