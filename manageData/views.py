@@ -106,13 +106,20 @@ def register_flutter(request):
         username = data['username']
         password1 = data['password1']
         password2 = data['password2']
-        referral_code = data.get('referral_code', '')  # Mengambil referral code jika ada
+        referral_code = data.get('referral_code', '')  # Ambil kode referal (bisa kosong)
 
-        # Cek apakah password cocok
+        # Check if the passwords match
         if password1 != password2:
             return JsonResponse({
                 "status": False,
                 "message": "Passwords do not match."
+            }, status=400)
+
+        # Cek jika referral_code diberikan (hanya valid jika user mendaftar sebagai admin)
+        if referral_code and referral_code != "PBPC06WOW!":
+            return JsonResponse({
+                "status": False,
+                "message": "Invalid referral code."
             }, status=400)
 
         # Cek apakah username sudah ada
@@ -142,7 +149,7 @@ def register_flutter(request):
             "status": True,
             "message": "User created successfully!"
         }, status=200)
-
+    
     else:
         return JsonResponse({
             "status": False,
