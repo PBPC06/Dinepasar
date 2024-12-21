@@ -238,9 +238,12 @@ def mark_food_as_tried(request, food_id):
 
 @csrf_exempt
 def mark_food_flutter(request, id, food_id):
+    print("tes")
     try:
         user_profile = get_object_or_404(UserProfile, user__id=id)
         food = get_object_or_404(Food, id=food_id)
+        print(user_profile)
+        print(food)
         user_profile.tried_foods.add(food)
         user_profile.save()
 

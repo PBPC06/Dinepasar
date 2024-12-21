@@ -121,6 +121,8 @@ def register_flutter(request):
                 "status": False,
                 "message": "Invalid referral code."
             }, status=400)
+        
+        
 
         # Cek apakah username sudah ada
         if CustomUser.objects.filter(username=username).exists():
