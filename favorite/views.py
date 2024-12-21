@@ -62,23 +62,24 @@ def get_recommended(request):
     favorites = Favorite.objects.filter(user=request.user)
     favorite_categories = favorites.values_list('food__kategori', flat=True).distinct()
 
+    # Hapus makanan dari kategori yang sama dengan yang dihapus
     recommended_foods = Food.objects.filter(
         kategori__in=favorite_categories
     ).exclude(id__in=favorites.values_list('food__id', flat=True))
 
     # Log data yang dikirim
-    print("Recommended foods:")
+    print("Updated recommended foods:")
     for food in recommended_foods:
-        print(f"ID: {food.id}, Name: {food.nama_makanan}, Harga: {food.harga}, Rating: {food.rating}")
+        print(f"ID: {food.id}, Name: {food.nama_makanan}")
 
     data = [
         {
             'id': food.id,
             'nama_makanan': food.nama_makanan,
-            'gambar': food.gambar or '',  # Gambar default kosong jika null
+            'gambar': food.gambar or '',
             'kategori': food.kategori or 'Unknown',
-            'harga': food.harga or 0,  # Harga default 0 jika null
-            'rating': food.rating or 0.0,  # Rating default 0.0 jika null
+            'harga': food.harga or 0,
+            'rating': food.rating or 0.0,
         }
         for food in recommended_foods
     ]
